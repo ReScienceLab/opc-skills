@@ -57,20 +57,40 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
           <div class="skill-triggers">${s.triggers.map(t => `<span class="trigger">${t}</span>`).join('')}</div>
           ${s.auth.required ? `<div class="auth-note"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg> ${s.auth.note}</div>` : `<div class="auth-note free"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> ${s.auth.note}</div>`}
           <div class="install-section">
-            <div class="install-row">
-              <span class="label">Claude</span>
-              <code data-cmd="${s.install.claude}">curl ... -t claude ${s.name}</code>
-              <button onclick="copyCmd(this)">Copy</button>
+            <div class="install-tabs">
+              <button class="tab-btn active" onclick="switchTab(this, 'user')">User-level</button>
+              <button class="tab-btn" onclick="switchTab(this, 'project')">Project-level</button>
             </div>
-            <div class="install-row">
-              <span class="label">Droid</span>
-              <code data-cmd="${s.install.droid}">curl ... -t droid ${s.name}</code>
-              <button onclick="copyCmd(this)">Copy</button>
+            <div class="tab-hint user-hint">Available across ALL your projects</div>
+            <div class="tab-hint project-hint" style="display:none">Shared with team in this repo</div>
+            <div class="tab-content user-content">
+              <div class="install-row">
+                <span class="label">Claude</span>
+                <code data-cmd="${s.install.user?.claude || s.install.claude}">curl ... -t claude ${s.name}</code>
+                <button onclick="copyCmd(this)">Copy</button>
+              </div>
+              <div class="install-row">
+                <span class="label">Droid</span>
+                <code data-cmd="${s.install.user?.droid || s.install.droid}">curl ... -t droid ${s.name}</code>
+                <button onclick="copyCmd(this)">Copy</button>
+              </div>
             </div>
-            <div class="install-row">
-              <span class="label">Cursor</span>
-              <code data-cmd="${s.install.cursor}">curl ... -t cursor ${s.name}</code>
-              <button onclick="copyCmd(this)">Copy</button>
+            <div class="tab-content project-content" style="display:none">
+              <div class="install-row">
+                <span class="label">Claude</span>
+                <code data-cmd="${s.install.project?.claude || ''}">curl ... -t claude -p ${s.name}</code>
+                <button onclick="copyCmd(this)">Copy</button>
+              </div>
+              <div class="install-row">
+                <span class="label">Droid</span>
+                <code data-cmd="${s.install.project?.droid || ''}">curl ... -t droid -p ${s.name}</code>
+                <button onclick="copyCmd(this)">Copy</button>
+              </div>
+              <div class="install-row">
+                <span class="label">Cursor</span>
+                <code data-cmd="${s.install.project?.cursor || ''}">curl ... -t cursor -p ${s.name}</code>
+                <button onclick="copyCmd(this)">Copy</button>
+              </div>
             </div>
           </div>
           <details class="commands-section">
@@ -151,6 +171,12 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
     .auth-note svg { flex-shrink: 0; }
     
     .install-section { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .install-tabs { display: flex; gap: 0; margin-bottom: 4px; }
+    .tab-btn { font-family: var(--font); font-size: 10px; padding: 6px 12px; border: 1px solid var(--gray-200); background: var(--gray-50); cursor: pointer; color: var(--gray-600); }
+    .tab-btn:first-child { border-radius: 4px 0 0 4px; }
+    .tab-btn:last-child { border-radius: 0 4px 4px 0; border-left: none; }
+    .tab-btn.active { background: var(--black); color: var(--white); border-color: var(--black); }
+    .tab-hint { font-size: 9px; color: var(--gray-400); margin-bottom: 8px; font-style: italic; }
     .install-row { display: flex; align-items: center; gap: 8px; }
     .install-row .label { font-size: 10px; font-weight: 600; width: 50px; flex-shrink: 0; }
     .install-row code { flex: 1; font-size: 10px; padding: 6px 10px; background: var(--gray-50); border: 1px solid var(--gray-200); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--font); }
@@ -244,6 +270,24 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
       toast.textContent = msg;
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+    
+    function switchTab(btn, level) {
+      const card = btn.closest('.skill-card');
+      card.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      if (level === 'user') {
+        card.querySelector('.user-content').style.display = 'block';
+        card.querySelector('.project-content').style.display = 'none';
+        card.querySelector('.user-hint').style.display = 'block';
+        card.querySelector('.project-hint').style.display = 'none';
+      } else {
+        card.querySelector('.user-content').style.display = 'none';
+        card.querySelector('.project-content').style.display = 'block';
+        card.querySelector('.user-hint').style.display = 'none';
+        card.querySelector('.project-hint').style.display = 'block';
+      }
     }
   </script>
 </body>

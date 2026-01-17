@@ -20,9 +20,15 @@
         "note": "No API key required - uses public JSON API"
       },
       "install": {
-        "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude reddit",
-        "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid reddit",
-        "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p reddit"
+        "user": {
+          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude reddit",
+          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid reddit"
+        },
+        "project": {
+          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude -p reddit",
+          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid -p reddit",
+          "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p reddit"
+        }
       },
       "commands": [
         "python3 scripts/get_posts.py {subreddit} --limit 20",
@@ -51,9 +57,15 @@
         "note": "Get API key from twitterapi.io (~$0.15-0.18/1k requests)"
       },
       "install": {
-        "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude twitter",
-        "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid twitter",
-        "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p twitter"
+        "user": {
+          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude twitter",
+          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid twitter"
+        },
+        "project": {
+          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude -p twitter",
+          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid -p twitter",
+          "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p twitter"
+        }
       },
       "commands": [
         "python3 scripts/get_user_info.py {username}",
@@ -81,9 +93,15 @@
         "note": "Uses web search and public APIs (depends on twitter & reddit skills for promo code search)"
       },
       "install": {
-        "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude domain-hunter",
-        "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid domain-hunter",
-        "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p domain-hunter"
+        "user": {
+          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude domain-hunter",
+          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid domain-hunter"
+        },
+        "project": {
+          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude -p domain-hunter",
+          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid -p domain-hunter",
+          "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p domain-hunter"
+        }
       },
       "commands": [
         "whois {domain}.{tld}",
@@ -108,9 +126,15 @@
         "note": "Get token from producthunt.com/v2/oauth/applications"
       },
       "install": {
-        "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude producthunt",
-        "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid producthunt",
-        "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p producthunt"
+        "user": {
+          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude producthunt",
+          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid producthunt"
+        },
+        "project": {
+          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude -p producthunt",
+          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid -p producthunt",
+          "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p producthunt"
+        }
       },
       "commands": [
         "python3 scripts/get_posts.py --limit 20",

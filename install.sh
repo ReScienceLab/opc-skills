@@ -50,7 +50,7 @@ cleanup() {
 trap cleanup EXIT
 
 # Available skills
-AVAILABLE_SKILLS="reddit twitter domain-hunter producthunt"
+AVAILABLE_SKILLS="reddit twitter domain-hunter producthunt requesthunt"
 
 # Track installed skills to avoid duplicates
 INSTALLED_SKILLS=""
@@ -63,6 +63,7 @@ get_skill_deps() {
         twitter) echo "" ;;
         domain-hunter) echo "twitter reddit" ;;
         producthunt) echo "" ;;
+        requesthunt) echo "" ;;
         *) echo "" ;;
     esac
 }
@@ -325,6 +326,7 @@ show_help() {
     echo "  twitter        Twitter/X search via twitterapi.io"
     echo "  domain-hunter  Domain search and price comparison"
     echo "  producthunt    Product Hunt posts, topics, users, collections"
+    echo "  requesthunt    User demand research from Reddit, X, GitHub"
     echo "  all            Install all skills"
     echo ""
     echo "Options:"
@@ -551,15 +553,17 @@ if [ -z "$SKILL" ]; then
     echo "  2) twitter        - Twitter/X search"
     echo "  3) domain-hunter  - Domain price comparison"
     echo "  4) producthunt    - Product Hunt search"
-    echo "  5) all            - All skills"
+    echo "  5) requesthunt    - User demand research"
+    echo "  6) all            - All skills"
     echo ""
-    read -p "Enter choice [1-5]: " choice
+    read -p "Enter choice [1-6]: " choice
     case $choice in
         1) SKILL="reddit" ;;
         2) SKILL="twitter" ;;
         3) SKILL="domain-hunter" ;;
         4) SKILL="producthunt" ;;
-        5) SKILL="all" ;;
+        5) SKILL="requesthunt" ;;
+        6) SKILL="all" ;;
         *) print_error "Invalid choice"; exit 1 ;;
     esac
 fi

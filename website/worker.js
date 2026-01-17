@@ -481,6 +481,33 @@ function getFallbackConfig() {
         },
         commands: ["python3 scripts/get_posts.py --limit 20"],
         links: { github: "https://github.com/ReScienceLab/opc-skills/tree/main/skills/producthunt" }
+      },
+      {
+        name: "requesthunt",
+        version: "1.0.0",
+        description: "Generate user demand research reports from real user feedback. Scrape and analyze feature requests from Reddit, X, and GitHub.",
+        icon: "globe",
+        color: "6366F1",
+        triggers: ["requesthunt", "request hunt", "feature request", "user demand"],
+        dependencies: [],
+        auth: { required: true, note: "Get API key from requesthunt.com/settings/api" },
+        install: {
+          user: {
+            claude: "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude requesthunt",
+            droid: "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid requesthunt",
+            opencode: "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t opencode requesthunt",
+            codex: "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t codex requesthunt"
+          },
+          project: {
+            claude: "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude -p requesthunt",
+            droid: "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid -p requesthunt",
+            cursor: "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p requesthunt",
+            opencode: "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t opencode -p requesthunt",
+            codex: "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t codex -p requesthunt"
+          }
+        },
+        commands: ["python3 scripts/search_requests.py \"{query}\" --expand"],
+        links: { github: "https://github.com/ReScienceLab/opc-skills/tree/main/skills/requesthunt" }
       }
     ]
   };

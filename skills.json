@@ -163,6 +163,47 @@
         "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/producthunt",
         "docs": "https://api.producthunt.com/v2/docs"
       }
+    },
+    {
+      "name": "requesthunt",
+      "version": "1.0.0",
+      "description": "Generate user demand research reports from real user feedback. Scrape and analyze feature requests, complaints, and questions from Reddit, X, and GitHub.",
+      "icon": "globe",
+      "color": "6366F1",
+      "triggers": ["requesthunt", "request hunt", "feature request", "user demand", "demand research"],
+      "dependencies": [],
+      "auth": {
+        "required": true,
+        "type": "api_key",
+        "env_var": "REQUESTHUNT_API_KEY",
+        "note": "Get API key from requesthunt.com/settings/api"
+      },
+      "install": {
+        "user": {
+          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude requesthunt",
+          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid requesthunt",
+          "opencode": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t opencode requesthunt",
+          "codex": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t codex requesthunt"
+        },
+        "project": {
+          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude -p requesthunt",
+          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid -p requesthunt",
+          "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p requesthunt",
+          "opencode": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t opencode -p requesthunt",
+          "codex": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t codex -p requesthunt"
+        }
+      },
+      "commands": [
+        "python3 scripts/list_requests.py --topic \"{topic}\" --limit 20",
+        "python3 scripts/search_requests.py \"{query}\" --expand --limit 20",
+        "python3 scripts/scrape_topic.py \"{topic}\" --platforms reddit,x,github",
+        "python3 scripts/get_topics.py",
+        "python3 scripts/get_usage.py"
+      ],
+      "links": {
+        "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/requesthunt",
+        "docs": "https://requesthunt.com/docs"
+      }
     }
   ]
 }

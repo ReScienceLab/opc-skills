@@ -39,7 +39,8 @@
         "WebSearch: cheapest .{tld} domain registrar"
       ],
       "links": {
-        "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/domain-hunter"
+        "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/domain-hunter",
+        "example": "https://github.com/ReScienceLab/opc-skills/blob/main/skills/domain-hunter/examples/auto-video-editing-domain.md"
       }
     },
     {

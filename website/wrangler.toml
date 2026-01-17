@@ -1,0 +1,8 @@
+name = "opc-landing"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+routes = [
+  { pattern = "opc.dev/*", zone_name = "opc.dev" },
+  { pattern = "www.opc.dev/*", zone_name = "opc.dev" }
+]

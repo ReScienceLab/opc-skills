@@ -1,0 +1,94 @@
+{
+  "version": "1.0.0",
+  "name": "OPC Skills",
+  "description": "Agent Skills for One Person Companies",
+  "repository": "https://github.com/ReScienceLab/opc-skills",
+  "website": "https://opc.dev",
+  "logo": "https://github.com/ReScienceLab.png",
+  "skills": [
+    {
+      "name": "reddit",
+      "version": "1.0.0",
+      "description": "Search and retrieve content from Reddit. Get posts, comments, subreddit info, and user profiles via the public JSON API.",
+      "icon": "reddit",
+      "color": "FF4500",
+      "triggers": ["reddit", "subreddit", "r/"],
+      "auth": {
+        "required": false,
+        "type": null,
+        "note": "No API key required - uses public JSON API"
+      },
+      "install": {
+        "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude reddit",
+        "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid reddit",
+        "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p reddit"
+      },
+      "commands": [
+        "python3 scripts/get_posts.py {subreddit} --limit 20",
+        "python3 scripts/search_posts.py \"{query}\" --limit 20",
+        "python3 scripts/get_subreddit.py {subreddit}",
+        "python3 scripts/get_post.py {post_id}",
+        "python3 scripts/get_user.py {username}"
+      ],
+      "links": {
+        "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/reddit",
+        "docs": "https://www.reddit.com/dev/api"
+      }
+    },
+    {
+      "name": "twitter",
+      "version": "1.0.0",
+      "description": "Search and retrieve content from Twitter/X. Get user info, tweets, replies, followers, communities, spaces, and trends via twitterapi.io.",
+      "icon": "x",
+      "color": "000000",
+      "triggers": ["twitter", "X", "tweet"],
+      "auth": {
+        "required": true,
+        "type": "api_key",
+        "env_var": "TWITTERAPI_API_KEY",
+        "note": "Get API key from twitterapi.io (~$0.15-0.18/1k requests)"
+      },
+      "install": {
+        "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude twitter",
+        "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid twitter",
+        "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p twitter"
+      },
+      "commands": [
+        "python3 scripts/get_user_info.py {username}",
+        "python3 scripts/search_tweets.py \"{query}\" --type Latest --limit 20",
+        "python3 scripts/get_user_tweets.py {username} --limit 20",
+        "python3 scripts/get_tweet.py {tweet_id}",
+        "python3 scripts/get_followers.py {username} --limit 100"
+      ],
+      "links": {
+        "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/twitter",
+        "docs": "https://docs.twitterapi.io/"
+      }
+    },
+    {
+      "name": "domain-hunter",
+      "version": "1.0.0",
+      "description": "Search domains, compare registrar prices, and find promo codes. Help users find and purchase domain names at the best price.",
+      "icon": "globe",
+      "color": "4A90D9",
+      "triggers": ["domain", "registrar", "buy domain", "domain price", ".ai domain", ".com domain"],
+      "auth": {
+        "required": false,
+        "type": null,
+        "note": "Uses web search and public APIs"
+      },
+      "install": {
+        "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude domain-hunter",
+        "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid domain-hunter",
+        "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p domain-hunter"
+      },
+      "commands": [
+        "whois {domain}.{tld}",
+        "WebSearch: cheapest .{tld} domain registrar"
+      ],
+      "links": {
+        "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/domain-hunter"
+      }
+    }
+  ]
+}

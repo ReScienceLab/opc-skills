@@ -4,9 +4,7 @@ description: Search and retrieve content from Twitter/X. Get user info, tweets, 
 triggers:
   - "twitter"
   - "X"
-  - "推特"
   - "tweet"
-  - "推文"
 ---
 
 # Twitter/X Skill

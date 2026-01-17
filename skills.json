@@ -92,6 +92,37 @@
       "links": {
         "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/domain-hunter"
       }
+    },
+    {
+      "name": "producthunt",
+      "version": "1.0.0",
+      "description": "Search and retrieve content from Product Hunt. Get posts, topics, users, and collections via the GraphQL API.",
+      "icon": "producthunt",
+      "color": "DA552F",
+      "triggers": ["producthunt", "product hunt", "PH", "launch"],
+      "dependencies": [],
+      "auth": {
+        "required": true,
+        "type": "api_key",
+        "env_var": "PRODUCTHUNT_ACCESS_TOKEN",
+        "note": "Get token from producthunt.com/v2/oauth/applications"
+      },
+      "install": {
+        "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude producthunt",
+        "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid producthunt",
+        "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p producthunt"
+      },
+      "commands": [
+        "python3 scripts/get_posts.py --limit 20",
+        "python3 scripts/get_post.py {slug_or_id}",
+        "python3 scripts/get_topics.py --query \"{query}\" --limit 20",
+        "python3 scripts/get_user.py {username}",
+        "python3 scripts/get_collections.py --featured --limit 20"
+      ],
+      "links": {
+        "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/producthunt",
+        "docs": "https://api.producthunt.com/v2/docs"
+      }
     }
   ]
 }

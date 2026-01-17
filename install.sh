@@ -49,8 +49,15 @@ cleanup() {
 
 trap cleanup EXIT
 
-# Available skills
+# Available skills and their dependencies
+declare -A SKILL_DEPS
+SKILL_DEPS["reddit"]=""
+SKILL_DEPS["twitter"]=""
+SKILL_DEPS["domain-hunter"]="twitter reddit"
 AVAILABLE_SKILLS=("reddit" "twitter" "domain-hunter" "all")
+
+# Track installed skills to avoid duplicates
+INSTALLED_SKILLS=""
 
 show_help() {
     echo "Usage: ./install.sh [OPTIONS] <skill>"
@@ -65,6 +72,7 @@ show_help() {
     echo "  -t, --tool TOOL    Target tool: claude, droid, opencode, cursor, custom"
     echo "  -d, --dir DIR      Custom skills directory (use with -t custom)"
     echo "  -p, --project      Install to current project instead of global"
+    echo "  --no-deps          Don't install dependencies"
     echo "  -h, --help         Show this help"
     echo ""
     echo "Examples:"
@@ -169,6 +177,61 @@ download_skill() {
     print_success "Installed $skill to $target_dir/$skill"
 }
 
+# Get dependencies for a skill from skills.json
+get_dependencies() {
+    local skill=$1
+    
+    # First try local SKILL_DEPS
+    if [ -n "${SKILL_DEPS[$skill]:-}" ]; then
+        echo "${SKILL_DEPS[$skill]}"
+        return
+    fi
+    
+    # Fallback: fetch from skills.json
+    local deps=$(curl -fsSL "$REPO_RAW/skills.json" 2>/dev/null | \
+        grep -A50 "\"name\": \"$skill\"" | \
+        grep -A1 '"dependencies"' | \
+        grep -o '\[.*\]' | \
+        tr -d '[]"' | \
+        tr ',' ' ')
+    echo "$deps"
+}
+
+# Install a skill with its dependencies
+install_with_deps() {
+    local skill=$1
+    local target_dir=$2
+    local source_dir=$3
+    local use_local=$4
+    
+    # Skip if already installed
+    if echo "$INSTALLED_SKILLS" | grep -q " $skill "; then
+        return 0
+    fi
+    
+    # Get dependencies
+    local deps="${SKILL_DEPS[$skill]:-}"
+    
+    # Install dependencies first
+    if [ -n "$deps" ] && [ "$INSTALL_DEPS" = "true" ]; then
+        for dep in $deps; do
+            if ! echo "$INSTALLED_SKILLS" | grep -q " $dep "; then
+                print_info "Installing dependency: $dep"
+                install_with_deps "$dep" "$target_dir" "$source_dir" "$use_local"
+            fi
+        done
+    fi
+    
+    # Install the skill itself
+    if [ "$use_local" = "true" ]; then
+        install_skill_from_local "$skill" "$target_dir" "$source_dir"
+    else
+        download_skill "$skill" "$target_dir"
+    fi
+    
+    INSTALLED_SKILLS="$INSTALLED_SKILLS $skill "
+}
+
 install_skill_from_local() {
     local skill=$1
     local target_dir=$2
@@ -195,6 +258,7 @@ TOOL=""
 CUSTOM_DIR=""
 PROJECT="false"
 SKILL=""
+INSTALL_DEPS="true"
 
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -208,6 +272,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         -p|--project)
             PROJECT="true"
+            shift
+            ;;
+        --no-deps)
+            INSTALL_DEPS="false"
             shift
             ;;
         -h|--help)
@@ -300,27 +368,24 @@ echo ""
 # Check if running from local repo
 if [ "$USE_LOCAL" = "true" ]; then
     print_info "Using local repository..."
-    
-    if [ "$SKILL" = "all" ]; then
-        for s in reddit twitter domain-hunter; do
-            install_skill_from_local "$s" "$TARGET_DIR" "$SOURCE_DIR"
-        done
-    else
-        install_skill_from_local "$SKILL" "$TARGET_DIR" "$SOURCE_DIR"
-    fi
 else
-    # Download from GitHub
     print_info "Downloading from GitHub..."
-    
-    mkdir -p "$TARGET_DIR"
-    
-    if [ "$SKILL" = "all" ]; then
-        for s in reddit twitter domain-hunter; do
-            download_skill "$s" "$TARGET_DIR"
-        done
-    else
-        download_skill "$SKILL" "$TARGET_DIR"
+fi
+
+mkdir -p "$TARGET_DIR"
+
+# Install skill(s) with dependencies
+if [ "$SKILL" = "all" ]; then
+    for s in reddit twitter domain-hunter; do
+        install_with_deps "$s" "$TARGET_DIR" "$SOURCE_DIR" "$USE_LOCAL"
+    done
+else
+    # Show dependencies info
+    deps="${SKILL_DEPS[$SKILL]:-}"
+    if [ -n "$deps" ] && [ "$INSTALL_DEPS" = "true" ]; then
+        print_info "Will also install dependencies: $deps"
     fi
+    install_with_deps "$SKILL" "$TARGET_DIR" "$SOURCE_DIR" "$USE_LOCAL"
 fi
 
 echo ""

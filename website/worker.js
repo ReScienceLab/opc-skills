@@ -53,6 +53,7 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
             </a>
           </div>
           <p class="skill-desc">${s.description}</p>
+          ${s.dependencies && s.dependencies.length > 0 ? `<div class="skill-deps"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg> Depends on: ${s.dependencies.map(d => `<span class="dep-tag">${d}</span>`).join('')}</div>` : ''}
           <div class="skill-triggers">${s.triggers.map(t => `<span class="trigger">${t}</span>`).join('')}</div>
           ${s.auth.required ? `<div class="auth-note"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg> ${s.auth.note}</div>` : `<div class="auth-note free"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> ${s.auth.note}</div>`}
           <div class="install-section">
@@ -140,6 +141,9 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
     .github-link { color: var(--gray-400); padding: 4px; }
     .github-link:hover { color: var(--black); }
     .skill-desc { font-size: 12px; color: var(--gray-600); margin-bottom: 12px; line-height: 1.6; }
+    .skill-deps { font-size: 10px; color: var(--gray-600); display: flex; align-items: center; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+    .skill-deps svg { flex-shrink: 0; }
+    .dep-tag { font-size: 9px; padding: 2px 6px; background: #fef3c7; border: 1px solid #fcd34d; color: #92400e; margin-left: 4px; }
     .skill-triggers { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
     .trigger { font-size: 9px; padding: 3px 8px; background: var(--gray-100); border: 1px solid var(--gray-200); }
     .auth-note { font-size: 10px; color: var(--gray-600); display: flex; align-items: center; gap: 6px; margin-bottom: 16px; padding: 8px 12px; background: var(--gray-50); border: 1px solid var(--gray-200); }

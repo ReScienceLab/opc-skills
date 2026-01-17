@@ -13,6 +13,7 @@
       "icon": "reddit",
       "color": "FF4500",
       "triggers": ["reddit", "subreddit", "r/"],
+      "dependencies": [],
       "auth": {
         "required": false,
         "type": null,
@@ -42,6 +43,7 @@
       "icon": "x",
       "color": "000000",
       "triggers": ["twitter", "X", "tweet"],
+      "dependencies": [],
       "auth": {
         "required": true,
         "type": "api_key",
@@ -72,10 +74,11 @@
       "icon": "globe",
       "color": "4A90D9",
       "triggers": ["domain", "registrar", "buy domain", "domain price", ".ai domain", ".com domain"],
+      "dependencies": ["twitter", "reddit"],
       "auth": {
         "required": false,
         "type": null,
-        "note": "Uses web search and public APIs"
+        "note": "Uses web search and public APIs (depends on twitter & reddit skills for promo code search)"
       },
       "install": {
         "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude domain-hunter",

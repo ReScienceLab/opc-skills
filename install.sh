@@ -147,6 +147,15 @@ get_skill_auth_note() {
     get_skill_field "$skill" "note"
 }
 
+# Get example URL for skill from links.example
+get_skill_example_url() {
+    local skill=$1
+    load_skills_json || return 1
+
+    # Simple grep-based extraction: find skill block, then look for example URL
+    echo "$SKILLS_JSON_CONTENT" | grep -A 100 "\"name\": *\"$skill\"" | grep -m1 '"example"' | sed 's/.*"example"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/'
+}
+
 # Detect user's shell profile
 get_shell_profile() {
     local shell_name=$(basename "$SHELL")
@@ -315,6 +324,13 @@ print_post_install_instructions() {
     else
         echo "  1. Restart your AI coding assistant"
         echo "  2. Try: 'Use the $example_skill skill to...'"
+    fi
+
+    # Show example URL if available for the main skill
+    local example_url=$(get_skill_example_url "$skill")
+    if [ -n "$example_url" ]; then
+        echo ""
+        echo -e "${BLUE}Example:${NC} $example_url"
     fi
 }
 

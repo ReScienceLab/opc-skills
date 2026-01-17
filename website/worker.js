@@ -200,12 +200,50 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
     .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--black); color: var(--white); padding: 10px 20px; font-size: 11px; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 1000; }
     .toast.show { opacity: 1; }
     
-    @media (max-width: 640px) {
-      h1 { font-size: 24px; }
+    @media (max-width: 768px) {
+      .header-inner { padding: 0 16px; height: 56px; }
+      .logo-text { font-size: 14px; }
+      .github-btn span { display: none; }
+      .github-btn { padding: 6px 8px; }
+      
+      .hero { padding: 40px 16px; }
+      .badge { font-size: 9px; padding: 4px 10px; }
+      h1 { font-size: 24px; line-height: 1.3; }
+      .subtitle { font-size: 13px; }
+      .install-all { padding: 10px 16px; font-size: 11px; }
+      
+      main { padding: 24px 16px; }
+      .section-title { font-size: 16px; }
+      
       .skill-card { padding: 16px; }
-      .install-row { flex-wrap: wrap; }
-      .install-row .label { width: 100%; margin-bottom: 4px; }
-      .install-row code { width: calc(100% - 60px); }
+      .skill-header { flex-wrap: wrap; gap: 8px; }
+      .skill-icon { width: 32px; height: 32px; }
+      .skill-icon img { width: 24px; height: 24px; }
+      .skill-title { min-width: 0; }
+      .skill-title h3 { font-size: 14px; }
+      
+      .skill-triggers { gap: 4px; }
+      .trigger { font-size: 8px; padding: 2px 6px; }
+      
+      .install-tabs { flex-wrap: wrap; }
+      .level-tabs .tab-btn { flex: 1; text-align: center; min-width: 0; }
+      .platform-tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
+      .platform-tabs .tab-btn { flex-shrink: 0; }
+      
+      .install-cmd { flex-direction: column; gap: 8px; }
+      .install-cmd code { width: 100%; font-size: 9px; padding: 10px; overflow-x: auto; white-space: nowrap; }
+      .install-cmd .copy-btn { width: 100%; padding: 10px; }
+      
+      .commands-list code { font-size: 9px; white-space: nowrap; }
+      
+      footer { padding: 20px 16px; }
+      footer p { font-size: 10px; }
+    }
+    
+    @media (max-width: 380px) {
+      h1 { font-size: 20px; }
+      .skill-title h3 { font-size: 13px; }
+      .platform-tabs .tab-btn { padding: 4px 8px; font-size: 8px; }
     }
   </style>
 </head>

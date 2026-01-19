@@ -3,14 +3,32 @@ export default {
     const url = new URL(request.url);
     
     if (url.pathname === '/sitemap.xml') {
+      const config = await fetchSkillsConfig(ctx);
+      const skills = config.skills || [];
+      const today = new Date().toISOString().split('T')[0];
+      
+      const skillUrls = skills.map(s => `
+  <url>
+    <loc>https://opc.dev/#skill-${s.name}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`).join('');
+      
       const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://opc.dev/</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <lastmod>${today}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://opc.dev/skills.json</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>${skillUrls}
 </urlset>`;
       return new Response(sitemap, { headers: { 'Content-Type': 'application/xml' } });
     }
@@ -48,12 +66,68 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
     const config = await fetchSkillsConfig(ctx);
     const skills = config.skills || [];
 
+    // Generate JSON-LD structured data for skills
+    const skillsJsonLd = skills.map(s => ({
+      "@type": "SoftwareApplication",
+      "name": s.name,
+      "description": s.description,
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Cross-platform",
+      "offers": {
+        "@type": "Offer",
+        "price": s.auth.required ? "0" : "0",
+        "priceCurrency": "USD"
+      },
+      "url": `https://opc.dev/#skill-${s.name}`
+    }));
+
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "name": "OPC Skills",
+          "url": "https://opc.dev",
+          "description": "Curated agent skills for solopreneurs and indie hackers. One-click install for Claude, Droid, Cursor, and more.",
+          "publisher": {
+            "@type": "Organization",
+            "name": "ReScience Lab",
+            "url": "https://rescience.com",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/opc-logo.svg"
+            }
+          }
+        },
+        {
+          "@type": "Organization",
+          "name": "ReScience Lab",
+          "url": "https://rescience.com",
+          "logo": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/opc-logo.svg",
+          "sameAs": [
+            "https://github.com/ReScienceLab"
+          ]
+        },
+        {
+          "@type": "ItemList",
+          "name": "OPC Skills Collection",
+          "description": "Agent skills for one person companies",
+          "numberOfItems": skills.length,
+          "itemListElement": skillsJsonLd.map((skill, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": skill
+          }))
+        }
+      ]
+    };
+
     // Generate skill cards
     const skillCards = skills.map(s => `
-        <div class="skill-card">
+        <div class="skill-card" id="skill-${s.name}">
           <div class="skill-header">
             <div class="skill-icon">
-              <img src="${s.logo || `https://cdn.simpleicons.org/${s.icon}/${s.color}`}" alt="${s.name}" onerror="this.src='https://cdn.simpleicons.org/${s.icon}/${s.color}'">
+              <img src="${s.logo || `https://cdn.simpleicons.org/${s.icon}/${s.color}`}" alt="${s.name} skill icon" loading="lazy" decoding="async" width="28" height="28" onerror="this.src='https://cdn.simpleicons.org/${s.icon}/${s.color}'">
             </div>
             <div class="skill-title">
               <h3>${s.name}</h3>
@@ -119,7 +193,13 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
   <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/apple-touch-icon.png">
   <meta name="description" content="Curated agent skills for solopreneurs and indie hackers. One-click install for Claude, Droid, Cursor, and more.">
+  <meta name="keywords" content="agent skills, claude skills, AI tools, solopreneurs, indie hackers, one person company, automation, Claude Code, Factory Droid, Cursor, OpenCode, Codex, developer tools, AI agents">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="ReScience Lab">
+  <meta name="theme-color" content="#000000">
+  <meta http-equiv="Content-Language" content="en">
   <link rel="canonical" href="https://opc.dev/">
+  <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
   <meta property="og:title" content="OPC Skills - Agent Skills for One Person Companies">
   <meta property="og:description" content="Curated agent skills for solopreneurs and indie hackers. One-click install for Claude, Droid, Cursor, and more.">
   <meta property="og:image" content="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/og-image.png">
@@ -297,7 +377,7 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
   <header>
     <div class="header-inner">
       <a href="/" class="logo">
-        <div class="logo-icon"><img src="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/opc-logo.svg" alt="OPC"></div>
+        <div class="logo-icon"><img src="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/opc-logo.svg" alt="OPC Skills logo" width="32" height="32"></div>
         <span class="logo-text">OPC Skills</span>
       </a>
       <nav>
@@ -311,7 +391,7 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
   </header>
 
   <section class="hero">
-    <img src="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/opc-banner.png" alt="OPC Skills" class="hero-banner">
+    <img src="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/opc-banner.png" alt="OPC Skills - Agent Skills for One Person Companies banner" class="hero-banner" fetchpriority="high" decoding="async">
     <h1>Agent Skills for<br>One Person Companies</h1>
     <p class="subtitle">Curated skills for solopreneurs and indie hackers. One-click install for Claude Code, Factory Droid, Cursor, and more.</p>
     <div class="hero-install">

@@ -35,5 +35,8 @@ node_modules/
 # Factory
 .factory/
 
+# Cursor
+.cursor/
+
 # Skill archive (temporary files from skill runs)
 .skill-archive/

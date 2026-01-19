@@ -245,11 +245,22 @@ get_shell_profile() {
 }
 
 # Check if an environment variable is set (handles comma-separated list)
+# Also checks shell profile if not set in current environment
 is_env_var_set() {
     local var_names=$1
     # Handle comma-separated list - check first variable only
     local first_var=$(echo "$var_names" | cut -d',' -f1 | xargs)
-    eval "[ -n \"\${$first_var:-}\" ]"
+    
+    # First check if already set in current environment
+    eval "[ -n \"\${$first_var:-}\" ]" && return 0
+    
+    # If not set, check shell profile for the export
+    local shell_profile=$(get_shell_profile)
+    if [ -f "$shell_profile" ]; then
+        grep -q "export $first_var=" "$shell_profile" 2>/dev/null && return 0
+    fi
+    
+    return 1
 }
 
 # Print post-install instructions with auth awareness

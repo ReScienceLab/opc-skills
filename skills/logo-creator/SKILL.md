@@ -26,6 +26,33 @@ Create professional logos through AI image generation with an iterative design p
 - `nano-banana-pro___generate_image` - AI image generation
 - `chrome-devtools` MCP - For previewing logos in browser
 
+## File Output Location
+
+All generated files should be saved to the `.skill-archive` directory:
+
+```
+.skill-archive/logo-creator/<yyyy-mm-dd-summaryname>/
+```
+
+**Example:**
+```
+.skill-archive/logo-creator/2026-01-18-opc-logo/
+  logo-01.png
+  logo-02.png
+  ...
+  logo-09-cropped.png
+  logo-09-nobg.png
+  logo-09.svg
+  preview.html
+```
+
+**Guidelines:**
+- Use current date in format `yyyy-mm-dd`
+- Add short summary name (project/brand name, kebab-case)
+- Create directory before generating first logo
+- Keep all variations and iterations in same folder
+- Final approved logo should be copied to user's desired location
+
 ## Workflow
 
 ### Step 1: Discovery & Requirements
@@ -73,7 +100,7 @@ nano-banana-pro___generate_image(
 **Guidelines:**
 - Generate in batches of 10 (API rate limit: 20/minute)
 - Wait 60 seconds between batches if hitting limits
-- Save to `{project_dir}/logos/` directory
+- Save to `.skill-archive/logo-creator/<yyyy-mm-dd-summaryname>/` directory
 - Use sequential naming: `logo-01.png`, `logo-02.png`, etc.
 
 **Prompt Tips:**
@@ -87,13 +114,13 @@ nano-banana-pro___generate_image(
 Copy the preview template and open in browser:
 
 ```bash
-cp <skill_dir>/templates/preview.html {project_dir}/logos/preview.html
+cp <skill_dir>/templates/preview.html .skill-archive/logo-creator/<yyyy-mm-dd-summaryname>/preview.html
 ```
 
 Then use Chrome DevTools MCP to view:
 
 ```
-chrome-devtools___navigate_page(url: "file://{project_dir}/logos/preview.html")
+chrome-devtools___navigate_page(url: "file://.skill-archive/logo-creator/<yyyy-mm-dd-summaryname>/preview.html")
 chrome-devtools___take_screenshot(fullPage: true)
 ```
 
@@ -145,7 +172,8 @@ Present final deliverables:
 | logo-nobg.png | Transparent background | ~800x800 |
 | logo.svg | Vector (scalable) | ~20KB |
 
-All files saved to: {project_dir}/logos/
+All files saved to: `.skill-archive/logo-creator/<yyyy-mm-dd-summaryname>/`
+Copy final logo to user's desired location.
 ```
 
 ## Quick Reference

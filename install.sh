@@ -63,6 +63,11 @@ INSTALLED_SKILLS=""
 SKILLS_JSON_PATH=""
 SKILLS_JSON_CONTENT=""
 
+# Strip carriage returns for Windows compatibility (Git Bash outputs CRLF)
+strip_cr() {
+    tr -d '\r'
+}
+
 # Check if jq is available
 check_jq() {
     if command -v jq &> /dev/null; then
@@ -106,7 +111,7 @@ load_skills_json() {
 # Get all available skill names from skills.json
 get_available_skills() {
     load_skills_json || return 1
-    echo "$SKILLS_JSON_CONTENT" | jq -r '.skills[].name' | tr '\n' ' '
+    echo "$SKILLS_JSON_CONTENT" | jq -r '.skills[].name' | strip_cr | tr '\n' ' '
 }
 
 # Validate if a skill exists in skills.json
@@ -122,7 +127,7 @@ get_skill_deps() {
     local skill=$1
     load_skills_json || return 1
     echo "$SKILLS_JSON_CONTENT" | jq -r --arg s "$skill" \
-        '.skills[] | select(.name == $s) | .dependencies // [] | .[]' 2>/dev/null | tr '\n' ' '
+        '.skills[] | select(.name == $s) | .dependencies // [] | .[]' 2>/dev/null | strip_cr | tr '\n' ' '
 }
 
 # Get skill description from skills.json
@@ -130,7 +135,7 @@ get_skill_description() {
     local skill=$1
     load_skills_json || return 1
     echo "$SKILLS_JSON_CONTENT" | jq -r --arg s "$skill" \
-        '.skills[] | select(.name == $s) | .description // ""' 2>/dev/null
+        '.skills[] | select(.name == $s) | .description // ""' 2>/dev/null | strip_cr
 }
 
 # Check if skill requires authentication
@@ -139,7 +144,7 @@ skill_requires_auth() {
     load_skills_json || return 1
     
     local required=$(echo "$SKILLS_JSON_CONTENT" | jq -r --arg s "$skill" \
-        '.skills[] | select(.name == $s) | .auth.required // false' 2>/dev/null)
+        '.skills[] | select(.name == $s) | .auth.required // false' 2>/dev/null | strip_cr)
     
     if [ "$required" = "true" ]; then
         return 0  # true - requires auth
@@ -153,7 +158,7 @@ get_skill_env_var() {
     local skill=$1
     load_skills_json || return 1
     echo "$SKILLS_JSON_CONTENT" | jq -r --arg s "$skill" \
-        '.skills[] | select(.name == $s) | .auth.env_var // empty' 2>/dev/null
+        '.skills[] | select(.name == $s) | .auth.env_var // empty' 2>/dev/null | strip_cr
 }
 
 # Get auth note/instructions for skill
@@ -161,7 +166,7 @@ get_skill_auth_note() {
     local skill=$1
     load_skills_json || return 1
     echo "$SKILLS_JSON_CONTENT" | jq -r --arg s "$skill" \
-        '.skills[] | select(.name == $s) | .auth.note // empty' 2>/dev/null
+        '.skills[] | select(.name == $s) | .auth.note // empty' 2>/dev/null | strip_cr
 }
 
 # Get example URL for skill from links.example
@@ -169,7 +174,7 @@ get_skill_example_url() {
     local skill=$1
     load_skills_json || return 1
     echo "$SKILLS_JSON_CONTENT" | jq -r --arg s "$skill" \
-        '.skills[] | select(.name == $s) | .links.example // empty' 2>/dev/null
+        '.skills[] | select(.name == $s) | .links.example // empty' 2>/dev/null | strip_cr
 }
 
 # Detect user's shell profile
@@ -357,7 +362,7 @@ show_help() {
     # Dynamically list skills from skills.json
     load_skills_json 2>/dev/null
     if [ -n "$SKILLS_JSON_CONTENT" ]; then
-        echo "$SKILLS_JSON_CONTENT" | jq -r '.skills[] | "  \(.name | . + " " * (15 - length)) \(.description | .[0:50])..."' 2>/dev/null || {
+        echo "$SKILLS_JSON_CONTENT" | jq -r '.skills[] | "  \(.name | . + " " * (15 - length)) \(.description | .[0:50])..."' 2>/dev/null | strip_cr || {
             echo "  (run with -h after jq is installed to see skill list)"
         }
     else
@@ -588,13 +593,13 @@ if [ -z "$SKILL" ]; then
     
     # Build dynamic menu from skills.json
     load_skills_json
-    SKILL_NAMES=$(echo "$SKILLS_JSON_CONTENT" | jq -r '.skills[].name')
+    SKILL_NAMES=$(echo "$SKILLS_JSON_CONTENT" | jq -r '.skills[].name' | strip_cr)
     SKILL_COUNT=$(echo "$SKILL_NAMES" | wc -l | xargs)
     
     local i=1
     while IFS= read -r skill_name; do
         local desc=$(echo "$SKILLS_JSON_CONTENT" | jq -r --arg s "$skill_name" \
-            '.skills[] | select(.name == $s) | .description | .[0:40]' 2>/dev/null)
+            '.skills[] | select(.name == $s) | .description | .[0:40]' 2>/dev/null | strip_cr)
         printf "  %d) %-15s - %s...\n" "$i" "$skill_name" "$desc"
         ((i++))
     done <<< "$SKILL_NAMES"

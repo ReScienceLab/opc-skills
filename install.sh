@@ -52,15 +52,15 @@ print_dependency_tree() {
     if [ -n "$deps" ]; then
         echo -e "  └─ ${skill}"
         local dep_array=($deps)
-        local last_idx=$((${#dep_array[@]} - 1))
+        local dep_count=${#dep_array[@]}
         local i=0
         for dep in $deps; do
-            if [ $i -eq $last_idx ]; then
+            i=$((i + 1))
+            if [ $i -eq $dep_count ]; then
                 echo -e "     └─ ${DIM}${dep}${NC}"
             else
                 echo -e "     ├─ ${DIM}${dep}${NC}"
             fi
-            ((i++))
         done
     else
         echo -e "  └─ ${skill}"
@@ -72,7 +72,7 @@ print_install_progress() {
     local skill=$1
     local status=$2
     
-    ((CURRENT_SKILL++))
+    CURRENT_SKILL=$((CURRENT_SKILL + 1))
     if [ "$status" = "start" ]; then
         printf "  [%d/%d] %-18s " "$CURRENT_SKILL" "$TOTAL_SKILLS" "$skill"
     elif [ "$status" = "done" ]; then
@@ -475,7 +475,7 @@ download_skills_batch() {
     
     # Copy each skill
     for skill in $skills_to_install; do
-        ((CURRENT_SKILL++))
+        CURRENT_SKILL=$((CURRENT_SKILL + 1))
         printf "  [%d/%d] %-18s " "$CURRENT_SKILL" "$TOTAL_SKILLS" "$skill"
         
         if [ -d "$extracted_dir/skills/$skill" ]; then
@@ -532,15 +532,15 @@ install_skill_from_local() {
     local target_dir=$2
     local source_dir=$3
 
-    if [ ! -d "$source_dir/$skill" ]; then
+    # Show progress first
+    CURRENT_SKILL=$((CURRENT_SKILL + 1))
+    printf "  [%d/%d] %-18s " "$CURRENT_SKILL" "$TOTAL_SKILLS" "$skill"
+
+    if [ -z "$source_dir" ] || [ ! -d "$source_dir/$skill" ]; then
         echo -e "${RED}✗${NC}"
         print_error "Skill '$skill' not found in $source_dir"
         return 1
     fi
-
-    # Show progress
-    ((CURRENT_SKILL++))
-    printf "  [%d/%d] %-18s " "$CURRENT_SKILL" "$TOTAL_SKILLS" "$skill"
 
     mkdir -p "$target_dir"
     
@@ -604,7 +604,7 @@ if [ -z "$SKILL" ]; then
         local desc=$(echo "$SKILLS_JSON_CONTENT" | jq -r --arg s "$skill_name" \
             '.skills[] | select(.name == $s) | .description | .[0:40]' 2>/dev/null | strip_cr)
         printf "  %d) %-15s - %s...\n" "$i" "$skill_name" "$desc"
-        ((i++))
+        i=$((i + 1))
     done <<< "$SKILL_NAMES"
     
     echo "  $i) all            - All skills"

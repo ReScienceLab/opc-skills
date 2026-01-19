@@ -7,13 +7,71 @@
   "logo": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/opc-logo.svg",
   "skills": [
     {
+      "name": "requesthunt",
+      "version": "1.0.0",
+      "description": "Generate user demand research reports from real user feedback. Scrape and analyze feature requests, complaints, and questions from Reddit, X, and GitHub.",
+      "icon": "globe",
+      "color": "6366F1",
+      "triggers": [
+        "requesthunt",
+        "request hunt",
+        "feature request",
+        "user demand",
+        "demand research"
+      ],
+      "dependencies": [],
+      "auth": {
+        "required": true,
+        "type": "api_key",
+        "env_var": "REQUESTHUNT_API_KEY",
+        "note": "Get API key from requesthunt.com/settings/api"
+      },
+      "install": {
+        "user": {
+          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude requesthunt",
+          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid requesthunt",
+          "opencode": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t opencode requesthunt",
+          "codex": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t codex requesthunt"
+        },
+        "project": {
+          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude -p requesthunt",
+          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid -p requesthunt",
+          "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p requesthunt",
+          "opencode": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t opencode -p requesthunt",
+          "codex": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t codex -p requesthunt"
+        }
+      },
+      "commands": [
+        "python3 scripts/list_requests.py --topic \"{topic}\" --limit 20",
+        "python3 scripts/search_requests.py \"{query}\" --expand --limit 20",
+        "python3 scripts/scrape_topic.py \"{topic}\" --platforms reddit,x,github",
+        "python3 scripts/get_topics.py",
+        "python3 scripts/get_usage.py"
+      ],
+      "links": {
+        "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/requesthunt",
+        "docs": "https://requesthunt.com/docs",
+        "example": "https://github.com/ReScienceLab/opc-skills/blob/main/skills/requesthunt/examples/calendar-app-research.md"
+      }
+    },
+    {
       "name": "domain-hunter",
       "version": "1.0.0",
       "description": "Search domains, compare registrar prices, and find promo codes. Help users find and purchase domain names at the best price.",
       "icon": "globe",
       "color": "4A90D9",
-      "triggers": ["domain", "registrar", "buy domain", "domain price", ".ai domain", ".com domain"],
-      "dependencies": ["twitter", "reddit"],
+      "triggers": [
+        "domain",
+        "registrar",
+        "buy domain",
+        "domain price",
+        ".ai domain",
+        ".com domain"
+      ],
+      "dependencies": [
+        "twitter",
+        "reddit"
+      ],
       "auth": {
         "required": false,
         "type": null,
@@ -44,12 +102,162 @@
       }
     },
     {
+      "name": "logo-creator",
+      "version": "1.0.0",
+      "description": "Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG.",
+      "icon": "image",
+      "color": "8B5CF6",
+      "triggers": [
+        "logo",
+        "brand",
+        "icon",
+        "favicon",
+        "mascot",
+        "emblem",
+        "create logo",
+        "design logo"
+      ],
+      "dependencies": [
+        "nanobanana"
+      ],
+      "auth": {
+        "required": true,
+        "type": "api_key",
+        "env_var": "GEMINI_API_KEY, REMOVE_BG_API_KEY, RECRAFT_API_KEY",
+        "note": "Requires Gemini API key for image generation, remove.bg and Recraft API keys for background removal and SVG conversion"
+      },
+      "install": {
+        "user": {
+          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude logo-creator",
+          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid logo-creator",
+          "opencode": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t opencode logo-creator",
+          "codex": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t codex logo-creator"
+        },
+        "project": {
+          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude -p logo-creator",
+          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid -p logo-creator",
+          "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p logo-creator",
+          "opencode": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t opencode -p logo-creator",
+          "codex": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t codex -p logo-creator"
+        }
+      },
+      "commands": [
+        "python3 <nanobanana>/scripts/batch_generate.py \"{prompt}\" -n 20 --ratio 1:1 -d ./logos -p logo",
+        "python3 scripts/crop_logo.py {input.png} {output.png}",
+        "python3 scripts/remove_bg.py {input.png} {output.png}",
+        "python3 scripts/vectorize.py {input.png} {output.svg}"
+      ],
+      "links": {
+        "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/logo-creator",
+        "example": "https://github.com/ReScienceLab/opc-skills/blob/main/skills/logo-creator/examples/opc-logo-creation.md"
+      }
+    },
+    {
+      "name": "banner-creator",
+      "version": "1.0.0",
+      "description": "Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio for GitHub, Twitter, LinkedIn, etc.",
+      "icon": "image",
+      "color": "F59E0B",
+      "triggers": [
+        "banner",
+        "header",
+        "hero image",
+        "cover image",
+        "create banner",
+        "github banner",
+        "twitter header",
+        "readme banner"
+      ],
+      "dependencies": [
+        "nanobanana"
+      ],
+      "auth": {
+        "required": true,
+        "type": "api_key",
+        "env_var": "GEMINI_API_KEY",
+        "note": "Requires Gemini API key for image generation (get from aistudio.google.com/apikey)"
+      },
+      "install": {
+        "user": {
+          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude banner-creator",
+          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid banner-creator",
+          "opencode": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t opencode banner-creator",
+          "codex": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t codex banner-creator"
+        },
+        "project": {
+          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude -p banner-creator",
+          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid -p banner-creator",
+          "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p banner-creator",
+          "opencode": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t opencode -p banner-creator",
+          "codex": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t codex -p banner-creator"
+        }
+      },
+      "commands": [
+        "python3 <nanobanana>/scripts/batch_generate.py \"{prompt}\" -n 20 --ratio 21:9 -d ./banners -p banner",
+        "python3 scripts/crop_banner.py {input.png} {output.png} --ratio 2:1 --width 1280"
+      ],
+      "links": {
+        "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/banner-creator",
+        "example": "https://github.com/ReScienceLab/opc-skills/blob/main/skills/banner-creator/examples/opc-banner-creation.md"
+      }
+    },
+    {
+      "name": "nanobanana",
+      "version": "1.0.0",
+      "description": "Generate and edit images using Google Gemini 3 Pro Image (Nano Banana Pro). Supports text-to-image, image editing, aspect ratios, and 2K/4K output.",
+      "icon": "image",
+      "color": "FFD700",
+      "triggers": [
+        "generate image",
+        "create image",
+        "nano banana",
+        "nanobanana",
+        "gemini image",
+        "AI image"
+      ],
+      "dependencies": [],
+      "auth": {
+        "required": true,
+        "type": "api_key",
+        "env_var": "GEMINI_API_KEY",
+        "note": "Get API key from Google AI Studio (aistudio.google.com/apikey)"
+      },
+      "install": {
+        "user": {
+          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude nanobanana",
+          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid nanobanana",
+          "opencode": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t opencode nanobanana",
+          "codex": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t codex nanobanana"
+        },
+        "project": {
+          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude -p nanobanana",
+          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid -p nanobanana",
+          "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p nanobanana",
+          "opencode": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t opencode -p nanobanana",
+          "codex": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t codex -p nanobanana"
+        }
+      },
+      "commands": [
+        "python3 scripts/generate.py \"{prompt}\" -o {output.png}",
+        "python3 scripts/generate.py \"{prompt}\" -i {input.jpg} -o {output.png}",
+        "python3 scripts/batch_generate.py \"{prompt}\" -n 20 -d ./images -p image"
+      ],
+      "links": {
+        "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/nanobanana",
+        "docs": "https://ai.google.dev/gemini-api/docs/image-generation"
+      }
+    },
+    {
       "name": "reddit",
       "version": "1.0.0",
       "description": "Search and retrieve content from Reddit. Get posts, comments, subreddit info, and user profiles via the public JSON API.",
       "icon": "reddit",
       "color": "FF4500",
-      "triggers": ["reddit", "subreddit", "r/"],
+      "triggers": [
+        "reddit",
+        "subreddit",
+        "r/"
+      ],
       "dependencies": [],
       "auth": {
         "required": false,
@@ -89,7 +297,11 @@
       "description": "Search and retrieve content from Twitter/X. Get user info, tweets, replies, followers, communities, spaces, and trends via twitterapi.io.",
       "icon": "x",
       "color": "000000",
-      "triggers": ["twitter", "X", "tweet"],
+      "triggers": [
+        "twitter",
+        "X",
+        "tweet"
+      ],
       "dependencies": [],
       "auth": {
         "required": true,
@@ -130,7 +342,12 @@
       "description": "Search and retrieve content from Product Hunt. Get posts, topics, users, and collections via the GraphQL API.",
       "icon": "producthunt",
       "color": "DA552F",
-      "triggers": ["producthunt", "product hunt", "PH", "launch"],
+      "triggers": [
+        "producthunt",
+        "product hunt",
+        "PH",
+        "launch"
+      ],
       "dependencies": [],
       "auth": {
         "required": true,
@@ -163,165 +380,6 @@
       "links": {
         "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/producthunt",
         "docs": "https://api.producthunt.com/v2/docs"
-      }
-    },
-    {
-      "name": "requesthunt",
-      "version": "1.0.0",
-      "description": "Generate user demand research reports from real user feedback. Scrape and analyze feature requests, complaints, and questions from Reddit, X, and GitHub.",
-      "icon": "globe",
-      "color": "6366F1",
-      "triggers": ["requesthunt", "request hunt", "feature request", "user demand", "demand research"],
-      "dependencies": [],
-      "auth": {
-        "required": true,
-        "type": "api_key",
-        "env_var": "REQUESTHUNT_API_KEY",
-        "note": "Get API key from requesthunt.com/settings/api"
-      },
-      "install": {
-        "user": {
-          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude requesthunt",
-          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid requesthunt",
-          "opencode": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t opencode requesthunt",
-          "codex": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t codex requesthunt"
-        },
-        "project": {
-          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude -p requesthunt",
-          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid -p requesthunt",
-          "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p requesthunt",
-          "opencode": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t opencode -p requesthunt",
-          "codex": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t codex -p requesthunt"
-        }
-      },
-      "commands": [
-        "python3 scripts/list_requests.py --topic \"{topic}\" --limit 20",
-        "python3 scripts/search_requests.py \"{query}\" --expand --limit 20",
-        "python3 scripts/scrape_topic.py \"{topic}\" --platforms reddit,x,github",
-        "python3 scripts/get_topics.py",
-        "python3 scripts/get_usage.py"
-      ],
-      "links": {
-        "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/requesthunt",
-        "docs": "https://requesthunt.com/docs",
-        "example": "https://github.com/ReScienceLab/opc-skills/blob/main/skills/requesthunt/examples/calendar-app-research.md"
-      }
-    },
-    {
-      "name": "logo-creator",
-      "version": "1.0.0",
-      "description": "Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG.",
-      "icon": "image",
-      "color": "8B5CF6",
-      "triggers": ["logo", "brand", "icon", "favicon", "mascot", "emblem", "create logo", "design logo"],
-      "dependencies": ["nanobanana"],
-      "auth": {
-        "required": true,
-        "type": "api_key",
-        "env_var": "GEMINI_API_KEY, REMOVE_BG_API_KEY, RECRAFT_API_KEY",
-        "note": "Requires Gemini API key for image generation, remove.bg and Recraft API keys for background removal and SVG conversion"
-      },
-      "install": {
-        "user": {
-          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude logo-creator",
-          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid logo-creator",
-          "opencode": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t opencode logo-creator",
-          "codex": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t codex logo-creator"
-        },
-        "project": {
-          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude -p logo-creator",
-          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid -p logo-creator",
-          "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p logo-creator",
-          "opencode": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t opencode -p logo-creator",
-          "codex": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t codex -p logo-creator"
-        }
-      },
-      "commands": [
-        "python3 <nanobanana>/scripts/batch_generate.py \"{prompt}\" -n 20 --ratio 1:1 -d ./logos -p logo",
-        "python3 scripts/crop_logo.py {input.png} {output.png}",
-        "python3 scripts/remove_bg.py {input.png} {output.png}",
-        "python3 scripts/vectorize.py {input.png} {output.svg}"
-      ],
-      "links": {
-        "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/logo-creator",
-        "example": "https://github.com/ReScienceLab/opc-skills/blob/main/skills/logo-creator/examples/opc-logo-creation.md"
-      }
-    },
-    {
-      "name": "banner-creator",
-      "version": "1.0.0",
-      "description": "Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio for GitHub, Twitter, LinkedIn, etc.",
-      "icon": "image",
-      "color": "F59E0B",
-      "triggers": ["banner", "header", "hero image", "cover image", "create banner", "github banner", "twitter header", "readme banner"],
-      "dependencies": ["nanobanana"],
-      "auth": {
-        "required": true,
-        "type": "api_key",
-        "env_var": "GEMINI_API_KEY",
-        "note": "Requires Gemini API key for image generation (get from aistudio.google.com/apikey)"
-      },
-      "install": {
-        "user": {
-          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude banner-creator",
-          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid banner-creator",
-          "opencode": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t opencode banner-creator",
-          "codex": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t codex banner-creator"
-        },
-        "project": {
-          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude -p banner-creator",
-          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid -p banner-creator",
-          "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p banner-creator",
-          "opencode": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t opencode -p banner-creator",
-          "codex": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t codex -p banner-creator"
-        }
-      },
-      "commands": [
-        "python3 <nanobanana>/scripts/batch_generate.py \"{prompt}\" -n 20 --ratio 21:9 -d ./banners -p banner",
-        "python3 scripts/crop_banner.py {input.png} {output.png} --ratio 2:1 --width 1280"
-      ],
-      "links": {
-        "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/banner-creator",
-        "example": "https://github.com/ReScienceLab/opc-skills/blob/main/skills/banner-creator/examples/opc-banner-creation.md"
-      }
-    },
-    {
-      "name": "nanobanana",
-      "version": "1.0.0",
-      "description": "Generate and edit images using Google Gemini 3 Pro Image (Nano Banana Pro). Supports text-to-image, image editing, aspect ratios, and 2K/4K output.",
-      "icon": "image",
-      "color": "FFD700",
-      "triggers": ["generate image", "create image", "nano banana", "nanobanana", "gemini image", "AI image"],
-      "dependencies": [],
-      "auth": {
-        "required": true,
-        "type": "api_key",
-        "env_var": "GEMINI_API_KEY",
-        "note": "Get API key from Google AI Studio (aistudio.google.com/apikey)"
-      },
-      "install": {
-        "user": {
-          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude nanobanana",
-          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid nanobanana",
-          "opencode": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t opencode nanobanana",
-          "codex": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t codex nanobanana"
-        },
-        "project": {
-          "claude": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude -p nanobanana",
-          "droid": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid -p nanobanana",
-          "cursor": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t cursor -p nanobanana",
-          "opencode": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t opencode -p nanobanana",
-          "codex": "curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t codex -p nanobanana"
-        }
-      },
-      "commands": [
-        "python3 scripts/generate.py \"{prompt}\" -o {output.png}",
-        "python3 scripts/generate.py \"{prompt}\" -i {input.jpg} -o {output.png}",
-        "python3 scripts/batch_generate.py \"{prompt}\" -n 20 -d ./images -p image"
-      ],
-      "links": {
-        "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/nanobanana",
-        "docs": "https://ai.google.dev/gemini-api/docs/image-generation"
       }
     }
   ]

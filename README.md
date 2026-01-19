@@ -16,9 +16,14 @@ For more information about the Agent Skills standard, see [agentskills.io](http:
 
 | Skill | Description |
 |-------|-------------|
+| [nanobanana](./skills/nanobanana) | Generate images using Gemini 3 Pro Image (Nano Banana Pro) |
+| [logo-creator](./skills/logo-creator) | Create logos with AI, crop, remove background, export as SVG |
+| [banner-creator](./skills/banner-creator) | Create banners for GitHub, Twitter, LinkedIn, etc. |
 | [reddit](./skills/reddit) | Search and retrieve content from Reddit via the public JSON API |
 | [twitter](./skills/twitter) | Search and retrieve content from Twitter/X via twitterapi.io |
+| [producthunt](./skills/producthunt) | Search Product Hunt posts, topics, users, and collections |
 | [domain-hunter](./skills/domain-hunter) | Find domains, compare registrar prices, and discover promo codes |
+| [requesthunt](./skills/requesthunt) | Research user demand from Reddit, X, and GitHub |
 
 ## Quick Install
 

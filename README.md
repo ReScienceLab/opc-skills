@@ -48,10 +48,10 @@ cd opc-skills
 
 ```bash
 # Install all skills to Claude Code (global)
-curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t claude all
+curl -fsSL opc.dev/install.sh | bash -s -- -t claude all
 
 # Install specific skill to Factory Droid
-curl -fsSL https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh | bash -s -- -t droid reddit
+curl -fsSL opc.dev/install.sh | bash -s -- -t droid reddit
 ```
 
 ## Manual Installation

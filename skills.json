@@ -205,8 +205,8 @@
       "name": "nanobanana",
       "version": "1.0.0",
       "description": "Generate and edit images using Google Gemini 3 Pro Image (Nano Banana Pro). Supports text-to-image, image editing, aspect ratios, and 2K/4K output.",
-      "icon": "image",
-      "color": "FFD700",
+      "icon": "googlegemini",
+      "color": "8E75B2",
       "triggers": [
         "generate image",
         "create image",

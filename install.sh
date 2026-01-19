@@ -19,9 +19,16 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 print_header() {
-    echo -e "${BLUE}╔════════════════════════════════════════╗${NC}"
-    echo -e "${BLUE}║       OPC Skills Installer             ║${NC}"
-    echo -e "${BLUE}╚════════════════════════════════════════╝${NC}"
+    echo -e "${BLUE}"
+    cat << 'EOF'
+                    __        
+ ___  ___  ____ ___/ /__ _  __
+/ _ \/ _ \/ __// _  / -_) |/ /
+\___/ .__/\__(_)_,_/\__/|___/ 
+   /_/                        
+EOF
+    echo -e "${NC}"
+    echo -e "${BLUE}       Skills Installer${NC}"
     echo ""
 }
 

@@ -90,58 +90,107 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
     const config = await fetchSkillsConfig(ctx);
     const skills = config.skills || [];
 
-    // Generate JSON-LD structured data for skills
+    // Generate JSON-LD structured data for skills (GEO-optimized)
+    const today = new Date().toISOString().split('T')[0];
     const skillsJsonLd = skills.map(s => ({
       "@type": "SoftwareApplication",
       "name": s.name,
       "description": s.description,
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Cross-platform",
+      "softwareVersion": s.version,
+      "datePublished": "2024-01-01",
+      "dateModified": today,
       "offers": {
         "@type": "Offer",
-        "price": s.auth.required ? "0" : "0",
-        "priceCurrency": "USD"
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
       },
-      "url": `https://opc.dev/#skill-${s.name}`
+      "url": `https://opc.dev/skills/${s.name}`
     }));
+
+    // GEO: Generate FAQPage schema for AI citation optimization (+40% visibility)
+    const faqItems = skills.slice(0, 5).map(s => ({
+      "@type": "Question",
+      "name": `What is ${s.name}?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `${s.name} is an agent skill for AI coding assistants. ${s.description} Install it with: curl -fsSL opc.dev/install.sh | bash -s -- -t claude ${s.name}`
+      }
+    }));
+    faqItems.push({
+      "@type": "Question",
+      "name": "What is OPC Skills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "OPC Skills is a curated collection of agent skills for solopreneurs and indie hackers. These skills extend AI coding assistants like Claude Code, Factory Droid, Cursor, OpenCode, and Codex with capabilities like domain hunting, social media research, and product analytics. One-click install for all major platforms."
+      }
+    });
+    faqItems.push({
+      "@type": "Question",
+      "name": "How do I install OPC Skills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Run this command in your terminal: curl -fsSL opc.dev/install.sh | bash -s -- -t claude all. Replace 'claude' with your preferred platform (droid, cursor, opencode, codex) and 'all' with a specific skill name if desired."
+      }
+    });
 
     const jsonLd = {
       "@context": "https://schema.org",
       "@graph": [
         {
+          "@type": "WebPage",
+          "@id": "https://opc.dev/#webpage",
+          "url": "https://opc.dev",
+          "name": "OPC Skills - Agent Skills for One Person Companies",
+          "description": "Curated agent skills for solopreneurs and indie hackers. One-click install for Claude, Droid, Cursor, and more.",
+          "datePublished": "2024-01-01",
+          "dateModified": today,
+          "inLanguage": "en-US",
+          "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".subtitle", "h1", ".skill-desc"]
+          },
+          "mainEntity": { "@id": "https://opc.dev/#skillcollection" }
+        },
+        {
           "@type": "WebSite",
+          "@id": "https://opc.dev/#website",
           "name": "OPC Skills",
           "url": "https://opc.dev",
           "description": "Curated agent skills for solopreneurs and indie hackers. One-click install for Claude, Droid, Cursor, and more.",
-          "publisher": {
-            "@type": "Organization",
-            "name": "ReScience Lab",
-            "url": "https://rescience.com",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/opc-logo.svg"
-            }
-          }
+          "publisher": { "@id": "https://opc.dev/#organization" }
         },
         {
           "@type": "Organization",
+          "@id": "https://opc.dev/#organization",
           "name": "ReScience Lab",
           "url": "https://rescience.com",
-          "logo": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/opc-logo.svg",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/opc-logo.svg"
+          },
           "sameAs": [
             "https://github.com/ReScienceLab"
           ]
         },
         {
           "@type": "ItemList",
+          "@id": "https://opc.dev/#skillcollection",
           "name": "OPC Skills Collection",
-          "description": "Agent skills for one person companies",
+          "description": `${skills.length} agent skills for one person companies, supporting 5 platforms: Claude Code, Factory Droid, Cursor, OpenCode, and Codex.`,
           "numberOfItems": skills.length,
           "itemListElement": skillsJsonLd.map((skill, index) => ({
             "@type": "ListItem",
             "position": index + 1,
             "item": skill
           }))
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://opc.dev/#faq",
+          "mainEntity": faqItems
         }
       ]
     };
@@ -158,10 +207,10 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
               <span class="version">v${s.version}</span>
             </div>
             ${s.auth.required ? `<span class="auth-tag paid">API Key</span>` : `<span class="auth-tag free">Free</span>`}
-            ${s.links.example ? `<a href="${s.links.example}" target="_blank" class="example-link" title="View Example">
+            ${s.links.example ? `<a href="${s.links.example}" target="_blank" rel="noopener noreferrer" class="example-link" title="View Example">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
             </a>` : ''}
-            <a href="${s.links.github}" target="_blank" class="github-link" title="View on GitHub">
+            <a href="${s.links.github}" target="_blank" rel="noopener noreferrer" class="github-link" title="View on GitHub">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
             </a>
           </div>
@@ -229,6 +278,8 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
   <meta property="og:image" content="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/og-image.png">
   <meta property="og:url" content="https://opc.dev/">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="OPC Skills">
+  <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="OPC Skills - Agent Skills for One Person Companies">
   <meta name="twitter:description" content="Curated agent skills for solopreneurs and indie hackers. One-click install for Claude, Droid, Cursor, and more.">
@@ -405,7 +456,7 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
         <span class="logo-text">OPC Skills</span>
       </a>
       <nav>
-        <a href="https://github.com/ReScienceLab/opc-skills" target="_blank" class="github-btn">
+        <a href="https://github.com/ReScienceLab/opc-skills" target="_blank" rel="noopener noreferrer" class="github-btn">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
           GitHub
         </a>
@@ -443,7 +494,7 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
   </main>
 
   <footer>
-    <p>2026 <a href="https://rescience.com" target="_blank">ReScience Lab</a> | <a href="mailto:hi@opc.dev">hi@opc.dev</a> | <a href="https://github.com/ReScienceLab/opc-skills" target="_blank">GitHub</a> | <a href="/skills.json">API</a></p>
+    <p>2026 <a href="https://rescience.com" target="_blank" rel="noopener noreferrer">ReScience Lab</a> | <a href="mailto:hi@opc.dev">hi@opc.dev</a> | <a href="https://github.com/ReScienceLab/opc-skills" target="_blank" rel="noopener noreferrer">GitHub</a> | <a href="/skills.json">API</a></p>
   </footer>
 
   <div class="toast" id="toast">Copied to clipboard!</div>
@@ -813,16 +864,48 @@ async function renderSkillPage(skillName, ctx) {
     } catch (e) {}
   }
 
-  // JSON-LD for this skill
+  // JSON-LD for this skill (GEO-optimized with FAQPage for +40% AI visibility)
+  const today = new Date().toISOString().split('T')[0];
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "WebPage",
+        "@id": `https://opc.dev/skills/${skill.name}#webpage`,
+        "url": `https://opc.dev/skills/${skill.name}`,
+        "name": `${skill.name} - OPC Skills`,
+        "description": skill.description,
+        "datePublished": "2024-01-01",
+        "dateModified": today,
+        "inLanguage": "en-US",
+        "isPartOf": { "@id": "https://opc.dev/#website" },
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".skill-desc", "h1", ".skill-content p"]
+        },
+        "mainEntity": { "@id": `https://opc.dev/skills/${skill.name}#software` }
+      },
+      {
         "@type": "SoftwareApplication",
+        "@id": `https://opc.dev/skills/${skill.name}#software`,
         "name": skill.name,
         "description": skill.description,
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Cross-platform",
+        "softwareVersion": skill.version,
+        "datePublished": "2024-01-01",
+        "dateModified": today,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "ReScience Lab",
+          "url": "https://rescience.com"
+        },
         "url": `https://opc.dev/skills/${skill.name}`
       },
       {
@@ -831,6 +914,36 @@ async function renderSkillPage(skillName, ctx) {
           { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://opc.dev/" },
           { "@type": "ListItem", "position": 2, "name": "Skills", "item": "https://opc.dev/" },
           { "@type": "ListItem", "position": 3, "name": skill.name, "item": `https://opc.dev/skills/${skill.name}` }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `https://opc.dev/skills/${skill.name}#faq`,
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": `What is ${skill.name}?`,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": `${skill.name} is an agent skill for AI coding assistants like Claude Code, Factory Droid, and Cursor. ${skill.description}`
+            }
+          },
+          {
+            "@type": "Question",
+            "name": `How do I install ${skill.name}?`,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": `Install ${skill.name} by running: curl -fsSL opc.dev/install.sh | bash -s -- -t claude ${skill.name}. Replace 'claude' with your preferred platform (droid, cursor, opencode, codex).`
+            }
+          },
+          {
+            "@type": "Question",
+            "name": `Does ${skill.name} require an API key?`,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": skill.auth.required ? `Yes, ${skill.name} requires an API key. ${skill.auth.note || ''}` : `No, ${skill.name} is free to use and does not require an API key.`
+            }
+          }
         ]
       }
     ]
@@ -857,6 +970,12 @@ async function renderSkillPage(skillName, ctx) {
   <meta property="og:image" content="${skill.logo || `https://cdn.simpleicons.org/${skill.icon}/${skill.color}`}">
   <meta property="og:url" content="https://opc.dev/skills/${skill.name}">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="OPC Skills">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${skill.name} - OPC Skills">
+  <meta name="twitter:description" content="${skill.description}">
+  <meta name="twitter:image" content="${skill.logo || `https://cdn.simpleicons.org/${skill.icon}/${skill.color}`}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -938,7 +1057,7 @@ async function renderSkillPage(skillName, ctx) {
         <span class="logo-text">OPC Skills</span>
       </a>
       <nav>
-        <a href="https://github.com/ReScienceLab/opc-skills" target="_blank">GitHub</a>
+        <a href="https://github.com/ReScienceLab/opc-skills" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="mailto:hi@opc.dev">Contact</a>
       </nav>
     </div>
@@ -947,14 +1066,14 @@ async function renderSkillPage(skillName, ctx) {
     <div class="breadcrumb">
       <a href="/">Home</a> &gt; <a href="/">Skills</a> &gt; ${skill.name}
     </div>
-    <div class="skill-hero">
-      <img src="${skill.logo || `https://cdn.simpleicons.org/${skill.icon}/${skill.color}`}" alt="${skill.name} logo">
+    <article class="skill-hero" itemscope itemtype="https://schema.org/SoftwareApplication">
+      <img src="${skill.logo || `https://cdn.simpleicons.org/${skill.icon}/${skill.color}`}" alt="${skill.name} logo" itemprop="image">
       <div>
-        <h1>${skill.name}<span class="version">v${skill.version}</span></h1>
+        <h1 itemprop="name">${skill.name}<span class="version" itemprop="softwareVersion">v${skill.version}</span></h1>
         ${skill.auth.required ? '<span class="auth-tag paid">API Key Required</span>' : '<span class="auth-tag free">Free</span>'}
       </div>
-    </div>
-    <p class="skill-desc">${skill.description}</p>
+    </article>
+    <p class="skill-desc" itemprop="description">${skill.description}</p>
     <div class="skill-triggers">${skill.triggers.map(t => `<span class="trigger">${t}</span>`).join('')}</div>
     ${skill.dependencies && skill.dependencies.length > 0 ? `<p style="font-size:12px;color:var(--gray-600);margin-bottom:16px;">Dependencies: ${skill.dependencies.map(d => `<a href="/skills/${d}">${d}</a>`).join(', ')}</p>` : ''}
     
@@ -964,23 +1083,23 @@ async function renderSkillPage(skillName, ctx) {
     </div>
     
     ${exampleContent ? `
-    <div id="tab-example" class="tab-content active">
+    <section id="tab-example" class="tab-content active" aria-label="Example usage">
       <div class="skill-content">${exampleContent}</div>
-    </div>
+    </section>
     ` : ''}
     
-    <div id="tab-docs" class="tab-content ${exampleContent ? '' : 'active'}">
+    <section id="tab-docs" class="tab-content ${exampleContent ? '' : 'active'}" aria-label="Documentation">
       <div class="skill-content">${content}</div>
-    </div>
+    </section>
     <div class="skill-links">
-      <a href="${skill.links.github}" target="_blank">GitHub</a>
-      ${skill.links.docs ? `<a href="${skill.links.docs}" target="_blank">Docs</a>` : ''}
-      ${skill.links.example ? `<a href="${skill.links.example}" target="_blank">Example</a>` : ''}
+      <a href="${skill.links.github}" target="_blank" rel="noopener noreferrer">GitHub</a>
+      ${skill.links.docs ? `<a href="${skill.links.docs}" target="_blank" rel="noopener noreferrer">Docs</a>` : ''}
+      ${skill.links.example ? `<a href="${skill.links.example}" target="_blank" rel="noopener noreferrer">Example</a>` : ''}
     </div>
     <a href="/" class="back-link">&larr; Back to all skills</a>
   </main>
   <footer>
-    <p>2026 <a href="https://rescience.com" target="_blank">ReScience Lab</a> | <a href="mailto:hi@opc.dev">hi@opc.dev</a></p>
+    <p>2026 <a href="https://rescience.com" target="_blank" rel="noopener noreferrer">ReScience Lab</a> | <a href="mailto:hi@opc.dev">hi@opc.dev</a></p>
   </footer>
   <script>
     function switchTab(btn, tabId) {

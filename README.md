@@ -1,10 +1,25 @@
 # OPC Skills
 
 <p align="center">
-  <img src="website/opc-banner.png" alt="OPC Skills" width="100%">
+  <img src="website/opc-banner.png" alt="OPC Skills - AI Agent Skills for Solopreneurs" width="100%">
 </p>
 
-Agent Skills for One Person Companies (OPC) - a collection of skills designed for solopreneurs, indie hackers, and small teams.
+<p align="center">
+  <a href="https://opc.dev"><img src="https://img.shields.io/badge/Website-opc.dev-black?style=flat-square" alt="Website"></a>
+  <a href="https://github.com/ReScienceLab/opc-skills/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License"></a>
+  <a href="https://github.com/ReScienceLab/opc-skills/stargazers"><img src="https://img.shields.io/github/stars/ReScienceLab/opc-skills?style=flat-square" alt="GitHub Stars"></a>
+</p>
+
+<p align="center">
+  <strong>AI Agent Skills for Solopreneurs, Indie Hackers, and One-Person Companies</strong>
+</p>
+
+<p align="center">
+  Extend Claude Code, Cursor, Codex, and more with automation skills.<br>
+  <a href="https://opc.dev">Browse Skills</a> · <a href="#quick-install">Quick Install</a> · <a href="#included-skills">View All Skills</a>
+</p>
+
+---
 
 ## What are Skills?
 

@@ -124,7 +124,7 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
       "name": "What is OPC Skills?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "OPC Skills is a curated collection of agent skills for solopreneurs and indie hackers. These skills extend AI coding assistants like Claude Code, Factory Droid, Cursor, OpenCode, and Codex with capabilities like domain hunting, social media research, and product analytics. One-click install for all major platforms."
+        "text": "OPC Skills is a curated collection of AI agent skills for solopreneurs, indie hackers, and one-person companies. These skills extend AI coding assistants like Claude Code, Factory Droid, Cursor, OpenCode, and Codex with capabilities like domain hunting, social media research, and product analytics. 100% open source with one-click install for all major platforms."
       }
     });
     faqItems.push({
@@ -135,6 +135,38 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
         "text": "Run this command in your terminal: curl -fsSL opc.dev/install.sh | bash -s -- -t claude all. Replace 'claude' with your preferred platform (droid, cursor, opencode, codex) and 'all' with a specific skill name if desired."
       }
     });
+    faqItems.push({
+      "@type": "Question",
+      "name": "What are AI agent skills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AI agent skills are modular capabilities that extend AI coding assistants like Claude Code, Cursor, and Codex. They enable AI agents to perform specialized tasks such as searching domains, researching social media, hunting for promo codes, and analyzing product launches. Skills are installed via simple commands and work across multiple AI platforms."
+      }
+    });
+    faqItems.push({
+      "@type": "Question",
+      "name": "How to extend Claude Code with custom skills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can extend Claude Code with custom skills by installing OPC Skills using: curl -fsSL opc.dev/install.sh | bash -s -- -t claude [skill-name]. Skills are stored in ~/.claude/skills/ for user-level or .claude/skills/ for project-level. Each skill is a markdown file with instructions that Claude Code can follow."
+      }
+    });
+    faqItems.push({
+      "@type": "Question",
+      "name": "What platforms are supported by OPC Skills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "OPC Skills supports 5 major AI coding platforms: Claude Code (Anthropic), Factory Droid, Cursor, OpenCode, and Codex (OpenAI). Each skill can be installed with a single command for any of these platforms."
+      }
+    });
+    faqItems.push({
+      "@type": "Question",
+      "name": "Is OPC Skills free to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, OPC Skills is 100% free and open source under the MIT license. Some individual skills may require API keys for third-party services (like Twitter API or Reddit API), but the skills themselves are free to install and use."
+      }
+    });
 
     const jsonLd = {
       "@context": "https://schema.org",
@@ -143,14 +175,14 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
           "@type": "WebPage",
           "@id": "https://opc.dev/#webpage",
           "url": "https://opc.dev",
-          "name": "OPC Skills - Agent Skills for One Person Companies",
-          "description": "Curated agent skills for solopreneurs and indie hackers. One-click install for Claude, Droid, Cursor, and more.",
+          "name": "OPC Skills - AI Agent Skills for Solopreneurs & Indie Hackers",
+          "description": `${skills.length}+ curated AI agent skills for solopreneurs and indie hackers. Supercharge Claude Code, Cursor, and Codex with domain hunting, social media research, and more.`,
           "datePublished": "2024-01-01",
           "dateModified": today,
           "inLanguage": "en-US",
           "speakable": {
             "@type": "SpeakableSpecification",
-            "cssSelector": [".subtitle", "h1", ".skill-desc"]
+            "cssSelector": [".subtitle", "h1", ".skill-desc", ".stats-bar"]
           },
           "mainEntity": { "@id": "https://opc.dev/#skillcollection" }
         },
@@ -159,7 +191,7 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
           "@id": "https://opc.dev/#website",
           "name": "OPC Skills",
           "url": "https://opc.dev",
-          "description": "Curated agent skills for solopreneurs and indie hackers. One-click install for Claude, Droid, Cursor, and more.",
+          "description": `${skills.length}+ curated AI agent skills for solopreneurs and indie hackers. Supercharge Claude Code, Cursor, and Codex with domain hunting, social media research, and more.`,
           "publisher": { "@id": "https://opc.dev/#organization" }
         },
         {
@@ -261,29 +293,30 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OPC Skills - Agent Skills for One Person Companies</title>
+  <title>OPC Skills - AI Agent Skills for Solopreneurs & Indie Hackers | Claude Code, Cursor, Codex</title>
   <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/apple-touch-icon.png">
-  <meta name="description" content="Curated agent skills for solopreneurs and indie hackers. One-click install for Claude, Droid, Cursor, and more.">
-  <meta name="keywords" content="agent skills, claude skills, AI tools, solopreneurs, indie hackers, one person company, automation, Claude Code, Factory Droid, Cursor, OpenCode, Codex, developer tools, AI agents">
+  <meta name="description" content="${skills.length}+ curated AI agent skills for solopreneurs and indie hackers. Supercharge Claude Code, Cursor, and Codex with domain hunting, social media research, and more. One-click install.">
+  <meta name="keywords" content="AI agent skills, solopreneur tools, indie hacker tools, Claude Code skills, Cursor skills, Codex skills, one-person company, solo developer, AI coding assistant, AI automation, vibe coding, agent skills, claude skills, Factory Droid, OpenCode, developer tools, AI agents">
   <meta name="robots" content="index, follow">
   <meta name="author" content="ReScience Lab">
   <meta name="theme-color" content="#000000">
   <meta http-equiv="Content-Language" content="en">
   <link rel="canonical" href="https://opc.dev/">
   <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
-  <meta property="og:title" content="OPC Skills - Agent Skills for One Person Companies">
-  <meta property="og:description" content="Curated agent skills for solopreneurs and indie hackers. One-click install for Claude, Droid, Cursor, and more.">
+  <meta property="og:title" content="OPC Skills - AI Agent Skills for Solopreneurs & Indie Hackers">
+  <meta property="og:description" content="${skills.length}+ curated AI agent skills for solopreneurs and indie hackers. Supercharge Claude Code, Cursor, and Codex with domain hunting, social media research, and more.">
   <meta property="og:image" content="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/og-image.png">
   <meta property="og:url" content="https://opc.dev/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="OPC Skills">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="OPC Skills - Agent Skills for One Person Companies">
-  <meta name="twitter:description" content="Curated agent skills for solopreneurs and indie hackers. One-click install for Claude, Droid, Cursor, and more.">
+  <meta name="twitter:title" content="OPC Skills - AI Agent Skills for Solopreneurs & Indie Hackers">
+  <meta name="twitter:description" content="${skills.length}+ curated AI agent skills for solopreneurs and indie hackers. Supercharge Claude Code, Cursor, and Codex.">
   <meta name="twitter:image" content="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/og-image.png">
+  <meta name="twitter:creator" content="@AnyLabxyz">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -321,7 +354,11 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
     .hero-banner { max-width: 560px; width: 100%; height: auto; margin: 0 auto 24px; border-radius: 8px; display: block; }
     .badge { display: inline-block; border: 1px solid var(--black); padding: 5px 14px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 24px; }
     h1 { font-family: var(--font-pixel); font-size: 20px; font-weight: 400; margin-bottom: 16px; letter-spacing: 0; line-height: 1.6; }
-    .subtitle { font-size: 14px; color: var(--gray-600); max-width: 480px; margin: 0 auto 24px; }
+    .subtitle { font-size: 14px; color: var(--gray-600); max-width: 520px; margin: 0 auto 20px; }
+    .subtitle strong { color: var(--black); }
+    .stats-bar { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 28px; font-size: 12px; color: var(--gray-600); }
+    .stats-bar span { display: flex; align-items: center; gap: 4px; }
+    .stats-bar strong { color: var(--black); font-weight: 700; }
     .hero-install { max-width: 600px; margin: 0 auto; width: 100%; }
     .hero-level-tabs { border-bottom: 1px solid var(--black); }
     .hero-tool-tabs { border-bottom: none; }
@@ -383,6 +420,14 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
     .commands-list { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
     .commands-list code { font-size: 10px; padding: 6px 10px; background: var(--gray-50); border: 1px solid var(--gray-200); display: block; overflow-x: auto; }
     
+    .faq-section { max-width: 900px; margin: 0 auto; padding: 48px 24px; border-top: 1px solid var(--gray-200); }
+    .faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .faq-item { padding: 20px; border: 1px solid var(--gray-200); background: var(--gray-50); }
+    .faq-item h3 { font-size: 14px; font-weight: 700; margin-bottom: 8px; color: var(--black); }
+    .faq-item p { font-size: 13px; color: var(--gray-600); line-height: 1.6; }
+    .faq-item strong { color: var(--black); }
+    .faq-item code { font-size: 11px; background: var(--white); padding: 2px 6px; border: 1px solid var(--gray-200); }
+
     footer { border-top: 1px solid var(--black); padding: 24px; text-align: center; }
     footer p { font-size: 11px; color: var(--gray-600); }
     footer a { color: var(--gray-600); }
@@ -401,6 +446,7 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
       .badge { font-size: 9px; padding: 4px 10px; }
       h1 { font-size: 14px; line-height: 1.8; }
       .subtitle { font-size: 13px; }
+      .stats-bar { gap: 12px 20px; font-size: 11px; }
       .hero-tabs { flex-wrap: wrap; }
       .hero-tab { flex: 1 1 auto; min-width: 60px; padding: 6px 8px; font-size: 10px; }
       .hero-cmd code { font-size: 9px; padding: 10px; }
@@ -435,6 +481,12 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
       
       .commands-list code { font-size: 9px; white-space: nowrap; overflow-x: auto; display: block; }
       
+      .faq-section { padding: 32px 16px; }
+      .faq-grid { grid-template-columns: 1fr; gap: 16px; }
+      .faq-item { padding: 16px; }
+      .faq-item h3 { font-size: 13px; }
+      .faq-item p { font-size: 12px; }
+
       footer { padding: 20px 16px; }
       footer p { font-size: 10px; }
     }
@@ -465,10 +517,16 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
     </div>
   </header>
 
-  <section class="hero">
-    <img src="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/opc-banner.png" alt="OPC Skills - Agent Skills for One Person Companies banner" class="hero-banner" fetchpriority="high" decoding="async">
-    <h1>Agent Skills for<br>One Person Companies</h1>
-    <p class="subtitle">Curated skills for solopreneurs and indie hackers. One-click install for Claude Code, Factory Droid, Cursor, and more.</p>
+  <section class="hero" role="banner">
+    <img src="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/opc-banner.png" alt="OPC Skills - AI Agent Skills for Solopreneurs and Indie Hackers" class="hero-banner" fetchpriority="high" decoding="async">
+    <h1>AI Agent Skills for<br>Solopreneurs</h1>
+    <p class="subtitle">The skill library for <strong>one-person companies</strong> and <strong>indie hackers</strong>. Extend Claude Code, Cursor, and Codex with <strong>${skills.length}+</strong> automation skills.</p>
+    <div class="stats-bar">
+      <span><strong>${skills.length}+</strong> Skills</span>
+      <span><strong>5</strong> Platforms</span>
+      <span>One-Click Install</span>
+      <span>100% Open Source</span>
+    </div>
     <div class="hero-install">
       <div class="hero-tabs hero-level-tabs">
         <button class="hero-tab active" data-level="user">User-level</button>
@@ -492,6 +550,48 @@ Sitemap: https://opc.dev/sitemap.xml`, { headers: { 'Content-Type': 'text/plain'
     <h2 class="section-title">Available Skills</h2>
     <div class="skills-grid">${skillCards}</div>
   </main>
+
+  <section class="faq-section" aria-label="Frequently Asked Questions" itemscope itemtype="https://schema.org/FAQPage">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <div class="faq-grid">
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name">What is OPC Skills?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">OPC Skills is a curated collection of AI agent skills for <strong>solopreneurs</strong>, <strong>indie hackers</strong>, and <strong>one-person companies</strong>. These skills extend AI coding assistants like Claude Code, Cursor, and Codex with automation capabilities like domain hunting, social media research, and product analytics.</p>
+        </div>
+      </div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name">What are AI agent skills?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">AI agent skills are modular capabilities that extend AI coding assistants. They enable AI agents to perform specialized tasks such as searching domains, researching social media, hunting for promo codes, and analyzing product launches. Skills are installed via simple commands and work across multiple platforms.</p>
+        </div>
+      </div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name">How do I install OPC Skills?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Run this command in your terminal: <code>curl -fsSL opc.dev/install.sh | bash -s -- -t claude all</code>. Replace <code>claude</code> with your preferred platform (droid, cursor, opencode, codex) and <code>all</code> with a specific skill name if desired.</p>
+        </div>
+      </div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name">What platforms are supported?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">OPC Skills supports <strong>5 major AI coding platforms</strong>: Claude Code (Anthropic), Factory Droid, Cursor, OpenCode, and Codex (OpenAI). Each skill can be installed with a single command for any of these platforms.</p>
+        </div>
+      </div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name">Is OPC Skills free to use?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Yes, OPC Skills is <strong>100% free and open source</strong> under the MIT license. Some individual skills may require API keys for third-party services (like Twitter API or Reddit API), but the skills themselves are free to install and use.</p>
+        </div>
+      </div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name">How to extend Claude Code with custom skills?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Install skills using: <code>curl -fsSL opc.dev/install.sh | bash -s -- -t claude [skill-name]</code>. Skills are stored in <code>~/.claude/skills/</code> for user-level or <code>.claude/skills/</code> for project-level. Each skill is a markdown file with instructions that Claude Code follows.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <footer>
     <p>2026 <a href="https://rescience.com" target="_blank" rel="noopener noreferrer">ReScience Lab</a> | <a href="mailto:hi@opc.dev">hi@opc.dev</a> | <a href="https://github.com/ReScienceLab/opc-skills" target="_blank" rel="noopener noreferrer">GitHub</a> | <a href="/skills.json">API</a></p>

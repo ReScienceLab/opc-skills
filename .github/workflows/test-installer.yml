@@ -93,9 +93,19 @@ jobs:
           # Check all skills have required fields
           jq -e '.skills[] | select(.name and .description and .dependencies != null)' skills.json > /dev/null
           
-          # Check dependencies reference valid skills
+          # Check dependencies reference valid skills (handle both object and array formats)
           SKILL_NAMES=$(jq -r '.skills[].name' skills.json)
-          for dep in $(jq -r '.skills[].dependencies[]' skills.json 2>/dev/null); do
+          
+          # Get all dependency names from object format (current format)
+          for dep in $(jq -r '.skills[].dependencies | keys[]? | .[]' skills.json 2>/dev/null); do
+            if ! echo "$SKILL_NAMES" | grep -q "^${dep}$"; then
+              echo "Error: Invalid dependency '$dep'"
+              exit 1
+            fi
+          done
+          
+          # Also support legacy array format for backwards compatibility
+          for dep in $(jq -r '.skills[].dependencies[]? | select(type == "string")' skills.json 2>/dev/null); do
             if ! echo "$SKILL_NAMES" | grep -q "^${dep}$"; then
               echo "Error: Invalid dependency '$dep'"
               exit 1

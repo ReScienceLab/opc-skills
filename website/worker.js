@@ -735,7 +735,7 @@ Sitemap: https://opc.dev/sitemap.xml`, {
     <div class="skills-grid">${skillCards}</div>
   </main>
 
-  <section class="faq-section" aria-label="Frequently Asked Questions" itemscope itemtype="https://schema.org/FAQPage">
+  <section class="faq-section" aria-label="Frequently Asked Questions">
     <h2 class="section-title">Frequently Asked Questions</h2>
     <div class="faq-grid">
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">

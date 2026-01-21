@@ -1,6 +1,28 @@
 {
   "posts": [
     {
+      "slug": "domain-hunting-ai-saved-50",
+      "title": "How Domain Hunter Skill Saved Me $50 on Domain Registration (5-Minute Tutorial)",
+      "description": "Real case study: How Domain Hunter Skill compared 8 registrars and found active promo codes in 5 minutes. GoDaddy wanted $47.95/year, I paid $14.98. Includes exact workflow, price comparison table, and step-by-step tutorial you can replicate today.",
+      "date": "2026-01-21",
+      "author": "OPC Team",
+      "category": "Case Study",
+      "tags": ["domain-hunting", "cost-savings", "ai-automation"],
+      "readTime": "7 min",
+      "keywords": ["domain registrar comparison", "domain promo codes", "save money on domains", "domain hunter", "GoDaddy alternative", "cheap domain registration"],
+      "image": "https://opc.dev/opc-banner.png",
+      "citations": [
+        {
+          "text": "Domain Hunter Skill",
+          "url": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/domain-hunter"
+        },
+        {
+          "text": "OPC Skills",
+          "url": "https://opc.dev"
+        }
+      ]
+    },
+    {
       "slug": "what-is-opc",
       "title": "What is OPC? AI Agent Skills for Solopreneurs Explained",
       "description": "According to 2025 data, solopreneurs waste 10+ hours weekly on manual tasks. OPC Skills provides 9 AI agent skills that reduce this by 85%. Learn how AI automation is transforming one-person companies.",

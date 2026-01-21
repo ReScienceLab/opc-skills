@@ -5,88 +5,167 @@ All notable changes to OPC Skills are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Skill Compatibility & Dependency Matrix
+
+Each skill maintains its own independent version. Use this matrix to understand dependencies and compatibility.
+
+| Skill | Current Version | Requires | Min Versions |
+|-------|-----------------|----------|--------------|
+| **requesthunt** | 1.0.0 | - | - |
+| **domain-hunter** | 1.0.0 | twitter, reddit | twitter ≥1.0.0, reddit ≥1.0.0 |
+| **logo-creator** | 1.0.0 | nanobanana | nanobanana ≥1.0.0 |
+| **banner-creator** | 1.0.0 | nanobanana | nanobanana ≥1.0.0 |
+| **nanobanana** | 1.0.0 | - | - |
+| **reddit** | 1.0.0 | - | - |
+| **twitter** | 1.0.0 | - | - |
+| **producthunt** | 1.0.0 | - | - |
+| **seo-geo** | 1.0.0 | twitter, reddit | twitter ≥1.0.0, reddit ≥1.0.0 |
+
+**Key Points:**
+- Each skill has an independent version number (MAJOR.MINOR.PATCH)
+- Skills can be released independently without coordinating with others
+- Use this matrix to identify dependencies before updating a skill
+- When a dependency skill updates with breaking changes, dependent skills need to be tested
+
+---
+
 ## [Unreleased]
 
-### Added
-- Documentation: Comprehensive AGENTS.md with version management and git workflow guidelines
-- Infrastructure: CHANGELOG.md for tracking version history and skill changes
+### requesthunt
+- (no changes)
 
-## [1.0.0] - 2025-01-21
+### domain-hunter
+- (no changes)
 
-### Added - Initial Release
+### logo-creator
+- (no changes)
 
-#### Core Skills
-- **requesthunt** (v1.0.0): Generate user demand research reports from Reddit, X, and GitHub
-  - Collect real user feedback across multiple platforms
-  - Filter and search by topic, platform, and timeframe
-  - Generate structured demand research reports
-  
-- **domain-hunter** (v1.0.0): Search domains, compare registrar prices, and find promo codes
-  - Query domain availability and pricing
-  - Compare prices across registrars
-  - Find current promo codes from Twitter and Reddit
-  - Dependencies: twitter, reddit
+### banner-creator
+- (no changes)
 
-- **logo-creator** (v1.0.0): Create logos using AI image generation
-  - Generate logo variations with Gemini
-  - Remove background from images
-  - Crop logos to desired aspect ratios
-  - Export as SVG vector format
-  - Dependencies: nanobanana
+### nanobanana
+- (no changes)
 
-- **banner-creator** (v1.0.0): Create banners for GitHub, Twitter, LinkedIn, and other platforms
-  - Generate banner variations with Gemini
-  - Crop to platform-specific ratios (16:9, 21:9, 2:1, etc.)
-  - Support for different banner formats and styles
-  - Dependencies: nanobanana
+### reddit
+- (no changes)
 
-#### Image Generation
-- **nanobanana** (v1.0.0): Generate and edit images using Google Gemini 3 Pro Image
-  - Text-to-image generation
-  - Image-to-image editing and variations
-  - Support for multiple aspect ratios (1:1, 2:3, 3:2, 16:9, 21:9, etc.)
-  - 2K and 4K high-resolution output options
-  - Batch image generation
+### twitter
+- (no changes)
 
-#### Data Collection & Integration
-- **reddit** (v1.0.0): Search and retrieve content from Reddit
-  - Access public JSON API without authentication
-  - Search posts and subreddits
-  - Get user profiles and comment threads
-  - No API key required
+### producthunt
+- (no changes)
 
-- **twitter** (v1.0.0): Search and retrieve content from Twitter/X
-  - User information and tweet retrieval
-  - Search tweets by keyword
-  - Get follower information and trends
-  - Via twitterapi.io API service
+### seo-geo
+- (no changes)
 
-- **producthunt** (v1.0.0): Search and retrieve content from Product Hunt
-  - Query posts, topics, and collections
-  - Get user and product information
-  - Access GraphQL API for detailed data
-  - Requires Product Hunt API access token
+## Released Versions
 
-#### SEO & Optimization
-- **seo-geo** (v1.0.0): SEO & GEO (Generative Engine Optimization) for websites
-  - Optimize for traditional search engines (Google, Bing)
-  - Optimize for AI search engines (ChatGPT, Perplexity, Gemini, Copilot, Claude)
-  - Generate schema markup and JSON-LD
-  - Keyword research and SERP analysis
-  - Princeton GEO research methods for +40% AI visibility
-  - Optional DataForSEO API integration for advanced features
-  - Dependencies: twitter, reddit
+### requesthunt
 
-### Features
+#### [1.0.0] - 2025-01-21
+- **Added**: Initial release
+- Generate user demand research reports from Reddit, X, and GitHub
+- Collect real user feedback across multiple platforms
+- Filter and search by topic, platform, and timeframe
+- Generate structured demand research reports
+
+### domain-hunter
+
+#### [1.0.0] - 2025-01-21
+- **Added**: Initial release
+- Search domains, compare registrar prices, and find promo codes
+- Query domain availability and pricing
+- Compare prices across registrars
+- Find current promo codes from Twitter and Reddit
+- **Dependencies**: twitter ≥1.0.0, reddit ≥1.0.0
+
+### logo-creator
+
+#### [1.0.0] - 2025-01-21
+- **Added**: Initial release
+- Create logos using AI image generation
+- Generate logo variations with Gemini
+- Remove background from images
+- Crop logos to desired aspect ratios
+- Export as SVG vector format
+- **Dependencies**: nanobanana ≥1.0.0
+
+### banner-creator
+
+#### [1.0.0] - 2025-01-21
+- **Added**: Initial release
+- Create banners for GitHub, Twitter, LinkedIn, and other platforms
+- Generate banner variations with Gemini
+- Crop to platform-specific ratios (16:9, 21:9, 2:1, etc.)
+- Support for different banner formats and styles
+- **Dependencies**: nanobanana ≥1.0.0
+
+### nanobanana
+
+#### [1.0.0] - 2025-01-21
+- **Added**: Initial release
+- Generate and edit images using Google Gemini 3 Pro Image (Nano Banana Pro)
+- Text-to-image generation
+- Image-to-image editing and variations
+- Support for multiple aspect ratios (1:1, 2:3, 3:2, 16:9, 21:9, etc.)
+- 2K and 4K high-resolution output options
+- Batch image generation
+
+### reddit
+
+#### [1.0.0] - 2025-01-21
+- **Added**: Initial release
+- Search and retrieve content from Reddit
+- Access public JSON API without authentication
+- Search posts and subreddits
+- Get user profiles and comment threads
+- No API key required
+
+### twitter
+
+#### [1.0.0] - 2025-01-21
+- **Added**: Initial release
+- Search and retrieve content from Twitter/X
+- User information and tweet retrieval
+- Search tweets by keyword
+- Get follower information and trends
+- Via twitterapi.io API service
+
+### producthunt
+
+#### [1.0.0] - 2025-01-21
+- **Added**: Initial release
+- Search and retrieve content from Product Hunt
+- Query posts, topics, and collections
+- Get user and product information
+- Access GraphQL API for detailed data
+- Requires Product Hunt API access token
+
+### seo-geo
+
+#### [1.0.0] - 2025-01-21
+- **Added**: Initial release
+- SEO & GEO (Generative Engine Optimization) for websites
+- Optimize for traditional search engines (Google, Bing)
+- Optimize for AI search engines (ChatGPT, Perplexity, Gemini, Copilot, Claude)
+- Generate schema markup and JSON-LD
+- Keyword research and SERP analysis
+- Princeton GEO research methods for +40% AI visibility
+- Optional DataForSEO API integration for advanced features
+- **Dependencies**: twitter ≥1.0.0, reddit ≥1.0.0
+
+---
+
+## Initial Release Features
+
+### Unified Installation & Support
 - Unified installation system via `npx skills add`
 - Support for 16+ AI agent tools (Claude Code, Cursor, Droid, Windsurf, etc.)
 - Composable skills with dependency management
 - Comprehensive documentation website (opc.dev)
 - SKILL.md standard with YAML frontmatter for all skills
-- Example workflows and use cases for each skill
-- API documentation and reference links
 
-### Documentation
+### Documentation & Resources
 - Official website: https://opc.dev
 - Skill browser: https://skills.sh/ReScienceLab/opc-skills
 - Individual skill repositories on GitHub
@@ -98,21 +177,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - MIT License
 - Automated skill installation scripts
 - Website deployment pipeline
-
-## Skill Dependencies
-
-### Direct Dependencies
-- **domain-hunter** → requires: twitter, reddit
-- **logo-creator** → requires: nanobanana
-- **banner-creator** → requires: nanobanana
-- **seo-geo** → requires: twitter, reddit (optional for basic audit)
-
-### Independent Skills
-- **requesthunt**: No dependencies
-- **nanobanana**: No dependencies
-- **reddit**: No dependencies
-- **twitter**: No dependencies
-- **producthunt**: No dependencies
 
 ## Version Compatibility
 

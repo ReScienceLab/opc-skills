@@ -347,55 +347,165 @@ Resolves #125
 
 ## Release Process
 
-### Single Skill Release
+### Quick Release - Single Skill Update
 
-When updating one skill:
+Each skill maintains **independent version numbers** and can be released independently.
 
-1. **Update version** in `skills.json`
+#### Example: Update twitter v1.0.0 → v1.1.0
+
+1. **Create feature branch**
+   ```bash
+   git checkout develop
+   git pull origin develop
+   git checkout -b feature/skill/twitter/rate-limit-improvement
+   ```
+
+2. **Update version in skills.json** (only this skill)
    ```json
    {
-     "name": "domain-hunter",
-     "version": "1.1.0"
+     "name": "twitter",
+     "version": "1.1.0"  // ← update version only
    }
    ```
 
-2. **Add changelog entry**
+3. **Update CHANGELOG.md** - Add entry in the appropriate Unreleased section
    ```markdown
-   ## [1.1.0] - 2025-01-21
-   
-   ### Added
-   - **domain-hunter**: New WHOIS lookup feature (#123)
+   ### twitter
+   #### [1.1.0] - 2025-01-22
+   - **Added**: Retry mechanism for rate limit handling
+   - **Fixed**: Improved error handling for connection timeouts
    ```
 
-3. **Create feature PR** targeting `develop` with changes
-4. **Merge after approval** and tests pass
-5. **Create release notes** in GitHub releases
+4. **Commit with conventional commit**
+   ```bash
+   git commit -m "feat(twitter): Add retry mechanism and improve rate limiting"
+   ```
 
-### Full Project Release
+5. **Push and create PR**
+   ```bash
+   git push -u origin feature/skill/twitter/rate-limit-improvement
+   gh pr create --base develop --head feature/skill/twitter/rate-limit-improvement
+   ```
 
-When coordinating multiple skills for a major release:
+6. **Merge PR** when approved and tests pass
+
+7. **After merge, identify and test dependents**
+   - Check CHANGELOG.md Compatibility Matrix for who depends on twitter
+   - Skills that depend on twitter: domain-hunter, seo-geo
+   - Run compatibility tests: `python3 skills/domain-hunter/scripts/test_twitter.py`
+   - **No need to bump dependent versions** unless there's a breaking change
+
+### Coordinated Release - Multiple Skills
+
+When multiple skills should release together (rare, for milestone releases):
 
 1. **Start release branch**
    ```bash
-   git flow release start v2.0.0
+   git checkout develop
+   git pull origin develop
+   git checkout -b release/v2.0.0
    ```
 
-2. **Update all skill versions** in `skills.json`
-3. **Update CHANGELOG.md** - Move all items from `[Unreleased]` to `[2.0.0]` section
-4. **Add release date** in format `[2.0.0] - YYYY-MM-DD`
-5. **Organize changes** by Added, Changed, Fixed, Removed, Deprecated
-6. **Reference issues and PRs** in changelog entries (e.g., "Issue #63", "PR #64")
-7. **Run tests**: `npm run test && npm run typecheck`
-8. **Commit and merge**:
+2. **Update multiple skill versions** in `skills.json`
+   ```json
+   [
+     { "name": "twitter", "version": "2.0.0" },
+     { "name": "reddit", "version": "1.1.0" },
+     { "name": "domain-hunter", "version": "1.1.0" }
+   ]
+   ```
+
+3. **Update CHANGELOG.md** - Reorganize Unreleased sections into [2.0.0]
+   - Move items from `[Unreleased]` sections to `## [2.0.0] - 2025-01-23`
+   - Keep organization by skill (see example below)
+
+4. **Run tests**
+   ```bash
+   npm run test && npm run typecheck
+   ```
+
+5. **Create single PR** targeting main
    ```bash
    git add skills.json CHANGELOG.md
-   git commit -m "chore: Release v2.0.0"
-   git flow release finish v2.0.0
-   git push origin main develop --tags
+   git commit -m "chore(release): Version 2.0.0 - multiple skill updates"
+   git push -u origin release/v2.0.0
+   gh pr create --base main --head release/v2.0.0
    ```
 
-9. **Create GitHub release** with changelog content
-10. **Publish skills** via npm registry (if applicable)
+6. **Merge to main**
+
+7. **Create GitHub release** with version tag and changelog
+
+### Breaking Changes - Important ⚠️
+
+When a skill introduces breaking changes, **clearly mark** them:
+
+```markdown
+### twitter
+#### [2.0.0] - 2025-01-23 ⚠️ BREAKING
+- **Changed**: API now requires v2 endpoint authentication
+- **Removed**: Deprecated v1 endpoint support (use twitter-legacy v1.0.0 if needed)
+- **Migration Guide**: See docs/migration-guide.md
+```
+
+#### Handling Breaking Changes in Dependent Skills
+
+When a dependency skill has breaking changes:
+
+1. **Identify dependent skills** using CHANGELOG Matrix
+2. **Create separate PRs** for each dependent skill to adapt to the breaking change
+3. **Test compatibility** before merging dependent updates
+4. **Update dependent skill versions** only if they contain breaking change fixes
+
+Example workflow:
+```
+Main dependency: twitter v1.0.0 → v2.0.0 (breaking)
+
+Affected: domain-hunter, seo-geo
+
+Create two PRs:
+- feature/skill/domain-hunter/twitter-v2-compat
+- feature/skill/seo-geo/twitter-v2-compat
+
+Each can be reviewed and merged independently
+```
+
+### Version Compatibility Testing
+
+**Before merging any skill update, test compatibility:**
+
+```bash
+# If skill has dependencies, test that it still works
+# Example: when updating domain-hunter
+python3 skills/domain-hunter/scripts/test_dependencies.py
+
+# If skill is a dependency, test dependent skills
+# Example: when updating nanobanana
+python3 skills/logo-creator/scripts/test_nanobanana_compat.py
+python3 skills/banner-creator/scripts/test_nanobanana_compat.py
+```
+
+### Dependency Update Rules
+
+| Scenario | Action | Version Bump |
+|----------|--------|-------------|
+| Skill A releases minor update | Dependent skill B **no action needed** | No change |
+| Skill A releases patch update | Dependent skill B **no action needed** | No change |
+| Skill A releases breaking change | Dependent skill B **must update** to support new version | Patch or Minor |
+| Dependent skill B wants to document support for new Skill A | Update B's CHANGELOG only | No version bump needed |
+
+### Release Checklist
+
+Before merging any release PR:
+
+- [ ] Version numbers updated in `skills.json` (only for skills being released)
+- [ ] CHANGELOG.md entries created for each updated skill
+- [ ] Skill's own dependencies tested (if applicable)
+- [ ] Dependent skills tested if this is a breaking change
+- [ ] Conventional commit message used
+- [ ] PR description references issue number(s) if applicable
+- [ ] All CI/CD checks pass (tests, type-check, lint)
+- [ ] Documentation (SKILL.md, examples) updated if needed
 
 ## Development Best Practices
 

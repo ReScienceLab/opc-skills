@@ -20,7 +20,7 @@
         "user demand",
         "demand research"
       ],
-      "dependencies": [],
+      "dependencies": {},
       "auth": {
         "required": true,
         "type": "api_key",
@@ -70,10 +70,10 @@
         ".ai domain",
         ".com domain"
       ],
-      "dependencies": [
-        "twitter",
-        "reddit"
-      ],
+      "dependencies": {
+        "twitter": ">=1.0.0",
+        "reddit": ">=1.0.0"
+      },
       "auth": {
         "required": false,
         "type": null,
@@ -120,9 +120,9 @@
         "create logo",
         "design logo"
       ],
-      "dependencies": [
-        "nanobanana"
-      ],
+      "dependencies": {
+        "nanobanana": ">=1.0.0"
+      },
       "auth": {
         "required": true,
         "type": "api_key",
@@ -172,9 +172,9 @@
         "twitter header",
         "readme banner"
       ],
-      "dependencies": [
-        "nanobanana"
-      ],
+      "dependencies": {
+        "nanobanana": ">=1.0.0"
+      },
       "auth": {
         "required": true,
         "type": "api_key",
@@ -220,7 +220,7 @@
         "gemini image",
         "AI image"
       ],
-      "dependencies": [],
+      "dependencies": {},
       "auth": {
         "required": true,
         "type": "api_key",
@@ -264,7 +264,7 @@
         "subreddit",
         "r/"
       ],
-      "dependencies": [],
+      "dependencies": {},
       "auth": {
         "required": false,
         "type": null,
@@ -309,7 +309,7 @@
         "X",
         "tweet"
       ],
-      "dependencies": [],
+      "dependencies": {},
       "auth": {
         "required": true,
         "type": "api_key",
@@ -356,7 +356,7 @@
         "PH",
         "launch"
       ],
-      "dependencies": [],
+      "dependencies": {},
       "auth": {
         "required": true,
         "type": "api_key",
@@ -409,10 +409,10 @@
         "ChatGPT ranking",
         "Perplexity"
       ],
-      "dependencies": [
-        "twitter",
-        "reddit"
-      ],
+      "dependencies": {
+        "twitter": ">=1.0.0",
+        "reddit": ">=1.0.0"
+      },
       "auth": {
         "required": false,
         "type": "api_key",

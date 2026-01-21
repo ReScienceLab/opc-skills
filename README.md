@@ -39,10 +39,34 @@ For more information about the Agent Skills standard, see [agentskills.io](http:
 | <img src="./skill-logos/reddit.svg" width="24"> | [reddit](./skills/reddit) | Search and retrieve content from Reddit via the public JSON API |
 | <img src="./skill-logos/twitter.svg" width="24"> | [twitter](./skills/twitter) | Search and retrieve content from Twitter/X via twitterapi.io |
 | <img src="./skill-logos/producthunt.svg" width="24"> | [producthunt](./skills/producthunt) | Search Product Hunt posts, topics, users, and collections |
+| <img src="./skill-logos/seo-geo.svg" width="24"> | [seo-geo](./skills/seo-geo) | SEO & GEO optimization for AI search engines (ChatGPT, Perplexity, Google) |
 
 ## Quick Install
 
-### Using the Install Script (Recommended)
+### 🚀 Universal Install (Works with 16+ AI Tools)
+
+Install with one command - works with Claude Code, Cursor, Windsurf, Droid, and more:
+
+```bash
+# Install all skills
+npx skills add ReScienceLab/opc-skills
+
+# Install specific skill
+npx skills add ReScienceLab/opc-skills --skill reddit
+
+# Install to specific agent
+npx skills add ReScienceLab/opc-skills -a droid -a claude-code
+```
+
+Browse and discover skills at **[skills.sh](https://skills.sh/ReScienceLab/opc-skills)** 🎯
+
+> **Note:** For skills with dependencies (e.g., `domain-hunter` needs `twitter` + `reddit`), use the Advanced Install method below for automatic dependency resolution.
+
+---
+
+### ⚙️ Advanced Install (With Dependency Management)
+
+For power users who need dependency resolution, batch operations, and custom directories:
 
 ```bash
 # Clone the repo
@@ -59,6 +83,13 @@ cd opc-skills
 ./install.sh -t custom -d ~/.my-agent/skills all
 ```
 
+**Why use the advanced installer?**
+- ✅ Auto-installs dependencies (e.g., `domain-hunter` → `twitter`, `reddit`)
+- ✅ Batch install all skills with one command
+- ✅ Custom directory support
+- ✅ Project-level vs global install options
+- ✅ Beautiful dependency tree visualization
+
 ### One-liner Install
 
 ```bash
@@ -69,6 +100,32 @@ curl -fsSL opc.dev/install.sh | bash -s -- -t claude all
 curl -fsSL opc.dev/install.sh | bash -s -- -t droid reddit
 ```
 
+---
+
+## Supported AI Tools
+
+OPC Skills work with 16+ AI coding agents:
+
+| Agent | `npx` Support | Advanced Install |
+|-------|:-------------:|:----------------:|
+| Claude Code | ✅ | ✅ |
+| Cursor | ✅ | ✅ |
+| Factory Droid | ✅ | ✅ |
+| Windsurf | ✅ | ✅ |
+| OpenCode | ✅ | ✅ |
+| Codex | ✅ | ✅ |
+| GitHub Copilot | ✅ | ❌ |
+| Gemini CLI | ✅ | ❌ |
+| Goose | ✅ | ❌ |
+| Kilo Code | ✅ | ❌ |
+| Roo Code | ✅ | ❌ |
+| Trae | ✅ | ❌ |
+| And more... | ✅ | - |
+
+See the [full compatibility list](https://github.com/vercel-labs/add-skill#available-agents) for installation paths.
+
+---
+
 ## Manual Installation
 
 ### Skill Directory Locations
@@ -77,7 +134,7 @@ curl -fsSL opc.dev/install.sh | bash -s -- -t droid reddit
 |------|------------------|-------------------|
 | Claude Code | `~/.claude/skills/` | `.claude/skills/` |
 | Factory Droid | `~/.factory/skills/` | `.factory/skills/` |
-| Cursor | - | `.cursor/skills/` |
+| Cursor | `~/.cursor/skills/` | `.cursor/skills/` |
 | OpenCode | `~/.config/opencode/skills/` | - |
 | Codex | `~/.codex/skills/` | `.codex/skills/` |
 
@@ -115,18 +172,21 @@ See the [Skills API Quickstart](https://docs.claude.com/en/api/skills-guide#crea
 
 ## Creating New Skills
 
-Use the template in `./template/SKILL.md` as a starting point:
+See the template in `./template/` directory for the basic structure:
 
-```markdown
+1. Create a folder in `skills/` with your skill name
+2. Add a `SKILL.md` file with YAML frontmatter
+3. (Optional) Add scripts, examples, or other resources
+
+**Required fields in SKILL.md:**
+```yaml
 ---
 name: my-skill-name
-description: A clear description of what this skill does
+description: A clear description of what this skill does and when to use it
 ---
-
-# My Skill Name
-
-[Instructions for the AI agent]
 ```
+
+For detailed guidance, check out existing skills or visit the [Agent Skills specification](https://agentskills.io/).
 
 ## Contributing
 

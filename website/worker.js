@@ -403,9 +403,74 @@ Sitemap: https://opc.dev/sitemap.xml`, {
     .badge { display: inline-block; border: 1px solid var(--black); padding: 5px 14px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 24px; }
     h1 { font-family: var(--font-pixel); font-size: 20px; font-weight: 400; margin-bottom: 16px; letter-spacing: 0; line-height: 1.6; }
     .compatibility-note { font-size: 13px; color: var(--gray-600); margin: 0 auto 16px; max-width: 600px; }
-    .stats-bar { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 28px; font-size: 12px; color: var(--gray-600); }
+    .stats-bar { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 32px; font-size: 12px; color: var(--gray-600); }
     .stats-bar span { display: flex; align-items: center; gap: 4px; }
     .stats-bar strong { color: var(--black); font-weight: 700; }
+    
+    .tools-scroller { 
+      width: 100%; 
+      overflow: hidden; 
+      margin-bottom: 32px; 
+      padding: 20px 0; 
+      background: var(--gray-50); 
+      border-top: 1px solid var(--gray-200); 
+      border-bottom: 1px solid var(--gray-200);
+      position: relative;
+    }
+    .tools-scroller::before,
+    .tools-scroller::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .tools-scroller::before {
+      left: 0;
+      background: linear-gradient(to right, var(--gray-50), transparent);
+    }
+    .tools-scroller::after {
+      right: 0;
+      background: linear-gradient(to left, var(--gray-50), transparent);
+    }
+    .tools-track { 
+      display: flex; 
+      gap: 50px; 
+      animation: scroll 40s linear infinite; 
+    }
+    .tools-scroller:hover .tools-track {
+      animation-play-state: paused;
+    }
+    .tool-item { 
+      display: flex; 
+      align-items: center; 
+      gap: 8px; 
+      white-space: nowrap; 
+      flex-shrink: 0;
+      transition: opacity 0.3s ease;
+    }
+    .tool-item:hover {
+      opacity: 1;
+    }
+    .tool-item img { 
+      width: 24px; 
+      height: 24px; 
+      object-fit: contain; 
+      opacity: 0.9;
+    }
+    .tool-item span { 
+      font-size: 11px; 
+      color: var(--gray-600); 
+      font-weight: 500; 
+    }
+    
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    
     .hero-install { max-width: 600px; margin: 0 auto; width: 100%; }
     .hero-level-tabs { border-bottom: 1px solid var(--black); }
     .hero-tool-tabs { border-bottom: none; }
@@ -493,7 +558,11 @@ Sitemap: https://opc.dev/sitemap.xml`, {
       .badge { font-size: 9px; padding: 4px 10px; }
       h1 { font-size: 14px; line-height: 1.8; }
       .subtitle { font-size: 13px; }
-      .stats-bar { gap: 12px 20px; font-size: 11px; }
+      .stats-bar { gap: 12px 20px; font-size: 11px; margin-bottom: 24px; }
+      .tools-scroller { margin-bottom: 24px; padding: 12px 0; }
+      .tool-item { gap: 6px; }
+      .tool-item img { width: 20px; height: 20px; }
+      .tool-item span { font-size: 10px; }
       .hero-tabs { flex-wrap: wrap; }
       .hero-tab { flex: 1 1 auto; min-width: 60px; padding: 6px 8px; font-size: 10px; }
       .hero-cmd code { font-size: 9px; padding: 10px; }
@@ -573,6 +642,82 @@ Sitemap: https://opc.dev/sitemap.xml`, {
       <span><strong>16+</strong> AI Tools Supported</span>
       <span><strong>100%</strong> Free & Open Source</span>
       <span><strong>MIT</strong> License</span>
+    </div>
+    <div class="tools-scroller">
+      <div class="tools-track">
+        <div class="tool-item">
+          <img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-png@latest/light/anthropic.png" alt="Claude" width="24" height="24" loading="lazy">
+          <span>Claude</span>
+        </div>
+        <div class="tool-item">
+          <img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-png@latest/light/cursor.png" alt="Cursor" width="24" height="24" loading="lazy">
+          <span>Cursor</span>
+        </div>
+        <div class="tool-item">
+          <img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-png@latest/light/windsurf.png" alt="Windsurf" width="24" height="24" loading="lazy">
+          <span>Windsurf</span>
+        </div>
+        <div class="tool-item">
+          <img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-png@latest/light/openai.png" alt="OpenAI" width="24" height="24" loading="lazy">
+          <span>OpenAI</span>
+        </div>
+        <div class="tool-item">
+          <img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-png@latest/light/copilot.png" alt="GitHub Copilot" width="24" height="24" loading="lazy">
+          <span>GitHub Copilot</span>
+        </div>
+        <div class="tool-item">
+          <img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-png@latest/light/cline.png" alt="Cline" width="24" height="24" loading="lazy">
+          <span>Cline</span>
+        </div>
+        <div class="tool-item">
+          <img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-png@latest/light/replit.png" alt="Replit" width="24" height="24" loading="lazy">
+          <span>Replit</span>
+        </div>
+        <div class="tool-item">
+          <img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-png@latest/light/lmstudio.png" alt="LM Studio" width="24" height="24" loading="lazy">
+          <span>LM Studio</span>
+        </div>
+        <div class="tool-item">
+          <img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-png@latest/light/ollama.png" alt="Ollama" width="24" height="24" loading="lazy">
+          <span>Ollama</span>
+        </div>
+        <div class="tool-item">
+          <img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-png@latest/light/anthropic.png" alt="Claude" width="24" height="24" loading="lazy">
+          <span>Claude</span>
+        </div>
+        <div class="tool-item">
+          <img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-png@latest/light/cursor.png" alt="Cursor" width="24" height="24" loading="lazy">
+          <span>Cursor</span>
+        </div>
+        <div class="tool-item">
+          <img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-png@latest/light/windsurf.png" alt="Windsurf" width="24" height="24" loading="lazy">
+          <span>Windsurf</span>
+        </div>
+        <div class="tool-item">
+          <img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-png@latest/light/openai.png" alt="OpenAI" width="24" height="24" loading="lazy">
+          <span>OpenAI</span>
+        </div>
+        <div class="tool-item">
+          <img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-png@latest/light/copilot.png" alt="GitHub Copilot" width="24" height="24" loading="lazy">
+          <span>GitHub Copilot</span>
+        </div>
+        <div class="tool-item">
+          <img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-png@latest/light/cline.png" alt="Cline" width="24" height="24" loading="lazy">
+          <span>Cline</span>
+        </div>
+        <div class="tool-item">
+          <img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-png@latest/light/replit.png" alt="Replit" width="24" height="24" loading="lazy">
+          <span>Replit</span>
+        </div>
+        <div class="tool-item">
+          <img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-png@latest/light/lmstudio.png" alt="LM Studio" width="24" height="24" loading="lazy">
+          <span>LM Studio</span>
+        </div>
+        <div class="tool-item">
+          <img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-png@latest/light/ollama.png" alt="Ollama" width="24" height="24" loading="lazy">
+          <span>Ollama</span>
+        </div>
+      </div>
     </div>
     <div class="hero-install">
       <div class="hero-cmd">

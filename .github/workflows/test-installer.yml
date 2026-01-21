@@ -28,6 +28,7 @@ jobs:
           node-version: '18'
       
       - name: Test npx skills add for specific skill
+        shell: bash
         run: |
           # Create test directory
           mkdir -p test-workspace
@@ -60,6 +61,7 @@ jobs:
           node-version: '18'
       
       - name: Test npx skills add for all skills
+        shell: bash
         run: |
           # Create test directory
           mkdir -p test-workspace
@@ -97,7 +99,7 @@ jobs:
           SKILL_NAMES=$(jq -r '.skills[].name' skills.json)
           
           # Get all dependency names from object format (current format)
-          for dep in $(jq -r '.skills[].dependencies | keys[]? | .[]' skills.json 2>/dev/null); do
+          for dep in $(jq -r '.skills[] | select(.dependencies | type == "object") | .dependencies | keys[]' skills.json 2>/dev/null); do
             if ! echo "$SKILL_NAMES" | grep -q "^${dep}$"; then
               echo "Error: Invalid dependency '$dep'"
               exit 1
@@ -105,7 +107,7 @@ jobs:
           done
           
           # Also support legacy array format for backwards compatibility
-          for dep in $(jq -r '.skills[].dependencies[]? | select(type == "string")' skills.json 2>/dev/null); do
+          for dep in $(jq -r '.skills[] | select(.dependencies | type == "array") | .dependencies[]' skills.json 2>/dev/null); do
             if ! echo "$SKILL_NAMES" | grep -q "^${dep}$"; then
               echo "Error: Invalid dependency '$dep'"
               exit 1

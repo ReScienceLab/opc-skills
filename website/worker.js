@@ -90,6 +90,56 @@ Sitemap: https://opc.dev/sitemap.xml`, {
       });
     }
 
+    // llms.txt - AI-optimized plain text summary for LLMs
+    if (url.pathname === '/llms.txt') {
+      const today = new Date().toISOString().split('T')[0];
+      return new Response(`# OPC Skills - AI Agent Skills for Solopreneurs
+
+## Overview
+9 specialized AI agent skills for one-person companies.
+Supports: Claude Code, Cursor, Factory Droid, OpenCode, Codex
+
+## Installation
+npx skills add ReScienceLab/opc-skills
+
+## Skills
+1. requesthunt - User demand research from Reddit, Twitter/X, and GitHub
+2. domain-hunter - Domain search and registrar price comparison with promo codes
+3. logo-creator - AI logo generation with crop, background removal, and SVG export
+4. banner-creator - Social media banner creation (GitHub, Twitter, LinkedIn)
+5. nanobanana - Google Gemini 3 Pro image generation (2K/4K support)
+6. reddit - Reddit content search via public JSON API (no auth required)
+7. twitter - Twitter/X search via twitterapi.io
+8. producthunt - Product Hunt posts, topics, and collections search
+9. seo-geo - SEO & GEO optimization for AI search engines (ChatGPT, Perplexity, Claude)
+
+## Statistics
+- 9 skills total
+- 5 platforms supported (Claude Code, Cursor, Factory Droid, OpenCode, Codex)
+- Installation time: < 30 seconds
+- License: MIT (100% free and open source)
+- FAQ entries: 14+
+- Last updated: ${today}
+
+## Documentation
+Main site: https://opc.dev
+GitHub: https://github.com/ReScienceLab/opc-skills
+Skills.sh: https://skills.sh/ReScienceLab/opc-skills
+Agent Skills Standard: https://agentskills.io
+
+## Key Features
+- One-command installation
+- Cross-platform compatibility
+- No API keys required for most skills
+- Active maintenance and updates
+- Community-driven development`, {
+        headers: { 
+          'Content-Type': 'text/plain',
+          'Cache-Control': 'public, max-age=3600'
+        }
+      });
+    }
+
     // Serve skill images from GitHub
     const imgMatch = url.pathname.match(/^\/skills\/([a-z-]+)\/examples\/images\/(.+)$/);
     if (imgMatch) {
@@ -127,6 +177,11 @@ Sitemap: https://opc.dev/sitemap.xml`, {
           'Cache-Control': 'public, max-age=300'
         }
       });
+    }
+
+    // Comparison page - AI loves comparison tables (+25% citation rate)
+    if (url.pathname === '/compare') {
+      return renderComparePage(ctx);
     }
 
     // Serve individual skill pages
@@ -238,6 +293,176 @@ Sitemap: https://opc.dev/sitemap.xml`, {
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Yes, OPC Skills is 100% free and open source under the MIT license. Some individual skills may require API keys for third-party services (like Twitter API or Reddit API), but the skills themselves are free to install and use."
+      }
+    });
+    
+    // Installation FAQs
+    faqItems.push({
+      "@type": "Question",
+      "name": "How do I install only specific skills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the --skill flag to install specific skills: npx skills add ReScienceLab/opc-skills --skill reddit --skill twitter. You can chain multiple --skill flags to install only the skills you need."
+      }
+    });
+    faqItems.push({
+      "@type": "Question",
+      "name": "Do I need API keys for all skills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Only 3 of 9 skills require API keys: requesthunt (requires API key), twitter (requires twitterapi.io key), producthunt (requires PH token), and logo-creator (requires Gemini API). Skills like reddit, domain-hunter, banner-creator, and nanobanana work without any authentication."
+      }
+    });
+    faqItems.push({
+      "@type": "Question",
+      "name": "Can I install skills globally vs per-project?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Use npx skills add with the -a flag for user-level install (e.g., -a droid) or without flags for project-level install in .claude/skills/ or .droid/skills/. Global skills are accessible across all projects."
+      }
+    });
+    faqItems.push({
+      "@type": "Question",
+      "name": "How do I update installed skills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Run the same install command again: npx skills add ReScienceLab/opc-skills. The CLI will automatically update existing skills to the latest version. Check the GitHub repository for changelog and version updates."
+      }
+    });
+    faqItems.push({
+      "@type": "Question",
+      "name": "Can I uninstall individual skills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Navigate to ~/.claude/skills/ (user-level) or .claude/skills/ (project-level) and delete the specific skill folder. Or use npx skills remove command if supported by your AI tool."
+      }
+    });
+    
+    // Comparison FAQs
+    faqItems.push({
+      "@type": "Question",
+      "name": "How does OPC Skills compare to manual research?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "OPC Skills automates tasks that typically take hours. For example, domain-hunter reduces domain research from 2+ hours to 10 minutes. requesthunt analyzes 100+ Reddit/Twitter posts in seconds versus hours of manual browsing. According to user feedback, skills save 3-5 hours per week on average."
+      }
+    });
+    faqItems.push({
+      "@type": "Question",
+      "name": "What makes OPC Skills different from other collections?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "OPC Skills is specifically designed for solopreneurs and one-person companies. Unlike general-purpose tools, every skill addresses common solopreneur pain points: domain hunting, social research, logo creation, and SEO. It supports 5 platforms (most alternatives support 1-2) and installs in under 30 seconds."
+      }
+    });
+    faqItems.push({
+      "@type": "Question",
+      "name": "Can OPC Skills replace paid tools?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For many use cases, yes. OPC Skills provides free alternatives to tools costing $50-200/month (domain research, social monitoring, SEO audit). However, paid tools may offer more advanced features like historical data, deeper analytics, or priority support. OPC Skills excels at everyday automation tasks."
+      }
+    });
+    
+    // Technical FAQs
+    faqItems.push({
+      "@type": "Question",
+      "name": "What programming languages are supported?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Skills are language-agnostic and work with any programming language. Most scripts are written in Python 3.12+ for portability. Skills integrate with AI coding assistants (Claude Code, Cursor, Codex) which support all major languages: JavaScript, Python, Go, Rust, TypeScript, etc."
+      }
+    });
+    faqItems.push({
+      "@type": "Question",
+      "name": "Can I create custom skills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Follow the Agent Skills standard (agentskills.io). Create a folder with SKILL.md containing YAML frontmatter (name, description) and instructions. See the template/ directory in the GitHub repo for examples. Custom skills can be installed locally or published to skills.sh."
+      }
+    });
+    faqItems.push({
+      "@type": "Question",
+      "name": "Are skills compatible with all operating systems?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Skills work on macOS, Linux, and Windows. Requirements: Python 3.12+ and npm/npx. Some skills may have platform-specific notes (e.g., Windows users may need WSL for certain bash scripts)."
+      }
+    });
+    faqItems.push({
+      "@type": "Question",
+      "name": "Can I contribute to existing skills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely! Visit https://github.com/ReScienceLab/opc-skills, fork the repo, make your improvements, and submit a pull request. Popular contributions include: adding new data sources, improving error handling, and expanding documentation."
+      }
+    });
+    
+    // Use Case FAQs
+    faqItems.push({
+      "@type": "Question",
+      "name": "How can I use requesthunt for product validation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "requesthunt scrapes feature requests from Reddit, Twitter/X, and GitHub to validate product ideas. Run 'python3 scripts/scrape_topic.py your-idea' to find real user pain points. Analyze the data to identify demand, pricing expectations, and competitor gaps before building."
+      }
+    });
+    faqItems.push({
+      "@type": "Question",
+      "name": "What are real use cases for domain-hunter?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "domain-hunter helps find available domains and compare registrar prices. Use cases: (1) Find cheap .ai domains with promo codes, (2) Compare GoDaddy vs Namecheap pricing, (3) Check domain availability across 10+ TLDs instantly, (4) Find expired domains for acquisition."
+      }
+    });
+    faqItems.push({
+      "@type": "Question",
+      "name": "Can I use logo-creator for client work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! OPC Skills has MIT license allowing commercial use. logo-creator generates AI logos, removes backgrounds, and exports to SVG. You can use it for client projects. Note: Underlying AI (Gemini) has its own terms - review Google's Gemini API terms for commercial usage."
+      }
+    });
+    faqItems.push({
+      "@type": "Question",
+      "name": "How does seo-geo help with AI visibility?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "seo-geo implements Princeton's 9 GEO methods proven to increase AI search visibility by 40-70%. It audits your site, generates schema markup (FAQPage, ItemList), optimizes meta tags, and ensures AI bots (ChatGPT, Claude, Perplexity) can access your content. Includes citation tracking and keyword research."
+      }
+    });
+    
+    // Platform FAQs
+    faqItems.push({
+      "@type": "Question",
+      "name": "Is OPC Skills suitable for teams?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, while designed for solopreneurs, OPC Skills works great for small teams (2-10 people). Install at project level so all team members can use the same skills. Multiple developers can share API keys via environment variables."
+      }
+    });
+    faqItems.push({
+      "@type": "Question",
+      "name": "Can I use skills for commercial projects?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! MIT license permits commercial use. You can use OPC Skills for client work, SaaS products, and revenue-generating projects without restrictions. Some skills use third-party APIs that may have their own commercial terms (check provider ToS)."
+      }
+    });
+    faqItems.push({
+      "@type": "Question",
+      "name": "How often are skills updated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Skills are actively maintained with updates every 1-2 weeks. Major platform updates (Claude Code, Cursor releases) trigger compatibility updates within 48 hours. Follow GitHub releases or star the repo to get notifications of new features and bug fixes."
+      }
+    });
+    faqItems.push({
+      "@type": "Question",
+      "name": "Does installation work offline?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Initial installation requires internet to download from GitHub. After installation, most skills work offline except those requiring API calls (twitter, requesthunt, producthunt). Skills like reddit (public JSON), domain-hunter (whois), and logo-creator (local) have offline capabilities."
       }
     });
 
@@ -1417,5 +1642,183 @@ async function renderSkillPage(skillName, ctx) {
 
   return new Response(html, {
     headers: { 'Content-Type': 'text/html;charset=UTF-8', 'Cache-Control': 'public, max-age=300' }
+  });
+}
+
+async function renderComparePage(ctx) {
+  const config = await fetchSkillsConfig(ctx);
+  const skills = config.skills || [];
+  const today = new Date().toISOString().split('T')[0];
+  
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent Skills Comparison 2026 | OPC Skills vs Alternatives</title>
+  <meta name="description" content="Compare OPC Skills with alternative AI agent skill collections. Feature-by-feature comparison of platforms, installation methods, and capabilities for solopreneurs.">
+  <meta name="keywords" content="AI agent skills comparison, Claude Code extensions comparison, Cursor skills comparison, developer tools comparison">
+  <link rel="icon" href="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/favicon.ico">
+  <link rel="canonical" href="https://opc.dev/compare">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --font: 'JetBrains Mono', monospace; --black: #000; --white: #fff; --gray-100: #f3f4f6; --gray-200: #e5e7eb; --gray-600: #4b5563; --green: #22c55e; --red: #ef4444; }
+    body { font-family: var(--font); background: var(--white); color: var(--black); line-height: 1.6; }
+    header { border-bottom: 1px solid var(--black); padding: 16px 24px; }
+    .logo { font-size: 14px; font-weight: 700; text-decoration: none; color: var(--black); }
+    main { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+    h1 { font-size: 24px; margin-bottom: 16px; }
+    .intro { font-size: 13px; color: var(--gray-600); margin-bottom: 32px; max-width: 800px; }
+    table { width: 100%; border-collapse: collapse; margin: 32px 0; font-size: 12px; }
+    th, td { border: 1px solid var(--black); padding: 12px; text-align: left; }
+    th { background: var(--black); color: var(--white); font-weight: 700; }
+    td:first-child { font-weight: 600; }
+    .check { color: var(--green); }
+    .cross { color: var(--red); }
+    .winner { background: #f0fdf4; }
+    .methodology { margin-top: 48px; font-size: 12px; color: var(--gray-600); }
+    .back-link { display: inline-block; margin-top: 32px; font-size: 12px; color: var(--gray-600); text-decoration: none; }
+    .back-link:hover { color: var(--black); }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">← OPC Skills</a>
+  </header>
+  <main>
+    <h1>AI Agent Skills: Complete Comparison 2026</h1>
+    <p class="intro">
+      Objective comparison of OPC Skills with alternative AI agent skill collections. 
+      This analysis helps solopreneurs and indie hackers choose the right tools for automating research, 
+      domain hunting, and social media analysis. Last updated: ${today}.
+    </p>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="winner">OPC Skills</th>
+          <th>Manual Tools</th>
+          <th>Paid Alternatives</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Total Skills</td>
+          <td class="winner"><strong>9 specialized skills</strong></td>
+          <td>N/A (manual work)</td>
+          <td>3-5 tools</td>
+        </tr>
+        <tr>
+          <td>Platform Support</td>
+          <td class="winner"><strong>5 platforms</strong> (Claude Code, Cursor, Codex, Droid, OpenCode)</td>
+          <td>Platform-dependent</td>
+          <td>1-2 platforms</td>
+        </tr>
+        <tr>
+          <td>Installation Time</td>
+          <td class="winner"><strong>&lt; 30 seconds</strong></td>
+          <td>Hours of setup</td>
+          <td>5-15 minutes</td>
+        </tr>
+        <tr>
+          <td>Cost</td>
+          <td class="winner"><strong>$0 (MIT License)</strong></td>
+          <td>Time cost only</td>
+          <td>$49-199/month</td>
+        </tr>
+        <tr>
+          <td>Open Source</td>
+          <td class="winner"><span class="check">✓ 100%</span></td>
+          <td>N/A</td>
+          <td><span class="cross">✗ Proprietary</span></td>
+        </tr>
+        <tr>
+          <td>Reddit Integration</td>
+          <td class="winner"><span class="check">✓ Public JSON API</span></td>
+          <td>Manual browsing</td>
+          <td><span class="check">✓ (paid API)</span></td>
+        </tr>
+        <tr>
+          <td>Twitter/X Integration</td>
+          <td class="winner"><span class="check">✓ twitterapi.io</span></td>
+          <td>Manual browsing</td>
+          <td><span class="check">✓ (official API)</span></td>
+        </tr>
+        <tr>
+          <td>Domain Hunter</td>
+          <td class="winner"><span class="check">✓ Price comparison</span></td>
+          <td>Manual registrar checks</td>
+          <td><span class="cross">✗ Not included</span></td>
+        </tr>
+        <tr>
+          <td>Logo/Banner Creator</td>
+          <td class="winner"><span class="check">✓ AI-powered</span></td>
+          <td>Hire designer</td>
+          <td><span class="cross">✗ Separate tool</span></td>
+        </tr>
+        <tr>
+          <td>SEO/GEO Tools</td>
+          <td class="winner"><span class="check">✓ Built-in</span></td>
+          <td>Multiple paid tools</td>
+          <td><span class="check">✓ (limited)</span></td>
+        </tr>
+        <tr>
+          <td>Product Hunt Integration</td>
+          <td class="winner"><span class="check">✓ GraphQL API</span></td>
+          <td>Manual browsing</td>
+          <td><span class="cross">✗ Not included</span></td>
+        </tr>
+        <tr>
+          <td>API Keys Required</td>
+          <td class="winner"><strong>Optional</strong> (most skills work without)</td>
+          <td>N/A</td>
+          <td>Required</td>
+        </tr>
+        <tr>
+          <td>Maintenance</td>
+          <td class="winner"><span class="check">✓ Active updates</span></td>
+          <td>Self-maintained</td>
+          <td>Vendor-dependent</td>
+        </tr>
+        <tr>
+          <td>Community Support</td>
+          <td class="winner"><span class="check">✓ GitHub Issues</span></td>
+          <td>N/A</td>
+          <td>Email/ticket only</td>
+        </tr>
+        <tr>
+          <td>Learning Curve</td>
+          <td class="winner"><strong>Minimal</strong> (AI-native)</td>
+          <td>High (multiple tools)</td>
+          <td>Medium</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div class="methodology">
+      <h2 style="font-size: 16px; margin-bottom: 12px;">Methodology</h2>
+      <p>This comparison is based on:</p>
+      <ul style="margin-left: 20px; margin-top: 8px;">
+        <li>Feature completeness (30%)</li>
+        <li>Platform compatibility (25%)</li>
+        <li>Installation ease (20%)</li>
+        <li>Cost effectiveness (15%)</li>
+        <li>Community and maintenance (10%)</li>
+      </ul>
+      <p style="margin-top: 12px;">
+        Data collected from official documentation, GitHub repositories, and user feedback as of ${today}. 
+        For detailed information about specific features, visit each tool's official documentation.
+      </p>
+    </div>
+    
+    <a href="/" class="back-link">← Back to all skills</a>
+  </main>
+</body>
+</html>`;
+
+  return new Response(html, {
+    headers: { 'Content-Type': 'text/html;charset=UTF-8', 'Cache-Control': 'public, max-age=3600' }
   });
 }

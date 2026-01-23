@@ -223,8 +223,11 @@ Agent Skills Standard: https://agentskills.io
       return renderSkillPage(skillMatch[1], ctx);
     }
 
-    // Fetch skills from config
-    const config = await fetchSkillsConfig(ctx);
+    // Fetch skills from config and install stats
+    const [config, installStats] = await Promise.all([
+      fetchSkillsConfig(ctx),
+      fetchInstallStats(ctx)
+    ]);
     const skills = config.skills || [];
 
     // Generate JSON-LD structured data for skills (GEO-optimized)
@@ -559,7 +562,9 @@ Agent Skills Standard: https://agentskills.io
     };
 
     // Generate skill cards with simplified npx install command
-    const skillCards = skills.map(s => `
+    const skillCards = skills.map(s => {
+      const installs = installStats.skills?.[s.name] || 0;
+      return `
         <div class="skill-card" id="skill-${s.name}">
           <div class="skill-header">
             <div class="skill-icon">
@@ -567,7 +572,7 @@ Agent Skills Standard: https://agentskills.io
             </div>
             <div class="skill-title">
               <h3><a href="/skills/${s.name}" style="color:inherit;text-decoration:none;">${s.name}</a></h3>
-              <span class="version">v${s.version}</span>
+              <span class="version">v${s.version}</span>${installs > 0 ? ` <span class="install-count">${installs} installs</span>` : ''}
             </div>
             ${s.auth.required ? `<span class="auth-tag paid">API Key</span>` : `<span class="auth-tag free">Free</span>`}
             ${s.links.example ? `<a href="${s.links.example}" target="_blank" rel="noopener noreferrer" class="example-link" title="View Example">
@@ -592,7 +597,8 @@ Agent Skills Standard: https://agentskills.io
               ${s.commands.map(cmd => `<code>${cmd}</code>`).join('')}
             </div>
           </details>
-        </div>`).join('');
+        </div>`;
+    }).join('');
 
     const html = `<!DOCTYPE html>
 <html lang="en">
@@ -730,13 +736,6 @@ Agent Skills Standard: https://agentskills.io
     }
     
     .hero-install { max-width: 600px; margin: 0 auto; width: 100%; }
-    .hero-level-tabs { border-bottom: 1px solid var(--black); }
-    .hero-tool-tabs { border-bottom: none; }
-    .hero-tabs { display: flex; border: 1px solid var(--black); border-bottom: none; }
-    .hero-tab { flex: 1; padding: 8px 12px; background: var(--white); border: none; font-family: var(--font); font-size: 11px; cursor: pointer; border-right: 1px solid var(--black); }
-    .hero-tab:last-child { border-right: none; }
-    .hero-tab.active { background: var(--black); color: var(--white); }
-    .hero-tab.disabled { opacity: 0.4; cursor: not-allowed; }
     .hero-cmd { display: flex; border: 1px solid var(--black); }
     .hero-cmd code { flex: 1; padding: 12px; font-size: 11px; background: var(--gray-100); overflow-x: auto; white-space: nowrap; }
     .hero-cmd .copy-btn { padding: 12px 16px; background: var(--black); color: var(--white); border: none; font-family: var(--font); font-size: 11px; cursor: pointer; border-left: 1px solid var(--black); }
@@ -766,6 +765,7 @@ Agent Skills Standard: https://agentskills.io
     .auth-tag { font-size: 9px; padding: 3px 8px; font-weight: 500; line-height: 1; }
     .auth-tag.free { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
     .auth-tag.paid { background: #fef3c7; border: 1px solid #fcd34d; color: #92400e; }
+    .install-count { font-size: 9px; color: var(--gray-500); margin-left: 6px; }
     
     .install-section { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
     .install-tabs { display: flex; gap: 0; margin-bottom: 4px; flex-wrap: wrap; }
@@ -1219,6 +1219,40 @@ async function fetchSkillsConfig(ctx) {
   return getFallbackConfig();
 }
 
+// Fetch install stats from GitHub with caching
+async function fetchInstallStats(ctx) {
+  const STATS_URL = 'https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/install-stats.json';
+  const cache = caches.default;
+  const cacheUrl = new URL('https://opc.dev/_cache/install-stats.json');
+  
+  let response = await cache.match(cacheUrl);
+  if (response) {
+    return await response.json();
+  }
+
+  try {
+    const res = await fetch(STATS_URL, {
+      headers: { 'User-Agent': 'OPC-Skills-Website' }
+    });
+    
+    if (res.ok) {
+      const stats = await res.json();
+      const cacheResponse = new Response(JSON.stringify(stats), {
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'public, max-age=3600'
+        }
+      });
+      ctx.waitUntil(cache.put(cacheUrl, cacheResponse));
+      return stats;
+    }
+  } catch (e) {
+    console.error('Error fetching install-stats.json:', e);
+  }
+
+  return { total: 0, skills: {} };
+}
+
 function getFallbackConfig() {
   return {
     version: "1.0.0",
@@ -1414,12 +1448,17 @@ function markdownToHtml(md) {
 
 // Render individual skill page
 async function renderSkillPage(skillName, ctx) {
-  const config = await fetchSkillsConfig(ctx);
+  const [config, installStats] = await Promise.all([
+    fetchSkillsConfig(ctx),
+    fetchInstallStats(ctx)
+  ]);
   const skill = config.skills.find(s => s.name === skillName);
   
   if (!skill) {
     return new Response('Skill not found', { status: 404, headers: { 'Content-Type': 'text/plain' } });
   }
+  
+  const installs = installStats.skills?.[skillName] || 0;
 
   // Fetch SKILL.md from GitHub
   const mdUrl = `https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/skills/${skillName}/SKILL.md`;
@@ -1571,12 +1610,12 @@ async function renderSkillPage(skillName, ctx) {
     .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--black); }
     .logo-icon img { width: 32px; height: 32px; }
     .logo-text { font-family: var(--font-pixel); font-size: 10px; }
-    nav a { font-size: 12px; color: var(--gray-600); text-decoration: none; margin-left: 16px; }
+    nav a { font-size: 12px; color: var(--gray-600); text-decoration: none; }
     nava:hover { color: var(--black); }
     main { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
     .breadcrumb { font-size: 12px; color: var(--gray-600); margin-bottom: 24px; }
     .breadcrumb a { color: var(--gray-600); text-decoration: none; }
-    .breadcrumb a:hover { color: var(--black); }
+    .breadcrumb a:hover { color: var(--black); text-decoration: underline; }
     .skill-hero { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--gray-200); }
     .skill-hero img { width: 64px; height: 64px; }
     .skill-hero h1 { font-size: 24px; font-weight: 700; }
@@ -1624,7 +1663,7 @@ async function renderSkillPage(skillName, ctx) {
     .skill-links a { font-size: 12px; padding: 8px 16px; border: 1px solid var(--black); text-decoration: none; color: var(--black); }
     .skill-links a:hover { background: var(--black); color: var(--white); }
     .back-link { font-size: 13px; color: var(--gray-600); text-decoration: none; display: inline-block; margin-top: 24px; }
-    .back-link:hover { color: var(--black); }
+    .back-link:hover { color: var(--black); text-decoration: underline; }
     footer { border-top: 1px solid var(--black); padding: 24px; text-align: center; }
     footer p { font-size: 11px; color: var(--gray-600); }
     footer a { color: var(--gray-600); }
@@ -1656,7 +1695,7 @@ async function renderSkillPage(skillName, ctx) {
     <article class="skill-hero" itemscope itemtype="https://schema.org/SoftwareApplication">
       <img src="${skill.logo || `https://cdn.simpleicons.org/${skill.icon}/${skill.color}`}" alt="${skill.name} logo" itemprop="image">
       <div>
-        <h1 itemprop="name">${skill.name}<span class="version" itemprop="softwareVersion">v${skill.version}</span></h1>
+        <h1 itemprop="name">${skill.name}<span class="version" itemprop="softwareVersion">v${skill.version}</span>${installs > 0 ? `<span class="install-count" style="font-size:12px;color:#6b7280;margin-left:12px;font-weight:400;">${installs} installs</span>` : ''}</h1>
         ${skill.auth.required ? '<span class="auth-tag paid">API Key Required</span>' : '<span class="auth-tag free">Free</span>'}
       </div>
     </article>
@@ -1668,8 +1707,8 @@ async function renderSkillPage(skillName, ctx) {
       <h3 style="font-size:14px;font-weight:600;margin-bottom:12px;">Quick Install</h3>
       <div class="install-box" style="background:#f9fafb;border:2px solid #000;padding:0;position:relative;overflow:hidden;">
         <div style="display:flex;align-items:stretch;">
-          <code class="install-cmd" style="flex:1;font-size:12px;padding:14px 16px;background:#f9fafb;overflow-x:auto;white-space:nowrap;font-family:monospace;color:#000;line-height:1.5;">npx skills add ReScienceLab/opc-skills --skill ${skill.dependencies && skill.dependencies.length > 0 ? skill.dependencies.concat(skillName).join(' --skill ') : skillName}</code>
-          <button class="copy-btn" style="background:#000;color:#fff;border:none;border-left:2px solid #000;padding:12px 20px;font-size:11px;cursor:pointer;font-weight:600;font-family:var(--font);white-space:nowrap;transition:background 0.2s;" onmouseover="this.style.background='#333'" onmouseout="this.style.background='#000'" onclick="navigator.clipboard.writeText('npx skills add ReScienceLab/opc-skills --skill ${skill.dependencies && skill.dependencies.length > 0 ? skill.dependencies.concat(skillName).join(' --skill ') : skillName}').then(() => { const orig = this.textContent; this.textContent='✓ Copied!'; this.style.background='#22c55e'; setTimeout(() => { this.textContent=orig; this.style.background='#000'; }, 2000); })">Copy</button>
+          <code class="install-cmd" style="flex:1;font-size:12px;padding:14px 16px;background:#f9fafb;overflow-x:auto;white-space:nowrap;font-family:monospace;color:#000;line-height:1.5;">npx skills add ReScienceLab/opc-skills --skill ${skill.dependencies && skill.dependencies.length > 0 ? skill.dependencies.concat(skill.name).join(' --skill ') : skill.name}</code>
+          <button class="copy-btn" style="background:#000;color:#fff;border:none;border-left:2px solid #000;padding:12px 20px;font-size:11px;cursor:pointer;font-weight:600;font-family:var(--font);white-space:nowrap;transition:background 0.2s;" onmouseover="this.style.background='#333'" onmouseout="this.style.background='#000'" onclick="navigator.clipboard.writeText('npx skills add ReScienceLab/opc-skills --skill ${skill.dependencies && skill.dependencies.length > 0 ? skill.dependencies.concat(skill.name).join(' --skill ') : skill.name}').then(() => { const orig = this.textContent; this.textContent='✓ Copied!'; this.style.background='#22c55e'; setTimeout(() => { this.textContent=orig; this.style.background='#000'; }, 2000); })">Copy</button>
         </div>
       </div>
     </div>
@@ -1710,7 +1749,7 @@ async function renderSkillPage(skillName, ctx) {
 </html>`;
 
   return new Response(html, {
-    headers: { 'Content-Type': 'text/html;charset=UTF-8', 'Cache-Control': 'public, max-age=300' }
+    headers: { 'Content-Type': 'text/html;charset=UTF-8', 'Cache-Control': 'public, max-age=1800' }
   });
 }
 
@@ -1748,7 +1787,7 @@ async function renderComparePage(ctx) {
     .winner { background: #f0fdf4; }
     .methodology { margin-top: 48px; font-size: 12px; color: var(--gray-600); }
     .back-link { display: inline-block; margin-top: 32px; font-size: 12px; color: var(--gray-600); text-decoration: none; }
-    .back-link:hover { color: var(--black); }
+    .back-link:hover { color: var(--black); text-decoration: underline; }
   </style>
 </head>
 <body>

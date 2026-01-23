@@ -1,0 +1,36 @@
+name: Fetch Install Stats
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Daily at 6 AM UTC
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  fetch-stats:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch install stats
+        run: python3 scripts/fetch-install-stats.py > website/install-stats.json
+
+      - name: Check for changes
+        id: diff
+        run: |
+          git diff --quiet website/install-stats.json || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push if changed
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add website/install-stats.json
+          git commit -m "chore: update install stats from skills.sh"
+          git push

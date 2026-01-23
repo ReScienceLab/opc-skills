@@ -24,8 +24,9 @@
       "auth": {
         "required": true,
         "type": "api_key",
-        "env_var": "REQUESTHUNT_API_KEY",
-        "note": "Get API key from requesthunt.com/settings/api"
+        "keys": [
+          { "env": "REQUESTHUNT_API_KEY", "url": "https://requesthunt.com/dashboard" }
+        ]
       },
       "install": {
         "user": {
@@ -77,7 +78,7 @@
       "auth": {
         "required": false,
         "type": null,
-        "note": "Uses web search and public APIs (depends on twitter & reddit skills for promo code search)"
+        "keys": []
       },
       "install": {
         "user": {
@@ -126,8 +127,11 @@
       "auth": {
         "required": true,
         "type": "api_key",
-        "env_var": "GEMINI_API_KEY, REMOVE_BG_API_KEY, RECRAFT_API_KEY",
-        "note": "Requires Gemini API key for image generation, remove.bg and Recraft API keys for background removal and SVG conversion"
+        "keys": [
+          { "env": "GEMINI_API_KEY", "url": "https://aistudio.google.com/apikey" },
+          { "env": "REMOVE_BG_API_KEY", "url": "https://www.remove.bg/api", "optional": true },
+          { "env": "RECRAFT_API_KEY", "url": "https://www.recraft.ai/api", "optional": true }
+        ]
       },
       "install": {
         "user": {
@@ -178,8 +182,9 @@
       "auth": {
         "required": true,
         "type": "api_key",
-        "env_var": "GEMINI_API_KEY",
-        "note": "Requires Gemini API key for image generation (get from aistudio.google.com/apikey)"
+        "keys": [
+          { "env": "GEMINI_API_KEY", "url": "https://aistudio.google.com/apikey" }
+        ]
       },
       "install": {
         "user": {
@@ -224,8 +229,9 @@
       "auth": {
         "required": true,
         "type": "api_key",
-        "env_var": "GEMINI_API_KEY",
-        "note": "Get API key from Google AI Studio (aistudio.google.com/apikey)"
+        "keys": [
+          { "env": "GEMINI_API_KEY", "url": "https://aistudio.google.com/apikey" }
+        ]
       },
       "install": {
         "user": {
@@ -268,7 +274,7 @@
       "auth": {
         "required": false,
         "type": null,
-        "note": "No API key required - uses public JSON API"
+        "keys": []
       },
       "install": {
         "user": {
@@ -313,8 +319,9 @@
       "auth": {
         "required": true,
         "type": "api_key",
-        "env_var": "TWITTERAPI_API_KEY",
-        "note": "Get API key from twitterapi.io (~$0.15-0.18/1k requests)"
+        "keys": [
+          { "env": "TWITTERAPI_API_KEY", "url": "https://twitterapi.io", "note": "~$0.15-0.18/1k requests" }
+        ]
       },
       "install": {
         "user": {
@@ -360,8 +367,9 @@
       "auth": {
         "required": true,
         "type": "api_key",
-        "env_var": "PRODUCTHUNT_ACCESS_TOKEN",
-        "note": "Get token from producthunt.com/v2/oauth/applications"
+        "keys": [
+          { "env": "PRODUCTHUNT_ACCESS_TOKEN", "url": "https://producthunt.com/v2/oauth/applications" }
+        ]
       },
       "install": {
         "user": {
@@ -416,8 +424,10 @@
       "auth": {
         "required": false,
         "type": "api_key",
-        "env_var": "DATAFORSEO_LOGIN, DATAFORSEO_PASSWORD",
-        "note": "Optional: DataForSEO API for keyword research, SERP analysis, backlinks. Get from dataforseo.com. Basic audit (seo_audit.py) works without API."
+        "keys": [
+          { "env": "DATAFORSEO_LOGIN", "url": "https://dataforseo.com", "optional": true },
+          { "env": "DATAFORSEO_PASSWORD", "url": "https://dataforseo.com", "optional": true }
+        ]
       },
       "install": {
         "user": {

@@ -1,6 +1,32 @@
 {
   "posts": [
     {
+      "slug": "why-skills-beat-docs",
+      "title": "Why Skills Beat Docs: The Rise of Agent-Native Documentation",
+      "description": "Traditional docs get 2 retweets. Skills get 350. That's 100x more engagement for the same content. Learn why agent-native documentation is the future and how to convert your docs to skills.",
+      "date": "2026-01-23",
+      "author": "OPC Team",
+      "category": "Insights",
+      "tags": ["agent-skills", "documentation", "ai-agents", "claude-code"],
+      "readTime": "6 min",
+      "keywords": ["agent skills", "AI documentation", "Claude Code skills", "Cursor skills", "skills.sh", "Mintlify", "agent-native docs"],
+      "image": "https://opc.dev/opc-banner.png",
+      "citations": [
+        {
+          "text": "swyx on Skills vs Docs engagement",
+          "url": "https://twitter.com/swyx/status/2014521220260364380"
+        },
+        {
+          "text": "Mintlify Skill.md Standard",
+          "url": "https://www.mintlify.com/blog/skill-md"
+        },
+        {
+          "text": "awesome-claude-code",
+          "url": "https://github.com/hesreallyhim/awesome-claude-code"
+        }
+      ]
+    },
+    {
       "slug": "domain-hunting-ai-saved-50",
       "title": "How Domain Hunter Skill Saved Me $50 on Domain Registration (5-Minute Tutorial)",
       "description": "Real case study: How Domain Hunter Skill compared 8 registrars and found active promo codes in 5 minutes. GoDaddy wanted $47.95/year, I paid $14.98. Includes exact workflow, price comparison table, and step-by-step tutorial you can replicate today.",

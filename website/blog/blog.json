@@ -5,6 +5,7 @@
       "title": "Why Skills Beat Docs: The Rise of Agent-Native Documentation",
       "description": "Traditional docs get 2 retweets. Skills get 350. That's 100x more engagement for the same content. Learn why agent-native documentation is the future and how to convert your docs to skills.",
       "date": "2026-01-23",
+      "dateModified": "2026-01-23",
       "author": "OPC Team",
       "category": "Insights",
       "tags": ["agent-skills", "documentation", "ai-agents", "claude-code"],
@@ -63,12 +64,27 @@
       "title": "How Domain Hunter Skill Saved Me $50 on Domain Registration (5-Minute Tutorial)",
       "description": "Real case study: How Domain Hunter Skill compared 8 registrars and found active promo codes in 5 minutes. GoDaddy wanted $47.95/year, I paid $14.98. Includes exact workflow, price comparison table, and step-by-step tutorial you can replicate today.",
       "date": "2026-01-21",
+      "dateModified": "2026-01-21",
       "author": "OPC Team",
       "category": "Case Study",
       "tags": ["domain-hunting", "cost-savings", "ai-automation"],
       "readTime": "7 min",
       "keywords": ["domain registrar comparison", "domain promo codes", "save money on domains", "domain hunter", "GoDaddy alternative", "cheap domain registration"],
       "image": "https://opc.dev/opc-banner.png",
+      "faq": [
+        {
+          "question": "How much can I save using Domain Hunter?",
+          "answer": "In this case study, we saved $33 on year 1 ($47.95 vs $14.98) and $50+ over 3 years by comparing 8 registrars and finding active promo codes."
+        },
+        {
+          "question": "Which domain registrar is cheapest for .io domains?",
+          "answer": "Based on our comparison, Spaceship ($14.98/year) and Sav.com ($14.99/year) offer the lowest prices for .io domains, compared to GoDaddy at $47.95/year."
+        },
+        {
+          "question": "Does Domain Hunter require an API key?",
+          "answer": "No. Domain Hunter uses web search and public APIs. It depends on twitter and reddit skills for promo code discovery, but no paid API keys are required."
+        }
+      ],
       "citations": [
         {
           "text": "Domain Hunter Skill",
@@ -77,6 +93,10 @@
         {
           "text": "OPC Skills",
           "url": "https://opc.dev"
+        },
+        {
+          "text": "TLD-List Domain Price Comparison",
+          "url": "https://tld-list.com"
         }
       ]
     },
@@ -85,12 +105,27 @@
       "title": "What is OPC? AI Agent Skills for Solopreneurs Explained",
       "description": "According to 2025 data, solopreneurs waste 10+ hours weekly on manual tasks. OPC Skills provides 9 AI agent skills that reduce this by 85%. Learn how AI automation is transforming one-person companies.",
       "date": "2026-01-21",
+      "dateModified": "2026-01-21",
       "author": "OPC Team",
       "category": "Getting Started",
       "tags": ["ai-skills", "automation", "solopreneur"],
       "readTime": "5 min",
       "keywords": ["AI agent skills", "solopreneur tools", "automation", "one-person company", "Claude Code", "AI automation"],
       "image": "https://opc.dev/opc-banner.png",
+      "faq": [
+        {
+          "question": "What is OPC Skills?",
+          "answer": "OPC Skills is a collection of 9 AI agent skills for solopreneurs, indie hackers, and one-person companies. Each skill automates time-consuming tasks like social media research, domain hunting, and logo creation."
+        },
+        {
+          "question": "How do I install OPC Skills?",
+          "answer": "Run: npx skills add ReScienceLab/opc-skills. Installation takes less than 30 seconds and works with Claude Code, Cursor, Windsurf, Droid, and 12+ other AI tools."
+        },
+        {
+          "question": "Are OPC Skills free?",
+          "answer": "Yes, OPC Skills is 100% free and open source under MIT license. Some skills may require API keys for third-party services (like Twitter API), but the skills themselves are free."
+        }
+      ],
       "citations": [
         {
           "text": "Agent Skills Standard",
@@ -99,6 +134,10 @@
         {
           "text": "OPC Skills GitHub",
           "url": "https://github.com/ReScienceLab/opc-skills"
+        },
+        {
+          "text": "Skills.sh Registry",
+          "url": "https://skills.sh/ReScienceLab/opc-skills"
         }
       ]
     }

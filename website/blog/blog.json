@@ -1,6 +1,73 @@
 {
   "posts": [
     {
+      "slug": "convert-docs-to-skills-guide",
+      "title": "How to Convert Your Docs to Agent Skills (5-Minute Guide)",
+      "description": "Traditional docs get 2 retweets. Skills get 350. Learn the 5-minute process to convert any documentation into an agent skill that AI can execute. Includes templates, real examples, and common mistakes to avoid.",
+      "date": "2026-01-24",
+      "dateModified": "2026-01-24",
+      "author": "OPC Team",
+      "category": "Tutorial",
+      "tags": ["agent-skills", "documentation", "claude-code", "tutorial"],
+      "readTime": "6 min",
+      "keywords": ["convert documentation to skills", "agent skills tutorial", "Skill.md", "Claude Code skills", "Cursor skills", "how to create agent skills", "YAML frontmatter", "skill template"],
+      "image": "https://opc.dev/opc-banner.png",
+      "schema": {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "How to Convert Your Docs to Agent Skills (5-Minute Guide)",
+        "description": "Step-by-step tutorial to convert documentation into agent skills. 5-minute process with templates and real examples.",
+        "author": {
+          "@type": "Organization",
+          "name": "OPC Team",
+          "url": "https://opc.dev"
+        },
+        "datePublished": "2026-01-24",
+        "publisher": {
+          "@type": "Organization",
+          "name": "OPC Skills",
+          "url": "https://opc.dev"
+        },
+        "mainEntityOfPage": "https://opc.dev/blog/convert-docs-to-skills-guide"
+      },
+      "faq": [
+        {
+          "question": "How do I convert documentation to an agent skill?",
+          "answer": "Follow the 5-step process: (1) Extract actionable content, (2) Rewrite as imperative instructions, (3) Add YAML frontmatter, (4) Add example workflows, (5) Test with Claude Code. Takes about 5 minutes."
+        },
+        {
+          "question": "What is the Skill.md format?",
+          "answer": "Skill.md is a markdown file with YAML frontmatter containing name, description, triggers, and dependencies. The body contains structured instructions and examples that AI can execute."
+        },
+        {
+          "question": "Which AI platforms support skills?",
+          "answer": "As of January 2026, 6 major platforms natively support skills: Claude Code, Cursor, Windsurf, OpenCode, Codex (via adapters), and Droid (Factory)."
+        },
+        {
+          "question": "How long does it take to create a skill?",
+          "answer": "A basic skill takes 5 minutes from existing documentation. Complex skills with scripts may take 15-30 minutes. No coding required for markdown-only skills."
+        }
+      ],
+      "citations": [
+        {
+          "text": "swyx on Skills vs Docs engagement",
+          "url": "https://twitter.com/swyx/status/2014521220260364380"
+        },
+        {
+          "text": "Mintlify Skill.md Standard",
+          "url": "https://www.mintlify.com/blog/skill-md"
+        },
+        {
+          "text": "Claude Code Skills Documentation",
+          "url": "https://code.claude.com/docs/en/skills"
+        },
+        {
+          "text": "OPC Skills GitHub",
+          "url": "https://github.com/ReScienceLab/opc-skills"
+        }
+      ]
+    },
+    {
       "slug": "why-skills-beat-docs",
       "title": "Why Skills Beat Docs: The Rise of Agent-Native Documentation",
       "description": "Traditional docs get 2 retweets. Skills get 350. That's 100x more engagement for the same content. Learn why agent-native documentation is the future and how to convert your docs to skills.",

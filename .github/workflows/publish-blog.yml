@@ -1,0 +1,37 @@
+name: Publish Blog Post (Fast Track)
+
+on:
+  pull_request:
+    types: [labeled]
+    branches: [main]
+    paths:
+      - 'website/blog/**'
+
+jobs:
+  auto-merge:
+    if: github.event.label.name == 'blog-post'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Validate blog post
+        run: |
+          python3 scripts/create-blog.py validate
+          
+      - name: Auto-approve PR
+        uses: hmarr/auto-approve-action@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Auto-merge PR
+        uses: pascalgn/automerge-action@v0.15.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MERGE_LABELS: "blog-post"
+          MERGE_METHOD: "squash"
+          MERGE_COMMIT_MESSAGE: "pull-request-title"
+          UPDATE_LABELS: ""

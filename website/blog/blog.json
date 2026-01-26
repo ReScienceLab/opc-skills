@@ -1,6 +1,114 @@
 {
   "posts": [
     {
+      "slug": "ralph-autonomous-agent-loop",
+      "title": "How Solopreneurs Build MVPs Automatically with Ralph: From PRD to Production in 24 Hours",
+      "description": "Ralph is an autonomous AI agent loop with 7.9k GitHub stars that turns PRDs into working MVPs automatically. Fresh context per iteration, git-based memory, and OPC Skills integration enable hands-off development. Real case study: built SaaS dashboard in 24 hours.",
+      "date": "2026-01-26",
+      "dateModified": "2026-01-26",
+      "author": "OPC Team",
+      "category": "Tutorial",
+      "tags": ["ai-automation", "mvp-builder", "solopreneur", "ralph", "autonomous-development", "prd"],
+      "readTime": "9 min",
+      "keywords": ["build MVP automatically", "solopreneur MVP builder", "Ralph AI tutorial", "autonomous AI agent loop", "PRD to code automatically", "Ralph for startups", "AI builds features automatically", "hands-off MVP development", "Claude Code automation", "Amp automation", "OPC skills with Ralph", "fresh context AI coding", "prd.json", "Geoffrey Huntley Ralph pattern", "AI agent loop tutorial"],
+      "image": "https://opc.dev/opc-banner.png",
+      "schema": {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "How Solopreneurs Build MVPs Automatically with Ralph: From PRD to Production in 24 Hours",
+        "description": "Complete tutorial on using Ralph's autonomous AI agent loop to build MVPs. Includes real case study, OPC Skills integration, and step-by-step setup guide.",
+        "author": {
+          "@type": "Organization",
+          "name": "OPC Team",
+          "url": "https://opc.dev"
+        },
+        "datePublished": "2026-01-26",
+        "dateModified": "2026-01-26",
+        "publisher": {
+          "@type": "Organization",
+          "name": "OPC Skills",
+          "url": "https://opc.dev",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://opc.dev/opc-logo.svg"
+          }
+        },
+        "image": "https://opc.dev/opc-banner.png",
+        "mainEntityOfPage": "https://opc.dev/blog/ralph-autonomous-agent-loop",
+        "keywords": "Ralph AI, autonomous development, MVP builder, solopreneur tools, PRD automation",
+        "articleSection": "Tutorial",
+        "wordCount": 2900
+      },
+      "faq": [
+        {
+          "question": "What is Ralph AI and how does it work?",
+          "answer": "Ralph is an autonomous AI agent loop that runs coding tools (Amp or Claude Code) repeatedly until all PRD items are complete. Each iteration spawns a fresh AI instance that picks the highest priority incomplete task, implements it, runs tests, and commits. Memory persists via git history, progress.txt, and prd.json."
+        },
+        {
+          "question": "Can solopreneurs build MVPs with Ralph without coding experience?",
+          "answer": "Yes. Ralph requires a PRD which you can create by describing your idea in plain English. Ralph handles all coding automatically. You need basic command line knowledge but no programming skills required."
+        },
+        {
+          "question": "How long does Ralph take to build an MVP?",
+          "answer": "Based on our case study, Ralph built a complete SaaS dashboard with authentication in 24 hours (15 user stories, 47 commits, 28 passing tests). Typical MVPs take 24-72 hours of autonomous development."
+        },
+        {
+          "question": "Which AI coding tools does Ralph support?",
+          "answer": "Ralph natively supports Amp CLI (default) and Claude Code. Use ./ralph.sh for Amp or ./ralph.sh --tool claude for Claude Code."
+        },
+        {
+          "question": "How does Ralph integrate with OPC Skills?",
+          "answer": "Install OPC skills globally (npx skills add ReScienceLab/opc-skills) and Ralph's AI instances automatically have access during the loop. Your PRD can reference skills like domain-hunter or logo-creator, and Ralph invokes them as needed."
+        },
+        {
+          "question": "What is prd.json and how do I create it?",
+          "answer": "prd.json is a JSON file containing user stories with pass/fail status. Create it using the ralph skill: (1) Write PRD in markdown, (2) Run 'Load ralph skill and convert prd.md to prd.json'."
+        },
+        {
+          "question": "Does Ralph work for frontend/UI development?",
+          "answer": "Yes. Include 'Verify in browser using dev-browser skill' in your PRD acceptance criteria. Ralph will navigate to pages, interact with UI, and take screenshots to verify implementation."
+        },
+        {
+          "question": "How much does it cost to run Ralph?",
+          "answer": "Claude Code (Sonnet 4.5): $30-60 for typical MVP. Amp pricing varies. Ralph is often cheaper than manual coding because fresh context reduces retries and errors."
+        },
+        {
+          "question": "Is Ralph production-ready for startups?",
+          "answer": "Yes, with caveats. Ralph requires strong feedback loops (tests, type checking) and well-structured PRDs. Best for solopreneurs who can review code before deployment. 7.9k GitHub stars indicate active community usage."
+        },
+        {
+          "question": "What are the prerequisites to run Ralph?",
+          "answer": "You need: (1) Amp CLI or Claude Code installed, (2) jq command (brew install jq), (3) Git repository, (4) Basic understanding of your tech stack to write meaningful PRD items."
+        }
+      ],
+      "citations": [
+        {
+          "text": "Ralph GitHub Repository",
+          "url": "https://github.com/snarktank/ralph"
+        },
+        {
+          "text": "Geoffrey Huntley's Ralph Pattern",
+          "url": "https://ghuntley.com/ralph/"
+        },
+        {
+          "text": "OPC Skills GitHub",
+          "url": "https://github.com/ReScienceLab/opc-skills"
+        },
+        {
+          "text": "Amp Documentation",
+          "url": "https://ampcode.com/manual"
+        },
+        {
+          "text": "Claude Code Documentation",
+          "url": "https://docs.anthropic.com/en/docs/claude-code"
+        },
+        {
+          "text": "Skills.sh Registry",
+          "url": "https://skills.sh"
+        }
+      ]
+    },
+    {
       "slug": "convert-docs-to-skills-guide",
       "title": "How to Convert Your Docs to Agent Skills (5-Minute Guide)",
       "description": "Traditional docs get 2 retweets. Skills get 350. Learn the 5-minute process to convert any documentation into an agent skill that AI can execute. Includes templates, real examples, and common mistakes to avoid.",

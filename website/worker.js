@@ -2007,19 +2007,24 @@ async function renderBlogListPage(ctx) {
   
   const postCards = posts.map(post => `
     <article class="blog-card">
-      <div class="blog-meta">
-        <time datetime="${post.date}">${new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
-        <span class="blog-category">${post.category}</span>
-      </div>
-      <h2><a href="/blog/${post.slug}">${post.title}</a></h2>
-      <p class="blog-description">${post.description}</p>
-      <div class="blog-footer">
-        <span class="read-time">⏱ ${post.readTime}</span>
-        <div class="blog-tags">
-          ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+      <a href="/blog/${post.slug}" class="blog-image-link">
+        <img src="${post.image}" alt="${post.title}" class="blog-image" loading="lazy">
+      </a>
+      <div class="blog-content">
+        <div class="blog-meta">
+          <time datetime="${post.date}">${new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+          <span class="blog-category">${post.category}</span>
         </div>
+        <h2><a href="/blog/${post.slug}">${post.title}</a></h2>
+        <p class="blog-description">${post.description}</p>
+        <div class="blog-footer">
+          <span class="read-time">⏱ ${post.readTime}</span>
+          <div class="blog-tags">
+            ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+          </div>
+        </div>
+        <a href="/blog/${post.slug}" class="read-more">Read Article →</a>
       </div>
-      <a href="/blog/${post.slug}" class="read-more">Read Article →</a>
     </article>
   `).join('');
 
@@ -2092,11 +2097,29 @@ async function renderBlogListPage(ctx) {
     .blog-card {
       background: var(--white);
       border: 1px solid var(--black);
-      padding: 24px;
+      padding: 0;
       transition: box-shadow 0.2s;
+      overflow: hidden;
     }
     .blog-card:hover {
       box-shadow: 4px 4px 0 var(--black);
+    }
+    .blog-image-link {
+      display: block;
+      width: 100%;
+      border-bottom: 1px solid var(--black);
+    }
+    .blog-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: opacity 0.2s;
+    }
+    .blog-image-link:hover .blog-image {
+      opacity: 0.9;
+    }
+    .blog-content {
+      padding: 24px;
     }
     .blog-meta {
       display: flex;
@@ -2167,7 +2190,7 @@ async function renderBlogListPage(ctx) {
       .page-header h1 { font-size: 12px; }
       .page-header p { font-size: 11px; }
       .container { padding: 32px 16px; }
-      .blog-card { padding: 16px; }
+      .blog-content { padding: 16px; }
     }
   </style>
   

@@ -11,7 +11,7 @@
       "tags": ["ai-automation", "mvp-builder", "solopreneur", "ralph", "autonomous-development", "prd"],
       "readTime": "9 min",
       "keywords": ["build MVP automatically", "solopreneur MVP builder", "Ralph AI tutorial", "autonomous AI agent loop", "PRD to code automatically", "Ralph for startups", "AI builds features automatically", "hands-off MVP development", "Claude Code automation", "Amp automation", "OPC skills with Ralph", "fresh context AI coding", "prd.json", "Geoffrey Huntley Ralph pattern", "AI agent loop tutorial"],
-      "image": "https://opc.dev/opc-banner.png",
+      "image": "https://opc.dev/blog/2026-01-26-ralph-og.png",
       "schema": {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
@@ -33,7 +33,7 @@
             "url": "https://opc.dev/opc-logo.svg"
           }
         },
-        "image": "https://opc.dev/opc-banner.png",
+        "image": "https://opc.dev/blog/2026-01-26-ralph-og.png",
         "mainEntityOfPage": "https://opc.dev/blog/ralph-autonomous-agent-loop",
         "keywords": "Ralph AI, autonomous development, MVP builder, solopreneur tools, PRD automation",
         "articleSection": "Tutorial",
@@ -119,7 +119,7 @@
       "tags": ["agent-skills", "documentation", "claude-code", "tutorial"],
       "readTime": "6 min",
       "keywords": ["convert documentation to skills", "agent skills tutorial", "Skill.md", "Claude Code skills", "Cursor skills", "how to create agent skills", "YAML frontmatter", "skill template"],
-      "image": "https://opc.dev/opc-banner.png",
+      "image": "https://opc.dev/blog/2026-01-24-docs-skills-og.png",
       "schema": {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
@@ -186,7 +186,7 @@
       "tags": ["agent-skills", "documentation", "ai-agents", "claude-code"],
       "readTime": "7 min",
       "keywords": ["agent skills", "AI documentation", "Claude Code skills", "Cursor skills", "Windsurf skills", "skills.sh", "Mintlify Skill.md", "agent-native docs", "GEO optimization", "AI search visibility"],
-      "image": "https://opc.dev/opc-banner.png",
+      "image": "https://opc.dev/blog/2026-01-23-skills-docs-og.png",
       "schema": {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
@@ -245,7 +245,7 @@
       "tags": ["domain-hunting", "cost-savings", "ai-automation"],
       "readTime": "7 min",
       "keywords": ["domain registrar comparison", "domain promo codes", "save money on domains", "domain hunter", "GoDaddy alternative", "cheap domain registration"],
-      "image": "https://opc.dev/opc-banner.png",
+      "image": "https://opc.dev/blog/2026-01-21-domain-hunter-og.png",
       "faq": [
         {
           "question": "How much can I save using Domain Hunter?",
@@ -286,7 +286,7 @@
       "tags": ["ai-skills", "automation", "solopreneur"],
       "readTime": "5 min",
       "keywords": ["AI agent skills", "solopreneur tools", "automation", "one-person company", "Claude Code", "AI automation"],
-      "image": "https://opc.dev/opc-banner.png",
+      "image": "https://opc.dev/blog/2026-01-21-what-is-opc-og.png",
       "faq": [
         {
           "question": "What is OPC Skills?",

@@ -2108,10 +2108,14 @@ async function renderBlogListPage(ctx) {
       display: block;
       width: 100%;
       border-bottom: 1px solid var(--black);
+      overflow: hidden;
+      max-height: 200px;
     }
     .blog-image {
       width: 100%;
-      height: auto;
+      height: 200px;
+      object-fit: cover;
+      object-position: center;
       display: block;
       transition: opacity 0.2s;
     }

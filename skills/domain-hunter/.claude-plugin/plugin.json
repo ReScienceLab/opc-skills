@@ -1,0 +1,22 @@
+{
+  "name": "domain-hunter",
+  "version": "1.0.0",
+  "description": "Search domains, compare registrar prices, and find promo codes. Help users find and purchase domain names at the best price.",
+  "author": {
+    "name": "ReScienceLab"
+  },
+  "homepage": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/domain-hunter",
+  "repository": "https://github.com/ReScienceLab/opc-skills",
+  "license": "MIT",
+  "keywords": [
+    "domain",
+    "registrar",
+    "buy domain",
+    "domain price",
+    ".ai domain",
+    ".com domain"
+  ],
+  "skills": [
+    "./SKILL.md"
+  ]
+}

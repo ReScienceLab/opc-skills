@@ -1,0 +1,27 @@
+{
+  "name": "banner-creator",
+  "version": "1.0.0",
+  "description": "Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio for GitHub, Twitter, LinkedIn, etc.",
+  "author": {
+    "name": "ReScienceLab"
+  },
+  "homepage": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/banner-creator",
+  "repository": "https://github.com/ReScienceLab/opc-skills",
+  "license": "MIT",
+  "keywords": [
+    "banner",
+    "header",
+    "hero image",
+    "cover image",
+    "create banner",
+    "github banner",
+    "twitter header",
+    "readme banner"
+  ],
+  "skills": [
+    "./SKILL.md"
+  ],
+  "commands": [
+    "./scripts/"
+  ]
+}

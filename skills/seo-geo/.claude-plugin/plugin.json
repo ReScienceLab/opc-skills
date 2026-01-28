@@ -1,0 +1,29 @@
+{
+  "name": "seo-geo",
+  "version": "1.0.0",
+  "description": "SEO & GEO (Generative Engine Optimization) for websites. Optimize for AI search engines (ChatGPT, Perplexity, Gemini, Copilot, Claude) and traditional search (Google, Bing). Includes Princeton GEO research methods for +40% AI visibility.",
+  "author": {
+    "name": "ReScienceLab"
+  },
+  "homepage": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/seo-geo",
+  "repository": "https://github.com/ReScienceLab/opc-skills",
+  "license": "MIT",
+  "keywords": [
+    "SEO",
+    "GEO",
+    "search optimization",
+    "schema markup",
+    "JSON-LD",
+    "meta tags",
+    "keyword research",
+    "AI visibility",
+    "ChatGPT ranking",
+    "Perplexity"
+  ],
+  "skills": [
+    "./SKILL.md"
+  ],
+  "commands": [
+    "./scripts/"
+  ]
+}

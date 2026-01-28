@@ -1,0 +1,135 @@
+{
+  "name": "opc-skills",
+  "owner": {
+    "name": "ReScienceLab",
+    "email": "yilin.jing@rescience.com"
+  },
+  "metadata": {
+    "description": "Agent Skills for One Person Companies - Boost your AI agent with specialized skills for solopreneurs and indie hackers",
+    "version": "1.0.0",
+    "pluginRoot": "./skills"
+  },
+  "keywords": [
+    "skills",
+    "agents",
+    "automation",
+    "solopreneur",
+    "indie-hacker",
+    "one-person-company",
+    "productivity",
+    "seo",
+    "social-media",
+    "design",
+    "market-research"
+  ],
+  "plugins": [
+    {
+      "name": "requesthunt",
+      "source": "requesthunt",
+      "description": "Generate user demand research reports from real user feedback. Scrape and analyze feature requests, complaints, and questions from Reddit, X, and GitHub.",
+      "version": "1.0.0",
+      "homepage": "https://opc.dev/skills/requesthunt",
+      "repository": "https://github.com/ReScienceLab/opc-skills",
+      "license": "MIT",
+      "category": "market-research",
+      "keywords": ["market-research", "user-feedback", "reddit", "twitter", "github", "demand-analysis"],
+      "strict": true
+    },
+    {
+      "name": "domain-hunter",
+      "source": "domain-hunter",
+      "description": "Search domains, compare registrar prices, and find promo codes. Help users find and purchase domain names at the best price.",
+      "version": "1.0.0",
+      "homepage": "https://opc.dev/skills/domain-hunter",
+      "repository": "https://github.com/ReScienceLab/opc-skills",
+      "license": "MIT",
+      "category": "business",
+      "keywords": ["domain", "registrar", "pricing", "whois"],
+      "strict": true
+    },
+    {
+      "name": "logo-creator",
+      "source": "logo-creator",
+      "description": "Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG.",
+      "version": "1.0.0",
+      "homepage": "https://opc.dev/skills/logo-creator",
+      "repository": "https://github.com/ReScienceLab/opc-skills",
+      "license": "MIT",
+      "category": "design",
+      "keywords": ["logo", "design", "branding", "ai-image-generation", "svg"],
+      "strict": true
+    },
+    {
+      "name": "banner-creator",
+      "source": "banner-creator",
+      "description": "Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio for GitHub, Twitter, LinkedIn, etc.",
+      "version": "1.0.0",
+      "homepage": "https://opc.dev/skills/banner-creator",
+      "repository": "https://github.com/ReScienceLab/opc-skills",
+      "license": "MIT",
+      "category": "design",
+      "keywords": ["banner", "header", "social-media", "ai-image-generation"],
+      "strict": true
+    },
+    {
+      "name": "nanobanana",
+      "source": "nanobanana",
+      "description": "Generate and edit images using Google Gemini 3 Pro Image (Nano Banana Pro). Supports text-to-image, image editing, aspect ratios, and 2K/4K output.",
+      "version": "1.0.0",
+      "homepage": "https://opc.dev/skills/nanobanana",
+      "repository": "https://github.com/ReScienceLab/opc-skills",
+      "license": "MIT",
+      "category": "ai-tools",
+      "keywords": ["gemini", "image-generation", "ai", "batch-processing"],
+      "strict": true
+    },
+    {
+      "name": "reddit",
+      "source": "reddit",
+      "description": "Search and retrieve content from Reddit. Get posts, comments, subreddit info, and user profiles via the public JSON API.",
+      "version": "1.0.0",
+      "homepage": "https://opc.dev/skills/reddit",
+      "repository": "https://github.com/ReScienceLab/opc-skills",
+      "license": "MIT",
+      "category": "social-media",
+      "keywords": ["reddit", "social-media", "api", "content-scraping"],
+      "strict": true
+    },
+    {
+      "name": "twitter",
+      "source": "twitter",
+      "description": "Search and retrieve content from Twitter/X. Get user info, tweets, replies, followers, communities, spaces, and trends via twitterapi.io.",
+      "version": "1.0.0",
+      "homepage": "https://opc.dev/skills/twitter",
+      "repository": "https://github.com/ReScienceLab/opc-skills",
+      "license": "MIT",
+      "category": "social-media",
+      "keywords": ["twitter", "x", "social-media", "api"],
+      "strict": true
+    },
+    {
+      "name": "producthunt",
+      "source": "producthunt",
+      "description": "Search and retrieve content from Product Hunt. Get posts, topics, users, and collections via the GraphQL API.",
+      "version": "1.0.0",
+      "homepage": "https://opc.dev/skills/producthunt",
+      "repository": "https://github.com/ReScienceLab/opc-skills",
+      "license": "MIT",
+      "category": "product-discovery",
+      "keywords": ["producthunt", "product-launch", "api"],
+      "strict": true
+    },
+    {
+      "name": "seo-geo",
+      "source": "seo-geo",
+      "description": "SEO & GEO (Generative Engine Optimization) for websites. Optimize for AI search engines (ChatGPT, Perplexity, Gemini, Copilot, Claude) and traditional search (Google, Bing).",
+      "version": "1.0.0",
+      "homepage": "https://opc.dev/skills/seo-geo",
+      "repository": "https://github.com/ReScienceLab/opc-skills",
+      "license": "MIT",
+      "category": "seo",
+      "keywords": ["seo", "geo", "optimization", "schema-markup", "ai-visibility"],
+      "strict": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "logo-creator",
+  "version": "1.0.0",
+  "description": "Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG.",
+  "author": {
+    "name": "ReScienceLab"
+  },
+  "homepage": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/logo-creator",
+  "repository": "https://github.com/ReScienceLab/opc-skills",
+  "license": "MIT",
+  "keywords": [
+    "logo",
+    "brand",
+    "icon",
+    "favicon",
+    "mascot",
+    "emblem",
+    "create logo",
+    "design logo"
+  ],
+  "skills": [
+    "./SKILL.md"
+  ],
+  "commands": [
+    "./scripts/"
+  ]
+}

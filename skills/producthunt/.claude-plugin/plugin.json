@@ -1,0 +1,23 @@
+{
+  "name": "producthunt",
+  "version": "1.0.0",
+  "description": "Search and retrieve content from Product Hunt. Get posts, topics, users, and collections via the GraphQL API.",
+  "author": {
+    "name": "ReScienceLab"
+  },
+  "homepage": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/producthunt",
+  "repository": "https://github.com/ReScienceLab/opc-skills",
+  "license": "MIT",
+  "keywords": [
+    "producthunt",
+    "product hunt",
+    "PH",
+    "launch"
+  ],
+  "skills": [
+    "./SKILL.md"
+  ],
+  "commands": [
+    "./scripts/"
+  ]
+}

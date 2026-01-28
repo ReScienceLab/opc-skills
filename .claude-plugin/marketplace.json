@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Agent Skills for One Person Companies - Boost your AI agent with specialized skills for solopreneurs and indie hackers",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "pluginRoot": "./skills"
   },
   "keywords": [

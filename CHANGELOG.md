@@ -63,6 +63,17 @@ Each skill maintains its own independent version. Use this matrix to understand 
 
 ## Released Versions
 
+## [1.0.4] - 2026-01-29
+
+### Infrastructure
+- **Fixed**: Updated marketplace metadata version to trigger cache refresh
+  - Changed marketplace metadata version from 1.0.0 to 1.0.3
+  - Fixes "Source path does not exist" error when installing plugins in Claude Code
+  - Ensures Claude Code refreshes marketplace cache with correct plugin paths
+
+### Skills
+- (no skill version changes in this release)
+
 ## [1.0.3] - 2026-01-29
 
 ### Website

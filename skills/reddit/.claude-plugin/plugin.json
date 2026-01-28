@@ -1,0 +1,22 @@
+{
+  "name": "reddit",
+  "version": "1.0.0",
+  "description": "Search and retrieve content from Reddit. Get posts, comments, subreddit info, and user profiles via the public JSON API.",
+  "author": {
+    "name": "ReScienceLab"
+  },
+  "homepage": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/reddit",
+  "repository": "https://github.com/ReScienceLab/opc-skills",
+  "license": "MIT",
+  "keywords": [
+    "reddit",
+    "subreddit",
+    "r/"
+  ],
+  "skills": [
+    "./SKILL.md"
+  ],
+  "commands": [
+    "./scripts/"
+  ]
+}

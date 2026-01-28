@@ -1,0 +1,22 @@
+{
+  "name": "twitter",
+  "version": "1.0.0",
+  "description": "Search and retrieve content from Twitter/X. Get user info, tweets, replies, followers, communities, spaces, and trends via twitterapi.io.",
+  "author": {
+    "name": "ReScienceLab"
+  },
+  "homepage": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/twitter",
+  "repository": "https://github.com/ReScienceLab/opc-skills",
+  "license": "MIT",
+  "keywords": [
+    "twitter",
+    "X",
+    "tweet"
+  ],
+  "skills": [
+    "./SKILL.md"
+  ],
+  "commands": [
+    "./scripts/"
+  ]
+}

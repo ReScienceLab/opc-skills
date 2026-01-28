@@ -9,6 +9,19 @@
     "version": "1.0.0",
     "pluginRoot": "./skills"
   },
+  "keywords": [
+    "skills",
+    "agents",
+    "automation",
+    "solopreneur",
+    "indie-hacker",
+    "one-person-company",
+    "productivity",
+    "seo",
+    "social-media",
+    "design",
+    "market-research"
+  ],
   "plugins": [
     {
       "name": "requesthunt",

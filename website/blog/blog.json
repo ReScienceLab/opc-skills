@@ -24,7 +24,7 @@
         "install domain hunter",
         "OPC Skills troubleshooting"
       ],
-      "image": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/blog/2026-01-28-install-tutorial-og.png",
+      "image": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/blog/2026-01-28-install-opc-skills-claude-code-og.png",
       "schema": {
         "@context": "https://schema.org",
         "@type": "HowTo",
@@ -71,7 +71,7 @@
             "url": "https://opc.dev/opc-logo.svg"
           }
         },
-        "image": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/blog/2026-01-28-install-tutorial-og.png"
+        "image": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/blog/2026-01-28-install-opc-skills-claude-code-og.png"
       },
       "faq": [
         {

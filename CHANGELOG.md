@@ -63,6 +63,16 @@ Each skill maintains its own independent version. Use this matrix to understand 
 
 ## Released Versions
 
+## [1.0.3] - 2026-01-29
+
+### Website
+- **Fixed**: Blog OG image path for installation tutorial post
+  - Corrected image path from `2026-01-28-install-tutorial-og.png` to `2026-01-28-install-opc-skills-claude-code-og.png`
+  - Fixes broken Open Graph preview on social media shares
+
+### Skills
+- (no skill version changes in this release)
+
 ## [1.0.2] - 2026-01-29
 
 ### Infrastructure

@@ -12,6 +12,13 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/ReScienceLab/opc-skills/issues"><img src="https://img.shields.io/github/issues/ReScienceLab/opc-skills?style=flat-square" alt="GitHub issues"></a>
+  <a href="https://github.com/ReScienceLab/opc-skills/pulls"><img src="https://img.shields.io/github/issues-pr/ReScienceLab/opc-skills?style=flat-square" alt="GitHub pull requests"></a>
+  <img src="https://img.shields.io/github/last-commit/ReScienceLab/opc-skills?style=flat-square" alt="Last commit">
+  <a href="https://github.com/ReScienceLab/opc-skills/graphs/contributors"><img src="https://img.shields.io/github/contributors/ReScienceLab/opc-skills?style=flat-square" alt="Contributors"></a>
+</p>
+
+<p align="center">
   <strong>AI Agent Skills for Solopreneurs, Indie Hackers, and One-Person Companies</strong>
 </p>
 

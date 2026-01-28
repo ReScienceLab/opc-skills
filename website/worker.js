@@ -640,11 +640,11 @@ Agent Skills Standard: https://agentskills.io
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Claude Code Skills for Solopreneurs | AI Tools for One-Person Companies</title>
+  <title>AI Agent Skills for Solopreneurs | Claude Code & Cursor</title>
   <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/apple-touch-icon.png">
-  <meta name="description" content="10+ Claude Code skills for solopreneurs and indie hackers. Add Twitter search, Reddit analysis, domain finder, and SEO tools. Built for one-person companies. One-click install. 100% open source.">
+  <meta name="description" content="9 AI agent skills for solopreneurs. Add Twitter search, Reddit analysis, domain finder & SEO tools to Claude/Cursor. One-click install. 100% free & open source.">
   <meta name="keywords" content="AI agent skills, solopreneur tools, indie hacker tools, Claude Code skills, Cursor skills, Codex skills, one-person company, solo developer, AI coding assistant, AI automation, vibe coding, agent skills, claude skills, Factory Droid, OpenCode, developer tools, AI agents">
   <meta name="robots" content="index, follow">
   <meta name="author" content="ReScience Lab">
@@ -2034,13 +2034,13 @@ async function renderBlogListPage(ctx) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog | OPC Skills - AI Automation Guides for Solopreneurs</title>
-  <meta name="description" content="Learn how to automate solopreneur workflows with AI agent skills. Guides, tutorials, and case studies for one-person companies.">
+  <meta name="description" content="AI automation guides for solopreneurs. Learn to build skills for Claude Code, Cursor & Droid. Tutorials, case studies & best practices for indie hackers.">
   <meta name="keywords" content="AI automation, solopreneur blog, AI agent skills, indie hacker guides, one-person company">
   
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Blog | OPC Skills - AI Automation Guides">
-  <meta property="og:description" content="Learn how to automate solopreneur workflows with AI agent skills.">
+  <meta property="og:description" content="AI automation guides for solopreneurs. Learn to build skills for Claude Code, Cursor & Droid.">
   <meta property="og:url" content="https://opc.dev/blog">
   <meta property="og:image" content="https://opc.dev/opc-banner.png">
   

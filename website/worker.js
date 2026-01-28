@@ -1837,6 +1837,40 @@ async function renderComparePage(ctx) {
   <meta name="keywords" content="AI agent skills comparison, Claude Code extensions comparison, Cursor skills comparison, developer tools comparison">
   <link rel="icon" href="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/favicon.ico">
   <link rel="canonical" href="https://opc.dev/compare">
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="AI Agent Skills Comparison 2026 | OPC vs Alternatives">
+  <meta property="og:description" content="Feature-by-feature comparison of AI agent skill platforms. Compare OPC Skills with alternatives for Claude Code, Cursor, and Droid.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/og-image.png">
+  <meta property="og:url" content="https://opc.dev/compare">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="OPC Skills">
+  <meta property="og:locale" content="en_US">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Agent Skills Comparison 2026">
+  <meta name="twitter:description" content="Compare OPC Skills with alternatives for Claude Code, Cursor, and Droid.">
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/og-image.png">
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "AI Agent Skills Comparison 2026",
+    "description": "Feature-by-feature comparison of AI agent skill platforms for Claude Code, Cursor, and Droid",
+    "url": "https://opc.dev/compare",
+    "datePublished": "2024-01-01",
+    "dateModified": "${today}",
+    "inLanguage": "en-US",
+    "mainEntity": {
+      "@type": "Table",
+      "about": "Comparison of AI agent skill platforms including OPC Skills, manual tools, and paid alternatives"
+    },
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": ["h1", ".intro", "table"]
+    }
+  }
+  </script>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }

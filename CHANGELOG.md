@@ -63,6 +63,17 @@ Each skill maintains its own independent version. Use this matrix to understand 
 
 ## Released Versions
 
+## [1.0.2] - 2026-01-29
+
+### Infrastructure
+- **Fixed**: Claude Code Plugin Marketplace schema validation errors
+  - Updated all plugin source paths from bare names to relative paths (e.g., `"requesthunt"` → `"./requesthunt"`)
+  - Ensures compatibility with Claude Code's `/plugin marketplace add` command
+  - Resolves "Invalid input" errors when adding marketplace
+
+### Skills
+- (no skill version changes in this release)
+
 ## [1.0.1] - 2026-01-29
 
 ### Website

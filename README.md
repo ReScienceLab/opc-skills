@@ -115,6 +115,10 @@ description: A clear description of what this skill does and when to use it
 
 For detailed guidance, check out existing skills or visit the [Agent Skills specification](https://agentskills.io/).
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=ReScienceLab/opc-skills&type=Date)](https://star-history.com/#ReScienceLab/opc-skills&Date)
+
 ## Contributing
 
 1. Fork this repository

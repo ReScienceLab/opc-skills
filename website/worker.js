@@ -464,7 +464,21 @@ Agent Skills Standard: https://agentskills.io
       "name": "How does seo-geo help with AI visibility?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "seo-geo implements Princeton's 9 GEO methods proven to increase AI search visibility by 40-70%. It audits your site, generates schema markup (FAQPage, ItemList), optimizes meta tags, and ensures AI bots (ChatGPT, Claude, Perplexity) can access your content. Includes citation tracking and keyword research."
+        "text": "seo-geo implements Princeton's 9 GEO methods proven to increase AI search visibility by 40-70%. It audits your site, generates schema markup (FAQPage, ItemList), optimizes meta tags, and ensures AI bots (ChatGPT, Claude, Perplexity) can access your content. Includes citation tracking and keyword research.",
+        "citation": [
+          {
+            "@type": "Citation",
+            "url": "https://arxiv.org/abs/2311.03735",
+            "name": "Princeton NLP: GEO Optimization Methods",
+            "datePublished": "2023-11-07"
+          },
+          {
+            "@type": "Citation",
+            "url": "https://agentskills.io",
+            "name": "Agent Skills Standard",
+            "datePublished": "2024-01-01"
+          }
+        ]
       }
     });
     
@@ -557,6 +571,37 @@ Agent Skills Standard: https://agentskills.io
           "@type": "FAQPage",
           "@id": "https://opc.dev/#faq",
           "mainEntity": faqItems
+        },
+        {
+          "@type": "HowTo",
+          "@id": "https://opc.dev/#installation",
+          "name": "How to Install OPC Skills",
+          "description": "Quick one-command installation for AI agent skills compatible with Claude Code, Cursor, Droid, and 12+ other AI tools",
+          "totalTime": "PT30S",
+          "step": [
+            {
+              "@type": "HowToStep",
+              "position": 1,
+              "name": "Run installation command",
+              "text": "Open your terminal and run: npx skills add ReScienceLab/opc-skills",
+              "itemListElement": {
+                "@type": "HowToDirection",
+                "text": "npx skills add ReScienceLab/opc-skills"
+              }
+            },
+            {
+              "@type": "HowToStep",
+              "position": 2,
+              "name": "Wait for installation",
+              "text": "The CLI will automatically detect your installed AI tools (Claude, Cursor, Droid, etc.) and install skills in under 30 seconds"
+            },
+            {
+              "@type": "HowToStep",
+              "position": 3,
+              "name": "Start using skills",
+              "text": "Skills are now available in your AI coding assistant. Reference them in your conversations to trigger specialized capabilities"
+            }
+          ]
         }
       ]
     };

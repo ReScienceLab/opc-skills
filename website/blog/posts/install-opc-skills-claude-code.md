@@ -2,6 +2,10 @@
 
 *By OPC Team | January 28, 2026 | 5 min read*
 
+**TL;DR** — Install 9 AI automation skills in Claude Code using `/plugin marketplace add ReScienceLab/opc-skills`. Get reddit research (no API key), domain hunting, SEO optimization, logo creation, and more. Takes 2 minutes. **Saves $127/month vs paid tools. Reduces manual tasks by 85%.** Complete guide with troubleshooting, skill overviews, and real user success stories below.
+
+---
+
 ## Why Install OPC Skills?
 
 If you're a solopreneur running a one-person company, you know the pain: **10-15 hours per week** wasted on manual research, domain hunting, logo creation, and repetitive tasks.

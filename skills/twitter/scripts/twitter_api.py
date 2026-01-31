@@ -24,7 +24,7 @@ def api_get(endpoint: str, params: dict = None) -> dict:
         if filtered:
             url += "?" + urllib.parse.urlencode(filtered)
     
-    req = urllib.request.Request(url, headers={"X-API-Key": api_key})
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "X-API-Key": api_key})
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:
             return json.loads(resp.read().decode())

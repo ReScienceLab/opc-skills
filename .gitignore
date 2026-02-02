@@ -38,6 +38,7 @@ node_modules/
 .opencode/
 .claude/
 .factory/
+!.factory/hooks.json
 .cursor/
 .github/skills
 

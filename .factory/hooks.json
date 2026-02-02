@@ -1,0 +1,12 @@
+{
+  "hooks": {
+    "PreCommit": [
+      {
+        "name": "prevent-factory-droid-coauthor",
+        "description": "Prevents adding factory-droid[bot] as co-author in commits",
+        "type": "command",
+        "command": "bash -c 'if git log -1 --pretty=%B | grep -q \"factory-droid\\[bot\\]\"; then echo \"Error: factory-droid[bot] co-author is not allowed in commits\"; exit 1; fi'"
+      }
+    ]
+  }
+}

@@ -7,6 +7,7 @@
 <p align="center">
   <a href="https://opc.dev"><img src="https://img.shields.io/badge/Website-opc.dev-black?style=flat-square" alt="Website"></a>
   <a href="https://skills.sh/ReScienceLab/opc-skills"><img src="https://img.shields.io/badge/Browse-skills.sh-blue?style=flat-square" alt="Browse on skills.sh"></a>
+  <a href="https://deepwiki.com/ReScienceLab/opc-skills"><img src="https://img.shields.io/badge/DeepWiki-AI_Docs-purple?style=flat-square" alt="DeepWiki AI Documentation"></a>
   <a href="https://code.claude.com/docs/en/plugin-marketplaces"><img src="https://img.shields.io/badge/Claude_Code-Marketplace-orange?style=flat-square&logo=anthropic" alt="Claude Code Marketplace"></a>
   <a href="https://github.com/ReScienceLab/opc-skills/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License"></a>
   <a href="https://github.com/ReScienceLab/opc-skills/stargazers"><img src="https://img.shields.io/github/stars/ReScienceLab/opc-skills?style=flat-square" alt="GitHub Stars"></a>
@@ -121,6 +122,26 @@ OPC Skills work with 16+ AI coding agents via `npx skills add`:
 - **And more...**
 
 See the [full compatibility list](https://github.com/vercel-labs/add-skill#available-agents) for all supported tools.
+
+---
+
+## Documentation & Resources
+
+Explore OPC Skills through multiple channels:
+
+- **[DeepWiki](https://deepwiki.com/ReScienceLab/opc-skills)** - AI-powered interactive documentation with code exploration and Q&A
+- **[Skills Browser](https://skills.sh/ReScienceLab/opc-skills)** - Browse and discover all available skills
+- **[Official Website](https://opc.dev)** - Guides, tutorials, and usage examples
+- **[Agent Skills Standard](https://agentskills.io/)** - Learn about the skills specification
+
+### Using DeepWiki
+
+DeepWiki provides an AI assistant that can answer questions about the codebase:
+- Ask: "How does the domain-hunter skill work?"
+- Ask: "Show me the dependencies between skills"
+- Ask: "Explain the skill installation process"
+
+The documentation auto-syncs with the repository, so it's always up to date.
 
 ---
 

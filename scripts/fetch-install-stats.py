@@ -21,10 +21,6 @@ def fetch_install_stats():
         print(f"Error fetching {SKILLS_SH_URL}: {e}", file=sys.stderr)
         sys.exit(1)
 
-    # Extract total installs (e.g., "266<!-- --> total installs")
-    total_match = re.search(r"(\d+)(?:<!--\s*-->)?\s*total\s*installs?", html, re.IGNORECASE)
-    total = int(total_match.group(1)) if total_match else 0
-
     # Extract per-skill installs from skill links
     # Pattern: skill name followed by install count in the link structure
     skills = {}
@@ -42,6 +38,10 @@ def fetch_install_stats():
         # Skip template skill
         if skill_name != "skill-name":
             skills[skill_name] = count
+
+    # Calculate total from sum of individual skill installs
+    # This is more reliable than scraping the total from HTML
+    total = sum(skills.values())
 
     result = {
         "total": total,

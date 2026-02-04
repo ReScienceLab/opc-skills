@@ -2155,7 +2155,7 @@ async function renderBlogListPage(ctx) {
     .page-header p { font-size: 12px; color: var(--gray-600); }
     
     .container {
-      max-width: 900px;
+      max-width: 1280px;
       margin: 0 auto;
       padding: 48px 24px;
     }
@@ -2170,8 +2170,8 @@ async function renderBlogListPage(ctx) {
     
     .blog-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 24px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
     }
     .blog-card {
       background: var(--white);
@@ -2179,6 +2179,8 @@ async function renderBlogListPage(ctx) {
       padding: 0;
       transition: box-shadow 0.2s;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
     .blog-card:hover {
       box-shadow: 4px 4px 0 var(--black);
@@ -2188,11 +2190,11 @@ async function renderBlogListPage(ctx) {
       width: 100%;
       border-bottom: 1px solid var(--black);
       overflow: hidden;
-      max-height: 200px;
+      aspect-ratio: 1200 / 630;
     }
     .blog-image {
       width: 100%;
-      height: 200px;
+      height: 100%;
       object-fit: cover;
       object-position: center;
       display: block;
@@ -2203,6 +2205,9 @@ async function renderBlogListPage(ctx) {
     }
     .blog-content {
       padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
     .blog-meta {
       display: flex;
@@ -2236,6 +2241,7 @@ async function renderBlogListPage(ctx) {
       font-size: 12px;
       margin-bottom: 16px;
       line-height: 1.6;
+      flex: 1;
     }
     .blog-footer {
       display: flex;
@@ -2268,12 +2274,23 @@ async function renderBlogListPage(ctx) {
     }
     .read-more:hover { color: var(--black); text-decoration: underline; }
     
+    @media (max-width: 1024px) {
+      .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+    }
+    
     @media (max-width: 768px) {
       .page-header { padding: 32px 16px; }
       .page-header h1 { font-size: 12px; }
       .page-header p { font-size: 11px; }
       .container { padding: 32px 16px; }
       .blog-content { padding: 16px; }
+      .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
     }
   </style>
   

@@ -18,6 +18,8 @@
   <a href="https://github.com/ReScienceLab/opc-skills/pulls"><img src="https://img.shields.io/github/issues-pr/ReScienceLab/opc-skills?style=flat-square" alt="GitHub pull requests"></a>
   <img src="https://img.shields.io/github/last-commit/ReScienceLab/opc-skills?style=flat-square" alt="Last commit">
   <a href="https://github.com/ReScienceLab/opc-skills/graphs/contributors"><img src="https://img.shields.io/github/contributors/ReScienceLab/opc-skills?style=flat-square" alt="Contributors"></a>
+  <a href="https://x.com/Yilin0x"><img src="https://img.shields.io/badge/Twitter-@Yilin0x-black?style=flat-square&logo=x" alt="Twitter"></a>
+  <a href="https://discord.gg/Y2yBpRXvVa"><img src="https://img.shields.io/badge/Discord-Join-5865F2?style=flat-square&logo=discord&logoColor=white" alt="Discord"></a>
 </p>
 
 <p align="center">

@@ -18,6 +18,8 @@
   <a href="https://github.com/ReScienceLab/opc-skills/pulls"><img src="https://img.shields.io/github/issues-pr/ReScienceLab/opc-skills?style=flat-square" alt="GitHub pull requests"></a>
   <img src="https://img.shields.io/github/last-commit/ReScienceLab/opc-skills?style=flat-square" alt="Last commit">
   <a href="https://github.com/ReScienceLab/opc-skills/graphs/contributors"><img src="https://img.shields.io/github/contributors/ReScienceLab/opc-skills?style=flat-square" alt="Contributors"></a>
+  <a href="https://x.com/Yilin0x"><img src="https://img.shields.io/badge/Twitter-@Yilin0x-black?style=flat-square&logo=x" alt="Twitter"></a>
+  <a href="https://discord.gg/Y2yBpRXvVa"><img src="https://img.shields.io/badge/Discord-Join-5865F2?style=flat-square&logo=discord&logoColor=white" alt="Discord"></a>
 </p>
 
 <p align="center">
@@ -41,6 +43,7 @@ For more information about the Agent Skills standard, see [agentskills.io](http:
 
 | | Skill | Description |
 |:---:|-------|-------------|
+| <img src="./skill-logos/seo-geo.svg" width="24"> | [seo-geo](./skills/seo-geo) | SEO & GEO optimization for AI search engines (ChatGPT, Perplexity, Google) |
 | <img src="./skill-logos/requesthunt.svg" width="24"> | [requesthunt](./skills/requesthunt) | Research user demand from Reddit, X, and GitHub |
 | <img src="./skill-logos/domain-hunter.svg" width="24"> | [domain-hunter](./skills/domain-hunter) | Find domains, compare registrar prices, and discover promo codes |
 | <img src="./skill-logos/logo-creator.svg" width="24"> | [logo-creator](./skills/logo-creator) | Create logos with AI, crop, remove background, export as SVG |
@@ -49,7 +52,6 @@ For more information about the Agent Skills standard, see [agentskills.io](http:
 | <img src="./skill-logos/reddit.svg" width="24"> | [reddit](./skills/reddit) | Search and retrieve content from Reddit via the public JSON API |
 | <img src="./skill-logos/twitter.svg" width="24"> | [twitter](./skills/twitter) | Search and retrieve content from Twitter/X via twitterapi.io |
 | <img src="./skill-logos/producthunt.svg" width="24"> | [producthunt](./skills/producthunt) | Search Product Hunt posts, topics, users, and collections |
-| <img src="./skill-logos/seo-geo.svg" width="24"> | [seo-geo](./skills/seo-geo) | SEO & GEO optimization for AI search engines (ChatGPT, Perplexity, Google) |
 
 ## Quick Install
 

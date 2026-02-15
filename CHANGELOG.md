@@ -63,6 +63,12 @@ Each skill maintains its own independent version. Use this matrix to understand 
 
 ## Released Versions
 
+## [1.0.7] - 2026-02-15
+
+### Infrastructure
+- **Added**: Twitter ([@Yilin0x](https://x.com/Yilin0x)) and Discord badges to README (#52)
+- **Changed**: Ranked seo-geo skill at the top of skills list in skills.json and README (#53)
+
 ## [1.0.6] - 2026-02-15
 
 ### Infrastructure

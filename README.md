@@ -43,6 +43,7 @@ For more information about the Agent Skills standard, see [agentskills.io](http:
 
 | | Skill | Description |
 |:---:|-------|-------------|
+| <img src="./skill-logos/seo-geo.svg" width="24"> | [seo-geo](./skills/seo-geo) | SEO & GEO optimization for AI search engines (ChatGPT, Perplexity, Google) |
 | <img src="./skill-logos/requesthunt.svg" width="24"> | [requesthunt](./skills/requesthunt) | Research user demand from Reddit, X, and GitHub |
 | <img src="./skill-logos/domain-hunter.svg" width="24"> | [domain-hunter](./skills/domain-hunter) | Find domains, compare registrar prices, and discover promo codes |
 | <img src="./skill-logos/logo-creator.svg" width="24"> | [logo-creator](./skills/logo-creator) | Create logos with AI, crop, remove background, export as SVG |
@@ -51,7 +52,6 @@ For more information about the Agent Skills standard, see [agentskills.io](http:
 | <img src="./skill-logos/reddit.svg" width="24"> | [reddit](./skills/reddit) | Search and retrieve content from Reddit via the public JSON API |
 | <img src="./skill-logos/twitter.svg" width="24"> | [twitter](./skills/twitter) | Search and retrieve content from Twitter/X via twitterapi.io |
 | <img src="./skill-logos/producthunt.svg" width="24"> | [producthunt](./skills/producthunt) | Search Product Hunt posts, topics, users, and collections |
-| <img src="./skill-logos/seo-geo.svg" width="24"> | [seo-geo](./skills/seo-geo) | SEO & GEO optimization for AI search engines (ChatGPT, Perplexity, Google) |
 
 ## Quick Install
 

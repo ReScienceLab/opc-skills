@@ -1,14 +1,6 @@
 ---
 name: domain-hunter
-description: Search domains, compare prices, find promo codes, get purchase recommendations. Use when user wants to buy a domain, check prices, or find domain deals.
-triggers:
-  - "domain"
-  - "registrar"
-  - "buy domain"
-  - "domain price"
-  - "promo code domain"
-  - ".ai domain"
-  - ".com domain"
+description: Search domains, compare prices, find promo codes, get purchase recommendations. Use when user wants to buy a domain, check domain prices, find domain deals, compare registrars, or search for .ai/.com domains.
 ---
 
 # Domain Hunter Skill

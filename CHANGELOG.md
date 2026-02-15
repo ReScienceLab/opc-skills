@@ -63,6 +63,20 @@ Each skill maintains its own independent version. Use this matrix to understand 
 
 ## Released Versions
 
+## [1.0.6] - 2026-02-15
+
+### Infrastructure
+- **Fixed**: Install stats scraper now handles abbreviated count formats (e.g. "2.8K") from skills.sh (#50)
+  - Added `_parse_count()` helper for K-suffix abbreviations
+  - Previously caused seo-geo to steal logo-creator's count and logo-creator to be dropped entirely
+
+### Skills
+- **Refactored**: Aligned all SKILL.md frontmatter with Anthropic skill standard (#51)
+  - Removed `triggers` field from all 9 skills and the template
+  - Merged trigger keywords into `description` field as "Use when..." clauses
+  - Frontmatter now only uses `name` and `description` fields
+  - Fixes seo-geo broken description display on skills.sh (YAML `|` block rendered as literal `|`)
+
 ## [1.0.5] - 2026-01-29
 
 ### Infrastructure

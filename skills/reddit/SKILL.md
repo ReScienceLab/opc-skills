@@ -1,10 +1,6 @@
 ---
 name: reddit
-description: Search and retrieve content from Reddit. Get posts, comments, subreddit info, and user profiles via the public JSON API.
-triggers:
-  - "reddit"
-  - "subreddit"
-  - "r/"
+description: Search and retrieve content from Reddit. Get posts, comments, subreddit info, and user profiles via the public JSON API. Use when user mentions Reddit, a subreddit, or r/ links.
 ---
 
 # Reddit Skill

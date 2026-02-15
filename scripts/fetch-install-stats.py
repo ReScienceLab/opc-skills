@@ -8,6 +8,15 @@ import urllib.request
 
 SKILLS_SH_URL = "https://skills.sh/resciencelab/opc-skills"
 
+
+def _parse_count(count_str):
+    """Parse install count string, handling abbreviated formats like '2.8K'."""
+    count_str = count_str.strip().replace(",", "")
+    if count_str.upper().endswith("K"):
+        return int(float(count_str[:-1]) * 1000)
+    return int(count_str)
+
+
 def fetch_install_stats():
     """Scrape skills.sh page and extract installation counts."""
     try:
@@ -26,15 +35,17 @@ def fetch_install_stats():
     skills = {}
     
     # HTML pattern: href="/resciencelab/opc-skills/{skill}">...<span...>{count}</span>
+    # Count can be plain digits (e.g. "380") or abbreviated (e.g. "2.8K", "5.3K")
     skill_pattern = re.compile(
         r'href="/resciencelab/opc-skills/([a-z0-9-]+)"[^>]*>.*?'
-        r'<span[^>]*class="[^"]*font-mono[^"]*"[^>]*>(\d+)</span>',
+        r'<span[^>]*class="[^"]*font-mono[^"]*"[^>]*>([\d.,]+K?)</span>',
         re.IGNORECASE | re.DOTALL
     )
     
     for match in skill_pattern.finditer(html):
         skill_name = match.group(1).lower()
-        count = int(match.group(2))
+        count_str = match.group(2)
+        count = _parse_count(count_str)
         # Skip template skill
         if skill_name != "skill-name":
             skills[skill_name] = count

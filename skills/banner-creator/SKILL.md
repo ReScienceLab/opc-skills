@@ -1,15 +1,6 @@
 ---
 name: banner-creator
-description: Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, or cover image.
-triggers:
-  - "banner"
-  - "header"
-  - "hero image"
-  - "cover image"
-  - "create banner"
-  - "github banner"
-  - "twitter header"
-  - "readme banner"
+description: Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.
 ---
 
 # Banner Creator Skill

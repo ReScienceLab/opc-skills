@@ -1,14 +1,6 @@
 ---
 name: requesthunt
-description: Generate user demand research reports from real user feedback. Scrape and analyze feature requests, complaints, and questions from Reddit, X, and GitHub.
-triggers:
-  - "requesthunt"
-  - "request hunt"
-  - "feature request"
-  - "user demand"
-  - "demand research"
-  - "用户需求"
-  - "需求调研"
+description: Generate user demand research reports from real user feedback. Scrape and analyze feature requests, complaints, and questions from Reddit, X, and GitHub. Use when user wants to do demand research, find feature requests, analyze user demand, or run RequestHunt queries.
 ---
 
 # RequestHunt Skill

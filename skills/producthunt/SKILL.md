@@ -1,11 +1,6 @@
 ---
 name: producthunt
-description: Search and retrieve content from Product Hunt. Get posts, topics, users, and collections via the GraphQL API.
-triggers:
-  - "producthunt"
-  - "product hunt"
-  - "PH"
-  - "launch"
+description: Search and retrieve content from Product Hunt. Get posts, topics, users, and collections via the GraphQL API. Use when user mentions Product Hunt, PH, or product launches.
 ---
 
 # ProductHunt Skill

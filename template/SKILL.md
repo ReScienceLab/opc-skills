@@ -1,13 +1,6 @@
 ---
 name: skill-name
-description: Clear description of what this skill does and when to use it
-triggers:
-  - trigger1
-  - trigger2
-  - another-trigger
-dependencies:
-  dependency-skill: ">=1.0.0"
-  another-skill: ">=2.0.0"
+description: Clear description of what this skill does and when to use it. Include trigger keywords and contexts inline, e.g. "Use when user wants to X, Y, or Z."
 ---
 
 # Skill Name
@@ -123,17 +116,7 @@ The YAML frontmatter at the top of this file is required:
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `name` | string | ✓ | Unique identifier (kebab-case) |
-| `description` | string | ✓ | What the skill does and when to use it |
-| `triggers` | array | ✓ | Keywords that activate this skill |
-| `dependencies` | object | | Dependent skills (format: `skill-name: ">=X.Y.Z"`) |
-
-### Dependency Format
-
-Use semantic versioning format:
-- `"^1.0.0"` - Compatible with 1.x versions
-- `">=1.0.0"` - Version 1.0.0 or higher
-- `"1.0.0"` - Exact version only
-- `">=1.0.0,<2.0.0"` - Range of versions
+| `description` | string | ✓ | What the skill does and when to use it. Include trigger keywords and "Use when..." contexts inline. |
 
 ## Creating Your Skill
 

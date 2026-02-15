@@ -1,14 +1,6 @@
 ---
 name: nanobanana
-description: Generate and edit images using Google Gemini 3 Pro Image (Nano Banana Pro). Supports text-to-image, image editing, various aspect ratios, and high-resolution output (2K/4K).
-triggers:
-  - "generate image"
-  - "create image"
-  - "nano banana"
-  - "nanobanana"
-  - "gemini image"
-  - "AI image"
-  - "image generation"
+description: Generate and edit images using Google Gemini 3 Pro Image (Nano Banana Pro). Supports text-to-image, image editing, various aspect ratios, and high-resolution output (2K/4K). Use when user wants to generate images, create images, use Gemini image generation, or do AI image generation.
 ---
 
 # Nano Banana - AI Image Generation

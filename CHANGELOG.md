@@ -20,7 +20,7 @@ Each skill maintains its own independent version. Use this matrix to understand 
 | **twitter** | 1.0.0 | - | - |
 | **producthunt** | 1.0.0 | - | - |
 | **seo-geo** | 1.0.0 | twitter, reddit | twitter ≥1.0.0, reddit ≥1.0.0 |
-| **archive** | 1.0.0 | - | - |
+| **archive** | 1.0.1 | - | - |
 
 **Key Points:**
 - Each skill has an independent version number (MAJOR.MINOR.PATCH)
@@ -32,37 +32,16 @@ Each skill maintains its own independent version. Use this matrix to understand 
 
 ## [Unreleased]
 
-### Website
-- (no changes)
-
-### requesthunt
-- (no changes)
-
-### domain-hunter
-- (no changes)
-
-### logo-creator
-- (no changes)
-
-### banner-creator
-- (no changes)
-
-### nanobanana
-- (no changes)
-
-### reddit
-- (no changes)
-
-### twitter
-- (no changes)
-
-### producthunt
-- (no changes)
-
-### seo-geo
+### archive
 - (no changes)
 
 ## Released Versions
+
+## [1.0.10] - 2026-02-23
+
+### archive
+#### [1.0.1] - 2026-02-23
+- **Fixed**: Description YAML block scalar (`>-`) replaced with single-line string to fix broken description display on skills.sh and other parsers
 
 ## [1.0.9] - 2026-02-23
 
@@ -86,7 +65,6 @@ Each skill maintains its own independent version. Use this matrix to understand 
   - install.sh endpoint was returning 404
   - Updated all install commands in skills.json and website/worker.js
   - Redirect `/install.sh` to GitHub README installation section
-
 ## [1.0.7] - 2026-02-15
 
 ### Infrastructure

@@ -1,11 +1,6 @@
 ---
 name: archive
-description: >-
-  Archive session learnings, debugging solutions, and deployment logs to
-  .archive/yyyy-mm-dd/ as indexed markdown with searchable tags.
-  Use when completing a significant task, resolving a tricky bug, deploying,
-  or when the user says "archive this". Maintains .archive/MEMORY.md index
-  for cross-session knowledge reuse.
+description: "Archive session learnings, debugging solutions, and deployment logs to .archive/yyyy-mm-dd/ as indexed markdown with searchable tags. Use when completing a significant task, resolving a tricky bug, deploying, or when the user says \"archive this\". Maintains .archive/MEMORY.md index for cross-session knowledge reuse."
 ---
 
 # Archive Skill

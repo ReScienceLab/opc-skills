@@ -20,6 +20,7 @@ Each skill maintains its own independent version. Use this matrix to understand 
 | **twitter** | 1.0.0 | - | - |
 | **producthunt** | 1.0.0 | - | - |
 | **seo-geo** | 1.0.0 | twitter, reddit | twitter ≥1.0.0, reddit ≥1.0.0 |
+| **archive** | 1.0.0 | - | - |
 
 **Key Points:**
 - Each skill has an independent version number (MAJOR.MINOR.PATCH)
@@ -78,11 +79,13 @@ Each skill maintains its own independent version. Use this matrix to understand 
   - Maintains `.archive/MEMORY.md` index for cross-session knowledge reuse
   - Includes logo, install commands, README listing, and website integration
 - **Added**: `add-new-opc-skill` checklist skill under `.factory/skills/` (#60)
+  - Comprehensive guide for adding new skills to the project
 
 ### Infrastructure
 - **Fixed**: Replace broken `curl -fsSL opc.dev/install.sh` with `npx skills add` (#55, #58)
   - install.sh endpoint was returning 404
   - Updated all install commands in skills.json and website/worker.js
+  - Redirect `/install.sh` to GitHub README installation section
 
 ## [1.0.7] - 2026-02-15
 

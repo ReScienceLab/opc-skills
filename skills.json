@@ -1,5 +1,5 @@
 {
-  "version": "1.0.7",
+  "version": "1.0.8",
   "name": "OPC Skills",
   "description": "Agent Skills for One Person Companies",
   "repository": "https://github.com/ReScienceLab/opc-skills",
@@ -47,17 +47,17 @@
       },
       "install": {
         "user": {
-          "claude": "curl -fsSL opc.dev/install.sh | bash -s -- -t claude seo-geo",
-          "droid": "curl -fsSL opc.dev/install.sh | bash -s -- -t droid seo-geo",
-          "opencode": "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode seo-geo",
-          "codex": "curl -fsSL opc.dev/install.sh | bash -s -- -t codex seo-geo"
+          "claude": "npx skills add ReScienceLab/opc-skills --skill seo-geo -a claude",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill seo-geo -a droid",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill seo-geo -a opencode",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill seo-geo -a codex"
         },
         "project": {
-          "claude": "curl -fsSL opc.dev/install.sh | bash -s -- -t claude -p seo-geo",
-          "droid": "curl -fsSL opc.dev/install.sh | bash -s -- -t droid -p seo-geo",
-          "cursor": "curl -fsSL opc.dev/install.sh | bash -s -- -t cursor -p seo-geo",
-          "opencode": "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode -p seo-geo",
-          "codex": "curl -fsSL opc.dev/install.sh | bash -s -- -t codex -p seo-geo"
+          "claude": "npx skills add ReScienceLab/opc-skills --skill seo-geo",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill seo-geo",
+          "cursor": "npx skills add ReScienceLab/opc-skills --skill seo-geo",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill seo-geo",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill seo-geo"
         }
       },
       "commands": [
@@ -99,17 +99,17 @@
       },
       "install": {
         "user": {
-          "claude": "curl -fsSL opc.dev/install.sh | bash -s -- -t claude requesthunt",
-          "droid": "curl -fsSL opc.dev/install.sh | bash -s -- -t droid requesthunt",
-          "opencode": "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode requesthunt",
-          "codex": "curl -fsSL opc.dev/install.sh | bash -s -- -t codex requesthunt"
+          "claude": "npx skills add ReScienceLab/opc-skills --skill requesthunt -a claude",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill requesthunt -a droid",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill requesthunt -a opencode",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill requesthunt -a codex"
         },
         "project": {
-          "claude": "curl -fsSL opc.dev/install.sh | bash -s -- -t claude -p requesthunt",
-          "droid": "curl -fsSL opc.dev/install.sh | bash -s -- -t droid -p requesthunt",
-          "cursor": "curl -fsSL opc.dev/install.sh | bash -s -- -t cursor -p requesthunt",
-          "opencode": "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode -p requesthunt",
-          "codex": "curl -fsSL opc.dev/install.sh | bash -s -- -t codex -p requesthunt"
+          "claude": "npx skills add ReScienceLab/opc-skills --skill requesthunt",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill requesthunt",
+          "cursor": "npx skills add ReScienceLab/opc-skills --skill requesthunt",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill requesthunt",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill requesthunt"
         }
       },
       "commands": [
@@ -151,17 +151,17 @@
       },
       "install": {
         "user": {
-          "claude": "curl -fsSL opc.dev/install.sh | bash -s -- -t claude domain-hunter",
-          "droid": "curl -fsSL opc.dev/install.sh | bash -s -- -t droid domain-hunter",
-          "opencode": "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode domain-hunter",
-          "codex": "curl -fsSL opc.dev/install.sh | bash -s -- -t codex domain-hunter"
+          "claude": "npx skills add ReScienceLab/opc-skills --skill domain-hunter -a claude",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill domain-hunter -a droid",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill domain-hunter -a opencode",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill domain-hunter -a codex"
         },
         "project": {
-          "claude": "curl -fsSL opc.dev/install.sh | bash -s -- -t claude -p domain-hunter",
-          "droid": "curl -fsSL opc.dev/install.sh | bash -s -- -t droid -p domain-hunter",
-          "cursor": "curl -fsSL opc.dev/install.sh | bash -s -- -t cursor -p domain-hunter",
-          "opencode": "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode -p domain-hunter",
-          "codex": "curl -fsSL opc.dev/install.sh | bash -s -- -t codex -p domain-hunter"
+          "claude": "npx skills add ReScienceLab/opc-skills --skill domain-hunter",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill domain-hunter",
+          "cursor": "npx skills add ReScienceLab/opc-skills --skill domain-hunter",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill domain-hunter",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill domain-hunter"
         }
       },
       "commands": [
@@ -215,17 +215,17 @@
       },
       "install": {
         "user": {
-          "claude": "curl -fsSL opc.dev/install.sh | bash -s -- -t claude logo-creator",
-          "droid": "curl -fsSL opc.dev/install.sh | bash -s -- -t droid logo-creator",
-          "opencode": "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode logo-creator",
-          "codex": "curl -fsSL opc.dev/install.sh | bash -s -- -t codex logo-creator"
+          "claude": "npx skills add ReScienceLab/opc-skills --skill logo-creator -a claude",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill logo-creator -a droid",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill logo-creator -a opencode",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill logo-creator -a codex"
         },
         "project": {
-          "claude": "curl -fsSL opc.dev/install.sh | bash -s -- -t claude -p logo-creator",
-          "droid": "curl -fsSL opc.dev/install.sh | bash -s -- -t droid -p logo-creator",
-          "cursor": "curl -fsSL opc.dev/install.sh | bash -s -- -t cursor -p logo-creator",
-          "opencode": "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode -p logo-creator",
-          "codex": "curl -fsSL opc.dev/install.sh | bash -s -- -t codex -p logo-creator"
+          "claude": "npx skills add ReScienceLab/opc-skills --skill logo-creator",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill logo-creator",
+          "cursor": "npx skills add ReScienceLab/opc-skills --skill logo-creator",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill logo-creator",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill logo-creator"
         }
       },
       "commands": [
@@ -271,17 +271,17 @@
       },
       "install": {
         "user": {
-          "claude": "curl -fsSL opc.dev/install.sh | bash -s -- -t claude banner-creator",
-          "droid": "curl -fsSL opc.dev/install.sh | bash -s -- -t droid banner-creator",
-          "opencode": "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode banner-creator",
-          "codex": "curl -fsSL opc.dev/install.sh | bash -s -- -t codex banner-creator"
+          "claude": "npx skills add ReScienceLab/opc-skills --skill banner-creator -a claude",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill banner-creator -a droid",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill banner-creator -a opencode",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill banner-creator -a codex"
         },
         "project": {
-          "claude": "curl -fsSL opc.dev/install.sh | bash -s -- -t claude -p banner-creator",
-          "droid": "curl -fsSL opc.dev/install.sh | bash -s -- -t droid -p banner-creator",
-          "cursor": "curl -fsSL opc.dev/install.sh | bash -s -- -t cursor -p banner-creator",
-          "opencode": "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode -p banner-creator",
-          "codex": "curl -fsSL opc.dev/install.sh | bash -s -- -t codex -p banner-creator"
+          "claude": "npx skills add ReScienceLab/opc-skills --skill banner-creator",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill banner-creator",
+          "cursor": "npx skills add ReScienceLab/opc-skills --skill banner-creator",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill banner-creator",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill banner-creator"
         }
       },
       "commands": [
@@ -321,17 +321,17 @@
       },
       "install": {
         "user": {
-          "claude": "curl -fsSL opc.dev/install.sh | bash -s -- -t claude nanobanana",
-          "droid": "curl -fsSL opc.dev/install.sh | bash -s -- -t droid nanobanana",
-          "opencode": "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode nanobanana",
-          "codex": "curl -fsSL opc.dev/install.sh | bash -s -- -t codex nanobanana"
+          "claude": "npx skills add ReScienceLab/opc-skills --skill nanobanana -a claude",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill nanobanana -a droid",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill nanobanana -a opencode",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill nanobanana -a codex"
         },
         "project": {
-          "claude": "curl -fsSL opc.dev/install.sh | bash -s -- -t claude -p nanobanana",
-          "droid": "curl -fsSL opc.dev/install.sh | bash -s -- -t droid -p nanobanana",
-          "cursor": "curl -fsSL opc.dev/install.sh | bash -s -- -t cursor -p nanobanana",
-          "opencode": "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode -p nanobanana",
-          "codex": "curl -fsSL opc.dev/install.sh | bash -s -- -t codex -p nanobanana"
+          "claude": "npx skills add ReScienceLab/opc-skills --skill nanobanana",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill nanobanana",
+          "cursor": "npx skills add ReScienceLab/opc-skills --skill nanobanana",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill nanobanana",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill nanobanana"
         }
       },
       "commands": [
@@ -364,17 +364,17 @@
       },
       "install": {
         "user": {
-          "claude": "curl -fsSL opc.dev/install.sh | bash -s -- -t claude reddit",
-          "droid": "curl -fsSL opc.dev/install.sh | bash -s -- -t droid reddit",
-          "opencode": "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode reddit",
-          "codex": "curl -fsSL opc.dev/install.sh | bash -s -- -t codex reddit"
+          "claude": "npx skills add ReScienceLab/opc-skills --skill reddit -a claude",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill reddit -a droid",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill reddit -a opencode",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill reddit -a codex"
         },
         "project": {
-          "claude": "curl -fsSL opc.dev/install.sh | bash -s -- -t claude -p reddit",
-          "droid": "curl -fsSL opc.dev/install.sh | bash -s -- -t droid -p reddit",
-          "cursor": "curl -fsSL opc.dev/install.sh | bash -s -- -t cursor -p reddit",
-          "opencode": "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode -p reddit",
-          "codex": "curl -fsSL opc.dev/install.sh | bash -s -- -t codex -p reddit"
+          "claude": "npx skills add ReScienceLab/opc-skills --skill reddit",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill reddit",
+          "cursor": "npx skills add ReScienceLab/opc-skills --skill reddit",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill reddit",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill reddit"
         }
       },
       "commands": [
@@ -415,17 +415,17 @@
       },
       "install": {
         "user": {
-          "claude": "curl -fsSL opc.dev/install.sh | bash -s -- -t claude twitter",
-          "droid": "curl -fsSL opc.dev/install.sh | bash -s -- -t droid twitter",
-          "opencode": "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode twitter",
-          "codex": "curl -fsSL opc.dev/install.sh | bash -s -- -t codex twitter"
+          "claude": "npx skills add ReScienceLab/opc-skills --skill twitter -a claude",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill twitter -a droid",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill twitter -a opencode",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill twitter -a codex"
         },
         "project": {
-          "claude": "curl -fsSL opc.dev/install.sh | bash -s -- -t claude -p twitter",
-          "droid": "curl -fsSL opc.dev/install.sh | bash -s -- -t droid -p twitter",
-          "cursor": "curl -fsSL opc.dev/install.sh | bash -s -- -t cursor -p twitter",
-          "opencode": "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode -p twitter",
-          "codex": "curl -fsSL opc.dev/install.sh | bash -s -- -t codex -p twitter"
+          "claude": "npx skills add ReScienceLab/opc-skills --skill twitter",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill twitter",
+          "cursor": "npx skills add ReScienceLab/opc-skills --skill twitter",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill twitter",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill twitter"
         }
       },
       "commands": [
@@ -466,17 +466,17 @@
       },
       "install": {
         "user": {
-          "claude": "curl -fsSL opc.dev/install.sh | bash -s -- -t claude producthunt",
-          "droid": "curl -fsSL opc.dev/install.sh | bash -s -- -t droid producthunt",
-          "opencode": "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode producthunt",
-          "codex": "curl -fsSL opc.dev/install.sh | bash -s -- -t codex producthunt"
+          "claude": "npx skills add ReScienceLab/opc-skills --skill producthunt -a claude",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill producthunt -a droid",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill producthunt -a opencode",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill producthunt -a codex"
         },
         "project": {
-          "claude": "curl -fsSL opc.dev/install.sh | bash -s -- -t claude -p producthunt",
-          "droid": "curl -fsSL opc.dev/install.sh | bash -s -- -t droid -p producthunt",
-          "cursor": "curl -fsSL opc.dev/install.sh | bash -s -- -t cursor -p producthunt",
-          "opencode": "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode -p producthunt",
-          "codex": "curl -fsSL opc.dev/install.sh | bash -s -- -t codex -p producthunt"
+          "claude": "npx skills add ReScienceLab/opc-skills --skill producthunt",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill producthunt",
+          "cursor": "npx skills add ReScienceLab/opc-skills --skill producthunt",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill producthunt",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill producthunt"
         }
       },
       "commands": [
@@ -489,6 +489,48 @@
       "links": {
         "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/producthunt",
         "docs": "https://api.producthunt.com/v2/docs"
+      }
+    },
+    {
+      "name": "archive",
+      "version": "1.0.0",
+      "description": "Archive session learnings, debugging solutions, and deployment logs to .archive/yyyy-mm-dd/ as indexed markdown with searchable tags. Use when completing a significant task, resolving a tricky bug, deploying, or when the user says \"archive this\". Maintains .archive/MEMORY.md index for cross-session knowledge reuse.",
+      "logo": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/skill-logos/archive.svg",
+      "icon": "archive",
+      "color": "6B7280",
+      "triggers": [
+        "archive this",
+        "archive session",
+        "save learnings",
+        "document this",
+        "session notes",
+        "what did we learn",
+        "check archives",
+        "past solutions"
+      ],
+      "dependencies": {},
+      "auth": {
+        "required": false,
+        "type": null,
+        "keys": []
+      },
+      "install": {
+        "user": {
+          "claude": "npx skills add ReScienceLab/opc-skills --skill archive -a claude",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill archive -a droid",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill archive -a opencode",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill archive -a codex"
+        },
+        "project": {
+          "claude": "npx skills add ReScienceLab/opc-skills --skill archive",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill archive",
+          "cursor": "npx skills add ReScienceLab/opc-skills --skill archive",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill archive",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill archive"
+        }
+      },
+      "links": {
+        "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/archive"
       }
     }
   ]

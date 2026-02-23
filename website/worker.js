@@ -1,32 +1,40 @@
-import { marked } from 'marked';
+import { marked } from "marked";
 
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
-    
-    if (url.pathname === '/sitemap.xml') {
+
+    if (url.pathname === "/sitemap.xml") {
       const config = await fetchSkillsConfig(ctx);
       const skills = config.skills || [];
       const blogConfig = await fetchBlogConfig(ctx);
       const posts = blogConfig.posts || [];
-      const today = new Date().toISOString().split('T')[0];
-      
-      const skillUrls = skills.map(s => `
+      const today = new Date().toISOString().split("T")[0];
+
+      const skillUrls = skills
+        .map(
+          (s) => `
   <url>
     <loc>https://opc.dev/skills/${s.name}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>`).join('');
-      
-      const blogUrls = posts.map(post => `
+  </url>`,
+        )
+        .join("");
+
+      const blogUrls = posts
+        .map(
+          (post) => `
   <url>
     <loc>https://opc.dev/blog/${post.slug}</loc>
     <lastmod>${post.date}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-  </url>`).join('');
-      
+  </url>`,
+        )
+        .join("");
+
       const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
@@ -54,11 +62,14 @@ export default {
     <priority>0.6</priority>
   </url>${skillUrls}${blogUrls}
 </urlset>`;
-      return new Response(sitemap, { headers: { 'Content-Type': 'application/xml' } });
+      return new Response(sitemap, {
+        headers: { "Content-Type": "application/xml" },
+      });
     }
-    
-    if (url.pathname === '/robots.txt') {
-      return new Response(`# OPC Skills - AI Agent Skills
+
+    if (url.pathname === "/robots.txt") {
+      return new Response(
+        `# OPC Skills - AI Agent Skills
 # We explicitly allow AI bots for GEO (Generative Engine Optimization)
 # Content-Signal: search=yes, ai-input=yes, ai-train=no
 
@@ -103,19 +114,22 @@ Disallow: /
 User-agent: SemrushBot
 Disallow: /
 
-Sitemap: https://opc.dev/sitemap.xml`, { 
-        headers: { 
-          'Content-Type': 'text/plain',
-          'X-Robots-Tag': 'all',
-          'Cache-Control': 'public, max-age=86400'
-        } 
-      });
+Sitemap: https://opc.dev/sitemap.xml`,
+        {
+          headers: {
+            "Content-Type": "text/plain",
+            "X-Robots-Tag": "all",
+            "Cache-Control": "public, max-age=86400",
+          },
+        },
+      );
     }
 
     // llms.txt - AI-optimized plain text summary for LLMs
-    if (url.pathname === '/llms.txt') {
-      const today = new Date().toISOString().split('T')[0];
-      return new Response(`# OPC Skills - AI Agent Skills for Solopreneurs
+    if (url.pathname === "/llms.txt") {
+      const today = new Date().toISOString().split("T")[0];
+      return new Response(
+        `# OPC Skills - AI Agent Skills for Solopreneurs
 
 ## Overview
 9 specialized AI agent skills for one-person companies.
@@ -154,60 +168,71 @@ Agent Skills Standard: https://agentskills.io
 - Cross-platform compatibility
 - No API keys required for most skills
 - Active maintenance and updates
-- Community-driven development`, {
-        headers: { 
-          'Content-Type': 'text/plain',
-          'Cache-Control': 'public, max-age=3600'
-        }
-      });
+- Community-driven development`,
+        {
+          headers: {
+            "Content-Type": "text/plain",
+            "Cache-Control": "public, max-age=3600",
+          },
+        },
+      );
     }
 
     // Serve skill images from GitHub
-    const imgMatch = url.pathname.match(/^\/skills\/([a-z-]+)\/examples\/images\/(.+)$/);
+    const imgMatch = url.pathname.match(
+      /^\/skills\/([a-z-]+)\/examples\/images\/(.+)$/,
+    );
     if (imgMatch) {
       const [, skillName, fileName] = imgMatch;
-      const contentType = fileName.endsWith('.svg') ? 'image/svg+xml' :
-                          fileName.endsWith('.png') ? 'image/png' : 'image/jpeg';
+      const contentType = fileName.endsWith(".svg")
+        ? "image/svg+xml"
+        : fileName.endsWith(".png")
+          ? "image/png"
+          : "image/jpeg";
       const imgUrl = `https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/skills/${skillName}/examples/images/${fileName}`;
       try {
-        const imgRes = await fetch(imgUrl, { headers: { 'User-Agent': 'OPC-Skills-Website' } });
+        const imgRes = await fetch(imgUrl, {
+          headers: { "User-Agent": "OPC-Skills-Website" },
+        });
         if (imgRes.ok) {
-          return new Response(imgRes.body, { headers: { 'Content-Type': contentType, 'Cache-Control': 'public, max-age=3600' } });
+          return new Response(imgRes.body, {
+            headers: {
+              "Content-Type": contentType,
+              "Cache-Control": "public, max-age=3600",
+            },
+          });
         }
       } catch (e) {}
-      return new Response('Image not found', { status: 404 });
+      return new Response("Image not found", { status: 404 });
     }
 
-    // Serve install.sh - proxy from GitHub raw
-    if (url.pathname === '/install.sh') {
-      const installScript = await fetch('https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/install.sh');
-      return new Response(installScript.body, {
-        headers: {
-          'Content-Type': 'text/plain; charset=utf-8',
-          'Cache-Control': 'public, max-age=300'
-        }
-      });
+    // Redirect install.sh to GitHub README for installation instructions
+    if (url.pathname === "/install.sh") {
+      return Response.redirect(
+        "https://github.com/ReScienceLab/opc-skills#installation",
+        302,
+      );
     }
 
     // Serve skills.json directly
-    if (url.pathname === '/skills.json') {
+    if (url.pathname === "/skills.json") {
       const skills = await fetchSkillsConfig(ctx);
       return new Response(JSON.stringify(skills, null, 2), {
-        headers: { 
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Cache-Control': 'public, max-age=300'
-        }
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Cache-Control": "public, max-age=300",
+        },
       });
     }
 
     // Comparison page - AI loves comparison tables (+25% citation rate)
-    if (url.pathname === '/compare') {
+    if (url.pathname === "/compare") {
       return renderComparePage(ctx);
     }
 
     // Blog list page
-    if (url.pathname === '/blog') {
+    if (url.pathname === "/blog") {
       return renderBlogListPage(ctx);
     }
 
@@ -226,294 +251,294 @@ Agent Skills Standard: https://agentskills.io
     // Fetch skills from config and install stats
     const [config, installStats] = await Promise.all([
       fetchSkillsConfig(ctx),
-      fetchInstallStats(ctx)
+      fetchInstallStats(ctx),
     ]);
     const skills = config.skills || [];
 
     // Generate JSON-LD structured data for skills (GEO-optimized)
-    const today = new Date().toISOString().split('T')[0];
-    const skillsJsonLd = skills.map(s => ({
+    const today = new Date().toISOString().split("T")[0];
+    const skillsJsonLd = skills.map((s) => ({
       "@type": "SoftwareApplication",
-      "name": s.name,
-      "description": s.description,
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Cross-platform",
-      "softwareVersion": s.version,
-      "datePublished": "2024-01-01",
-      "dateModified": today,
-      "offers": {
+      name: s.name,
+      description: s.description,
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Cross-platform",
+      softwareVersion: s.version,
+      datePublished: "2024-01-01",
+      dateModified: today,
+      offers: {
         "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock"
+        price: "0",
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
       },
-      "url": `https://opc.dev/skills/${s.name}`
+      url: `https://opc.dev/skills/${s.name}`,
     }));
 
     // GEO: Generate FAQPage schema for AI citation optimization (+40% visibility)
-    const faqItems = skills.slice(0, 5).map(s => ({
+    const faqItems = skills.slice(0, 5).map((s) => ({
       "@type": "Question",
-      "name": `What is ${s.name}?`,
-      "acceptedAnswer": {
+      name: `What is ${s.name}?`,
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": `${s.name} is an agent skill for AI coding assistants. ${s.description} Install it with: curl -fsSL opc.dev/install.sh | bash -s -- -t claude ${s.name}`
-      }
+        text: `${s.name} is an agent skill for AI coding assistants. ${s.description} Install it with: npx skills add ReScienceLab/opc-skills --skill ${s.name}`,
+      },
     }));
     faqItems.push({
       "@type": "Question",
-      "name": "What is OPC Skills?",
-      "acceptedAnswer": {
+      name: "What is OPC Skills?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": `OPC Skills is a curated collection of ${skills.length} AI agent skills for solopreneurs, indie hackers, and one-person companies. According to the Agent Skills standard (agentskills.io), these modular extensions work with 5 major AI coding platforms: Claude Code, Factory Droid, Cursor, OpenCode, and Codex. Each skill adds specialized capabilities like domain hunting, social media research, and product analytics. 100% free and open source under MIT license with installation taking less than 30 seconds.`
-      }
+        text: `OPC Skills is a curated collection of ${skills.length} AI agent skills for solopreneurs, indie hackers, and one-person companies. According to the Agent Skills standard (agentskills.io), these modular extensions work with 5 major AI coding platforms: Claude Code, Factory Droid, Cursor, OpenCode, and Codex. Each skill adds specialized capabilities like domain hunting, social media research, and product analytics. 100% free and open source under MIT license with installation taking less than 30 seconds.`,
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "How do I install OPC Skills?",
-      "acceptedAnswer": {
+      name: "How do I install OPC Skills?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "Run this command in your terminal: npx skills add ReScienceLab/opc-skills. For a specific skill, use npx skills add ReScienceLab/opc-skills --skill reddit. Works with Claude Code, Cursor, Windsurf, Droid, and 12+ other AI tools."
-      }
+        text: "Run this command in your terminal: npx skills add ReScienceLab/opc-skills. For a specific skill, use npx skills add ReScienceLab/opc-skills --skill reddit. Works with Claude Code, Cursor, Windsurf, Droid, and 12+ other AI tools.",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "What are AI agent skills?",
-      "acceptedAnswer": {
+      name: "What are AI agent skills?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "AI agent skills are modular capabilities that extend AI coding assistants like Claude Code, Cursor, and Codex. According to agentskills.io, skills are self-contained folders with instructions (SKILL.md) that enable AI agents to perform specialized tasks such as searching domains, researching social media, and analyzing product launches. Skills typically take less than 30 seconds to install via one-line commands and work across 5+ major AI coding platforms."
-      }
+        text: "AI agent skills are modular capabilities that extend AI coding assistants like Claude Code, Cursor, and Codex. According to agentskills.io, skills are self-contained folders with instructions (SKILL.md) that enable AI agents to perform specialized tasks such as searching domains, researching social media, and analyzing product launches. Skills typically take less than 30 seconds to install via one-line commands and work across 5+ major AI coding platforms.",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "How to extend Claude Code with custom skills?",
-      "acceptedAnswer": {
+      name: "How to extend Claude Code with custom skills?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "You can extend Claude Code with custom skills by installing OPC Skills using: npx skills add ReScienceLab/opc-skills. Skills are stored in ~/.claude/skills/ for user-level or .claude/skills/ for project-level. Each skill is a markdown file with instructions that Claude Code can follow."
-      }
+        text: "You can extend Claude Code with custom skills by installing OPC Skills using: npx skills add ReScienceLab/opc-skills. Skills are stored in ~/.claude/skills/ for user-level or .claude/skills/ for project-level. Each skill is a markdown file with instructions that Claude Code can follow.",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "What platforms are supported by OPC Skills?",
-      "acceptedAnswer": {
+      name: "What platforms are supported by OPC Skills?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": `OPC Skills supports 5 major AI coding platforms: Claude Code (by Anthropic), Factory Droid, Cursor, OpenCode, and Codex (by OpenAI). All ${skills.length} skills can be installed with a single one-line command for any of these platforms, with installation completing in less than 30 seconds. Skills follow the Agent Skills standard (agentskills.io) for cross-platform compatibility.`
-      }
+        text: `OPC Skills supports 5 major AI coding platforms: Claude Code (by Anthropic), Factory Droid, Cursor, OpenCode, and Codex (by OpenAI). All ${skills.length} skills can be installed with a single one-line command for any of these platforms, with installation completing in less than 30 seconds. Skills follow the Agent Skills standard (agentskills.io) for cross-platform compatibility.`,
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "What are Claude Code skills for solopreneurs?",
-      "acceptedAnswer": {
+      name: "What are Claude Code skills for solopreneurs?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "Claude Code skills for solopreneurs are AI extensions that help one-person companies work smarter. They add capabilities like domain search, Twitter analysis, and Reddit research to Claude Code. Each skill is built specifically for indie hackers who need to do more with less time and resources."
-      }
+        text: "Claude Code skills for solopreneurs are AI extensions that help one-person companies work smarter. They add capabilities like domain search, Twitter analysis, and Reddit research to Claude Code. Each skill is built specifically for indie hackers who need to do more with less time and resources.",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "How do I install Claude Code extensions?",
-      "acceptedAnswer": {
+      name: "How do I install Claude Code extensions?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "Use the one-command install: npx skills add ReScienceLab/opc-skills. This works for Claude Code and 12+ other AI coding assistants. Browse available skills at https://skills.sh/ReScienceLab/opc-skills."
-      }
+        text: "Use the one-command install: npx skills add ReScienceLab/opc-skills. This works for Claude Code and 12+ other AI coding assistants. Browse available skills at https://skills.sh/ReScienceLab/opc-skills.",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "Are these skills compatible with Cursor AI?",
-      "acceptedAnswer": {
+      name: "Are these skills compatible with Cursor AI?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "Yes! OPC Skills work with Claude Code, Cursor, Codex, Windsurf, Droid, and 12+ other AI coding assistants. Just run npx skills add ReScienceLab/opc-skills and the CLI will automatically detect your installed tools."
-      }
+        text: "Yes! OPC Skills work with Claude Code, Cursor, Codex, Windsurf, Droid, and 12+ other AI coding assistants. Just run npx skills add ReScienceLab/opc-skills and the CLI will automatically detect your installed tools.",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "Is OPC Skills free to use?",
-      "acceptedAnswer": {
+      name: "Is OPC Skills free to use?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "Yes, OPC Skills is 100% free and open source under the MIT license. Some individual skills may require API keys for third-party services (like Twitter API or Reddit API), but the skills themselves are free to install and use."
-      }
+        text: "Yes, OPC Skills is 100% free and open source under the MIT license. Some individual skills may require API keys for third-party services (like Twitter API or Reddit API), but the skills themselves are free to install and use.",
+      },
     });
-    
+
     // Installation FAQs
     faqItems.push({
       "@type": "Question",
-      "name": "How do I install only specific skills?",
-      "acceptedAnswer": {
+      name: "How do I install only specific skills?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "Use the --skill flag to install specific skills: npx skills add ReScienceLab/opc-skills --skill reddit --skill twitter. You can chain multiple --skill flags to install only the skills you need."
-      }
+        text: "Use the --skill flag to install specific skills: npx skills add ReScienceLab/opc-skills --skill reddit --skill twitter. You can chain multiple --skill flags to install only the skills you need.",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "Do I need API keys for all skills?",
-      "acceptedAnswer": {
+      name: "Do I need API keys for all skills?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "No. Only 3 of 9 skills require API keys: requesthunt (requires API key), twitter (requires twitterapi.io key), producthunt (requires PH token), and logo-creator (requires Gemini API). Skills like reddit, domain-hunter, banner-creator, and nanobanana work without any authentication."
-      }
+        text: "No. Only 3 of 9 skills require API keys: requesthunt (requires API key), twitter (requires twitterapi.io key), producthunt (requires PH token), and logo-creator (requires Gemini API). Skills like reddit, domain-hunter, banner-creator, and nanobanana work without any authentication.",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "Can I install skills globally vs per-project?",
-      "acceptedAnswer": {
+      name: "Can I install skills globally vs per-project?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "Yes. Use npx skills add with the -a flag for user-level install (e.g., -a droid) or without flags for project-level install in .claude/skills/ or .droid/skills/. Global skills are accessible across all projects."
-      }
+        text: "Yes. Use npx skills add with the -a flag for user-level install (e.g., -a droid) or without flags for project-level install in .claude/skills/ or .droid/skills/. Global skills are accessible across all projects.",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "How do I update installed skills?",
-      "acceptedAnswer": {
+      name: "How do I update installed skills?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "Run the same install command again: npx skills add ReScienceLab/opc-skills. The CLI will automatically update existing skills to the latest version. Check the GitHub repository for changelog and version updates."
-      }
+        text: "Run the same install command again: npx skills add ReScienceLab/opc-skills. The CLI will automatically update existing skills to the latest version. Check the GitHub repository for changelog and version updates.",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "Can I uninstall individual skills?",
-      "acceptedAnswer": {
+      name: "Can I uninstall individual skills?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "Yes. Navigate to ~/.claude/skills/ (user-level) or .claude/skills/ (project-level) and delete the specific skill folder. Or use npx skills remove command if supported by your AI tool."
-      }
+        text: "Yes. Navigate to ~/.claude/skills/ (user-level) or .claude/skills/ (project-level) and delete the specific skill folder. Or use npx skills remove command if supported by your AI tool.",
+      },
     });
-    
+
     // Comparison FAQs
     faqItems.push({
       "@type": "Question",
-      "name": "How does OPC Skills compare to manual research?",
-      "acceptedAnswer": {
+      name: "How does OPC Skills compare to manual research?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "OPC Skills automates tasks that typically take hours. For example, domain-hunter reduces domain research from 2+ hours to 10 minutes. requesthunt analyzes 100+ Reddit/Twitter posts in seconds versus hours of manual browsing. According to user feedback, skills save 3-5 hours per week on average."
-      }
+        text: "OPC Skills automates tasks that typically take hours. For example, domain-hunter reduces domain research from 2+ hours to 10 minutes. requesthunt analyzes 100+ Reddit/Twitter posts in seconds versus hours of manual browsing. According to user feedback, skills save 3-5 hours per week on average.",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "What makes OPC Skills different from other collections?",
-      "acceptedAnswer": {
+      name: "What makes OPC Skills different from other collections?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "OPC Skills is specifically designed for solopreneurs and one-person companies. Unlike general-purpose tools, every skill addresses common solopreneur pain points: domain hunting, social research, logo creation, and SEO. It supports 5 platforms (most alternatives support 1-2) and installs in under 30 seconds."
-      }
+        text: "OPC Skills is specifically designed for solopreneurs and one-person companies. Unlike general-purpose tools, every skill addresses common solopreneur pain points: domain hunting, social research, logo creation, and SEO. It supports 5 platforms (most alternatives support 1-2) and installs in under 30 seconds.",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "Can OPC Skills replace paid tools?",
-      "acceptedAnswer": {
+      name: "Can OPC Skills replace paid tools?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "For many use cases, yes. OPC Skills provides free alternatives to tools costing $50-200/month (domain research, social monitoring, SEO audit). However, paid tools may offer more advanced features like historical data, deeper analytics, or priority support. OPC Skills excels at everyday automation tasks."
-      }
+        text: "For many use cases, yes. OPC Skills provides free alternatives to tools costing $50-200/month (domain research, social monitoring, SEO audit). However, paid tools may offer more advanced features like historical data, deeper analytics, or priority support. OPC Skills excels at everyday automation tasks.",
+      },
     });
-    
+
     // Technical FAQs
     faqItems.push({
       "@type": "Question",
-      "name": "What programming languages are supported?",
-      "acceptedAnswer": {
+      name: "What programming languages are supported?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "Skills are language-agnostic and work with any programming language. Most scripts are written in Python 3.12+ for portability. Skills integrate with AI coding assistants (Claude Code, Cursor, Codex) which support all major languages: JavaScript, Python, Go, Rust, TypeScript, etc."
-      }
+        text: "Skills are language-agnostic and work with any programming language. Most scripts are written in Python 3.12+ for portability. Skills integrate with AI coding assistants (Claude Code, Cursor, Codex) which support all major languages: JavaScript, Python, Go, Rust, TypeScript, etc.",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "Can I create custom skills?",
-      "acceptedAnswer": {
+      name: "Can I create custom skills?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "Yes! Follow the Agent Skills standard (agentskills.io). Create a folder with SKILL.md containing YAML frontmatter (name, description) and instructions. See the template/ directory in the GitHub repo for examples. Custom skills can be installed locally or published to skills.sh."
-      }
+        text: "Yes! Follow the Agent Skills standard (agentskills.io). Create a folder with SKILL.md containing YAML frontmatter (name, description) and instructions. See the template/ directory in the GitHub repo for examples. Custom skills can be installed locally or published to skills.sh.",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "Are skills compatible with all operating systems?",
-      "acceptedAnswer": {
+      name: "Are skills compatible with all operating systems?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "Yes. Skills work on macOS, Linux, and Windows. Requirements: Python 3.12+ and npm/npx. Some skills may have platform-specific notes (e.g., Windows users may need WSL for certain bash scripts)."
-      }
+        text: "Yes. Skills work on macOS, Linux, and Windows. Requirements: Python 3.12+ and npm/npx. Some skills may have platform-specific notes (e.g., Windows users may need WSL for certain bash scripts).",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "Can I contribute to existing skills?",
-      "acceptedAnswer": {
+      name: "Can I contribute to existing skills?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "Absolutely! Visit https://github.com/ReScienceLab/opc-skills, fork the repo, make your improvements, and submit a pull request. Popular contributions include: adding new data sources, improving error handling, and expanding documentation."
-      }
+        text: "Absolutely! Visit https://github.com/ReScienceLab/opc-skills, fork the repo, make your improvements, and submit a pull request. Popular contributions include: adding new data sources, improving error handling, and expanding documentation.",
+      },
     });
-    
+
     // Use Case FAQs
     faqItems.push({
       "@type": "Question",
-      "name": "How can I use requesthunt for product validation?",
-      "acceptedAnswer": {
+      name: "How can I use requesthunt for product validation?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "requesthunt scrapes feature requests from Reddit, Twitter/X, and GitHub to validate product ideas. Run 'python3 scripts/scrape_topic.py your-idea' to find real user pain points. Analyze the data to identify demand, pricing expectations, and competitor gaps before building."
-      }
+        text: "requesthunt scrapes feature requests from Reddit, Twitter/X, and GitHub to validate product ideas. Run 'python3 scripts/scrape_topic.py your-idea' to find real user pain points. Analyze the data to identify demand, pricing expectations, and competitor gaps before building.",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "What are real use cases for domain-hunter?",
-      "acceptedAnswer": {
+      name: "What are real use cases for domain-hunter?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "domain-hunter helps find available domains and compare registrar prices. Use cases: (1) Find cheap .ai domains with promo codes, (2) Compare GoDaddy vs Namecheap pricing, (3) Check domain availability across 10+ TLDs instantly, (4) Find expired domains for acquisition."
-      }
+        text: "domain-hunter helps find available domains and compare registrar prices. Use cases: (1) Find cheap .ai domains with promo codes, (2) Compare GoDaddy vs Namecheap pricing, (3) Check domain availability across 10+ TLDs instantly, (4) Find expired domains for acquisition.",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "Can I use logo-creator for client work?",
-      "acceptedAnswer": {
+      name: "Can I use logo-creator for client work?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "Yes! OPC Skills has MIT license allowing commercial use. logo-creator generates AI logos, removes backgrounds, and exports to SVG. You can use it for client projects. Note: Underlying AI (Gemini) has its own terms - review Google's Gemini API terms for commercial usage."
-      }
+        text: "Yes! OPC Skills has MIT license allowing commercial use. logo-creator generates AI logos, removes backgrounds, and exports to SVG. You can use it for client projects. Note: Underlying AI (Gemini) has its own terms - review Google's Gemini API terms for commercial usage.",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "How does seo-geo help with AI visibility?",
-      "acceptedAnswer": {
+      name: "How does seo-geo help with AI visibility?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "seo-geo implements Princeton's 9 GEO methods proven to increase AI search visibility by 40-70%. It audits your site, generates schema markup (FAQPage, ItemList), optimizes meta tags, and ensures AI bots (ChatGPT, Claude, Perplexity) can access your content. Includes citation tracking and keyword research.",
-        "citation": [
+        text: "seo-geo implements Princeton's 9 GEO methods proven to increase AI search visibility by 40-70%. It audits your site, generates schema markup (FAQPage, ItemList), optimizes meta tags, and ensures AI bots (ChatGPT, Claude, Perplexity) can access your content. Includes citation tracking and keyword research.",
+        citation: [
           {
             "@type": "Citation",
-            "url": "https://arxiv.org/abs/2311.03735",
-            "name": "Princeton NLP: GEO Optimization Methods",
-            "datePublished": "2023-11-07"
+            url: "https://arxiv.org/abs/2311.03735",
+            name: "Princeton NLP: GEO Optimization Methods",
+            datePublished: "2023-11-07",
           },
           {
             "@type": "Citation",
-            "url": "https://agentskills.io",
-            "name": "Agent Skills Standard",
-            "datePublished": "2024-01-01"
-          }
-        ]
-      }
+            url: "https://agentskills.io",
+            name: "Agent Skills Standard",
+            datePublished: "2024-01-01",
+          },
+        ],
+      },
     });
-    
+
     // Platform FAQs
     faqItems.push({
       "@type": "Question",
-      "name": "Is OPC Skills suitable for teams?",
-      "acceptedAnswer": {
+      name: "Is OPC Skills suitable for teams?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "Yes, while designed for solopreneurs, OPC Skills works great for small teams (2-10 people). Install at project level so all team members can use the same skills. Multiple developers can share API keys via environment variables."
-      }
+        text: "Yes, while designed for solopreneurs, OPC Skills works great for small teams (2-10 people). Install at project level so all team members can use the same skills. Multiple developers can share API keys via environment variables.",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "Can I use skills for commercial projects?",
-      "acceptedAnswer": {
+      name: "Can I use skills for commercial projects?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "Yes! MIT license permits commercial use. You can use OPC Skills for client work, SaaS products, and revenue-generating projects without restrictions. Some skills use third-party APIs that may have their own commercial terms (check provider ToS)."
-      }
+        text: "Yes! MIT license permits commercial use. You can use OPC Skills for client work, SaaS products, and revenue-generating projects without restrictions. Some skills use third-party APIs that may have their own commercial terms (check provider ToS).",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "How often are skills updated?",
-      "acceptedAnswer": {
+      name: "How often are skills updated?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "Skills are actively maintained with updates every 1-2 weeks. Major platform updates (Claude Code, Cursor releases) trigger compatibility updates within 48 hours. Follow GitHub releases or star the repo to get notifications of new features and bug fixes."
-      }
+        text: "Skills are actively maintained with updates every 1-2 weeks. Major platform updates (Claude Code, Cursor releases) trigger compatibility updates within 48 hours. Follow GitHub releases or star the repo to get notifications of new features and bug fixes.",
+      },
     });
     faqItems.push({
       "@type": "Question",
-      "name": "Does installation work offline?",
-      "acceptedAnswer": {
+      name: "Does installation work offline?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "Initial installation requires internet to download from GitHub. After installation, most skills work offline except those requiring API calls (twitter, requesthunt, producthunt). Skills like reddit (public JSON), domain-hunter (whois), and logo-creator (local) have offline capabilities."
-      }
+        text: "Initial installation requires internet to download from GitHub. After installation, most skills work offline except those requiring API calls (twitter, requesthunt, producthunt). Skills like reddit (public JSON), domain-hunter (whois), and logo-creator (local) have offline capabilities.",
+      },
     });
 
     const jsonLd = {
@@ -522,88 +547,92 @@ Agent Skills Standard: https://agentskills.io
         {
           "@type": "WebPage",
           "@id": "https://opc.dev/#webpage",
-          "url": "https://opc.dev",
-          "name": "Claude Code Skills for Solopreneurs | AI Tools for One-Person Companies",
-          "description": `10+ Claude Code skills for solopreneurs and indie hackers. Add Twitter search, Reddit analysis, domain finder, and SEO tools. Built for one-person companies. One-click install. 100% open source.`,
-          "datePublished": "2024-01-01",
-          "dateModified": today,
-          "inLanguage": "en-US",
-          "speakable": {
+          url: "https://opc.dev",
+          name: "Claude Code Skills for Solopreneurs | AI Tools for One-Person Companies",
+          description: `10+ Claude Code skills for solopreneurs and indie hackers. Add Twitter search, Reddit analysis, domain finder, and SEO tools. Built for one-person companies. One-click install. 100% open source.`,
+          datePublished: "2024-01-01",
+          dateModified: today,
+          inLanguage: "en-US",
+          speakable: {
             "@type": "SpeakableSpecification",
-            "cssSelector": ["h1", ".skill-desc", ".stats-bar", ".compatibility-note"]
+            cssSelector: [
+              "h1",
+              ".skill-desc",
+              ".stats-bar",
+              ".compatibility-note",
+            ],
           },
-          "mainEntity": { "@id": "https://opc.dev/#skillcollection" }
+          mainEntity: { "@id": "https://opc.dev/#skillcollection" },
         },
         {
           "@type": "WebSite",
           "@id": "https://opc.dev/#website",
-          "name": "OPC Skills",
-          "url": "https://opc.dev",
-          "description": `${skills.length}+ curated AI agent skills for solopreneurs and indie hackers. Supercharge Claude Code, Cursor, and Codex with domain hunting, social media research, and more.`,
-          "publisher": { "@id": "https://opc.dev/#organization" }
+          name: "OPC Skills",
+          url: "https://opc.dev",
+          description: `${skills.length}+ curated AI agent skills for solopreneurs and indie hackers. Supercharge Claude Code, Cursor, and Codex with domain hunting, social media research, and more.`,
+          publisher: { "@id": "https://opc.dev/#organization" },
         },
         {
           "@type": "Organization",
           "@id": "https://opc.dev/#organization",
-          "name": "ReScience Lab",
-          "url": "https://rescience.com",
-          "logo": {
+          name: "ReScience Lab",
+          url: "https://rescience.com",
+          logo: {
             "@type": "ImageObject",
-            "url": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/opc-logo.svg"
+            url: "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/opc-logo.svg",
           },
-          "sameAs": [
-            "https://github.com/ReScienceLab"
-          ]
+          sameAs: ["https://github.com/ReScienceLab"],
         },
         {
           "@type": "ItemList",
           "@id": "https://opc.dev/#skillcollection",
-          "name": "OPC Skills Collection",
-          "description": `${skills.length} agent skills for one person companies, supporting 5 platforms: Claude Code, Factory Droid, Cursor, OpenCode, and Codex.`,
-          "numberOfItems": skills.length,
-          "itemListElement": skillsJsonLd.map((skill, index) => ({
+          name: "OPC Skills Collection",
+          description: `${skills.length} agent skills for one person companies, supporting 5 platforms: Claude Code, Factory Droid, Cursor, OpenCode, and Codex.`,
+          numberOfItems: skills.length,
+          itemListElement: skillsJsonLd.map((skill, index) => ({
             "@type": "ListItem",
-            "position": index + 1,
-            "item": skill
-          }))
+            position: index + 1,
+            item: skill,
+          })),
         },
         {
           "@type": "FAQPage",
           "@id": "https://opc.dev/#faq",
-          "mainEntity": faqItems
+          mainEntity: faqItems,
         },
         {
           "@type": "HowTo",
           "@id": "https://opc.dev/#installation",
-          "name": "How to Install OPC Skills",
-          "description": "Quick one-command installation for AI agent skills compatible with Claude Code, Cursor, Droid, and 12+ other AI tools",
-          "totalTime": "PT30S",
-          "step": [
+          name: "How to Install OPC Skills",
+          description:
+            "Quick one-command installation for AI agent skills compatible with Claude Code, Cursor, Droid, and 12+ other AI tools",
+          totalTime: "PT30S",
+          step: [
             {
               "@type": "HowToStep",
-              "position": 1,
-              "name": "Run installation command",
-              "text": "Open your terminal and run: npx skills add ReScienceLab/opc-skills",
-              "itemListElement": {
+              position: 1,
+              name: "Run installation command",
+              text: "Open your terminal and run: npx skills add ReScienceLab/opc-skills",
+              itemListElement: {
                 "@type": "HowToDirection",
-                "text": "npx skills add ReScienceLab/opc-skills"
-              }
+                text: "npx skills add ReScienceLab/opc-skills",
+              },
             },
             {
               "@type": "HowToStep",
-              "position": 2,
-              "name": "Wait for installation",
-              "text": "The CLI will automatically detect your installed AI tools (Claude, Cursor, Droid, etc.) and install skills in under 30 seconds"
+              position: 2,
+              name: "Wait for installation",
+              text: "The CLI will automatically detect your installed AI tools (Claude, Cursor, Droid, etc.) and install skills in under 30 seconds",
             },
             {
               "@type": "HowToStep",
-              "position": 3,
-              "name": "Start using skills",
-              "text": "Skills are now available in your AI coding assistant. Reference them in your conversations to trigger specialized capabilities"
-            }
-          ]
-        }
-      ]
+              position: 3,
+              name: "Start using skills",
+              text: "Skills are now available in your AI coding assistant. Reference them in your conversations to trigger specialized capabilities",
+            },
+          ],
+        },
+      ],
     };
 
     // Helper to get dependency names from object or array
@@ -619,10 +648,10 @@ Agent Skills Standard: https://agentskills.io
       const keys = [...(skill.auth?.keys || [])];
       const deps = getDeps(skill.dependencies);
       for (const depName of deps) {
-        const depSkill = allSkills.find(s => s.name === depName);
+        const depSkill = allSkills.find((s) => s.name === depName);
         if (depSkill?.auth?.keys) {
           for (const k of depSkill.auth.keys) {
-            if (!keys.some(existing => existing.env === k.env)) {
+            if (!keys.some((existing) => existing.env === k.env)) {
               keys.push({ ...k, from: depName });
             }
           }
@@ -634,16 +663,17 @@ Agent Skills Standard: https://agentskills.io
     // Helper to check if skill requires any API key (self or deps)
     const requiresApiKey = (skill, allSkills) => {
       const allKeys = getAllKeys(skill, allSkills);
-      return allKeys.some(k => !k.optional);
+      return allKeys.some((k) => !k.optional);
     };
 
     // Generate skill cards with simplified npx install command
-    const skillCards = skills.map(s => {
-      const installs = installStats.skills?.[s.name] || 0;
-      const deps = getDeps(s.dependencies);
-      const allKeys = getAllKeys(s, skills);
-      const needsKey = requiresApiKey(s, skills);
-      return `
+    const skillCards = skills
+      .map((s) => {
+        const installs = installStats.skills?.[s.name] || 0;
+        const deps = getDeps(s.dependencies);
+        const allKeys = getAllKeys(s, skills);
+        const needsKey = requiresApiKey(s, skills);
+        return `
         <div class="skill-card" id="skill-${s.name}">
           <div class="skill-header">
             <div class="skill-icon">
@@ -651,34 +681,39 @@ Agent Skills Standard: https://agentskills.io
             </div>
             <div class="skill-title">
               <h3><a href="/skills/${s.name}" style="color:inherit;text-decoration:none;">${s.name}</a></h3>
-              <span class="version">v${s.version}</span>${installs > 0 ? ` <span class="install-count">${installs} installs</span>` : ''}
+              <span class="version">v${s.version}</span>${installs > 0 ? ` <span class="install-count">${installs} installs</span>` : ""}
             </div>
             ${needsKey ? `<span class="auth-tag paid">API Key</span>` : `<span class="auth-tag free">Free</span>`}
-            ${s.links.example ? `<a href="${s.links.example}" target="_blank" rel="noopener noreferrer" class="example-link" title="View Example">
+            ${
+              s.links.example
+                ? `<a href="${s.links.example}" target="_blank" rel="noopener noreferrer" class="example-link" title="View Example">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-            </a>` : ''}
+            </a>`
+                : ""
+            }
             <a href="${s.links.github}" target="_blank" rel="noopener noreferrer" class="github-link" title="View on GitHub">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
             </a>
           </div>
           <p class="skill-desc">${s.description}</p>
-          ${allKeys.length > 0 ? `<div class="skill-auth-info"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg> ${allKeys.map(k => `<code>${k.env}</code> <a href="${k.url}" target="_blank" rel="noopener noreferrer">${k.url.replace('https://', '')}</a>${k.from ? ` <span class="from-dep">(${k.from})</span>` : ''}${k.optional ? ' <span class="optional">(optional)</span>' : ''}`).join('<br>')}</div>` : ''}
-          ${deps.length > 0 ? `<div class="skill-deps"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg> Depends on: ${deps.map(d => `<span class="dep-tag">${d}</span>`).join('')}</div>` : ''}
-          <div class="skill-triggers">${s.triggers.map(t => `<span class="trigger">${t}</span>`).join('')}</div>
+          ${allKeys.length > 0 ? `<div class="skill-auth-info"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg> ${allKeys.map((k) => `<code>${k.env}</code> <a href="${k.url}" target="_blank" rel="noopener noreferrer">${k.url.replace("https://", "")}</a>${k.from ? ` <span class="from-dep">(${k.from})</span>` : ""}${k.optional ? ' <span class="optional">(optional)</span>' : ""}`).join("<br>")}</div>` : ""}
+          ${deps.length > 0 ? `<div class="skill-deps"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg> Depends on: ${deps.map((d) => `<span class="dep-tag">${d}</span>`).join("")}</div>` : ""}
+          <div class="skill-triggers">${s.triggers.map((t) => `<span class="trigger">${t}</span>`).join("")}</div>
           <div class="install-section">
             <div class="install-cmd">
-              <code class="cmd-display">npx skills add ReScienceLab/opc-skills --skill ${deps.length > 0 ? deps.concat(s.name).join(' --skill ') : s.name}</code>
-              <button class="copy-btn" onclick="navigator.clipboard.writeText('npx skills add ReScienceLab/opc-skills --skill ${deps.length > 0 ? deps.concat(s.name).join(' --skill ') : s.name}').then(() => { this.textContent='Copied!'; setTimeout(() => this.textContent='Copy', 1000); })">Copy</button>
+              <code class="cmd-display">npx skills add ReScienceLab/opc-skills --skill ${deps.length > 0 ? deps.concat(s.name).join(" --skill ") : s.name}</code>
+              <button class="copy-btn" onclick="navigator.clipboard.writeText('npx skills add ReScienceLab/opc-skills --skill ${deps.length > 0 ? deps.concat(s.name).join(" --skill ") : s.name}').then(() => { this.textContent='Copied!'; setTimeout(() => this.textContent='Copy', 1000); })">Copy</button>
             </div>
           </div>
           <details class="commands-section">
             <summary>Example Commands</summary>
             <div class="commands-list">
-              ${s.commands.map(cmd => `<code>${cmd}</code>`).join('')}
+              ${s.commands.map((cmd) => `<code>${cmd}</code>`).join("")}
             </div>
           </details>
         </div>`;
-    }).join('');
+      })
+      .join("");
 
     const html = `<!DOCTYPE html>
 <html lang="en">
@@ -1174,8 +1209,8 @@ Agent Skills Standard: https://agentskills.io
       }
       
       const level = document.querySelector('.hero-level-tabs .hero-tab.active').dataset.level;
-      const levelFlag = level === 'project' ? ' -p' : '';
-      const cmd = 'curl -fsSL opc.dev/install.sh | bash -s -- -t ' + tool + levelFlag + ' all';
+      const agentFlag = level === 'user' ? ' -a ' + tool : '';
+      const cmd = 'npx skills add ReScienceLab/opc-skills' + agentFlag;
       const code = document.getElementById('hero-cmd-code');
       code.textContent = cmd;
       code.dataset.cmd = cmd;
@@ -1263,20 +1298,21 @@ Agent Skills Standard: https://agentskills.io
 </html>`;
 
     return new Response(html, {
-      headers: { 
-        'Content-Type': 'text/html;charset=UTF-8', 
-        'Cache-Control': 'public, max-age=300' 
-      }
+      headers: {
+        "Content-Type": "text/html;charset=UTF-8",
+        "Cache-Control": "public, max-age=300",
+      },
     });
-  }
+  },
 };
 
 // Fetch skills config from GitHub with caching
 async function fetchSkillsConfig(ctx) {
-  const SKILLS_JSON_URL = 'https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/skills.json';
+  const SKILLS_JSON_URL =
+    "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/skills.json";
   const cache = caches.default;
-  const cacheUrl = new URL('https://opc.dev/_cache/skills-v2.json');
-  
+  const cacheUrl = new URL("https://opc.dev/_cache/skills-v2.json");
+
   let response = await cache.match(cacheUrl);
   if (response) {
     return await response.json();
@@ -1284,22 +1320,22 @@ async function fetchSkillsConfig(ctx) {
 
   try {
     const res = await fetch(SKILLS_JSON_URL, {
-      headers: { 'User-Agent': 'OPC-Skills-Website' }
+      headers: { "User-Agent": "OPC-Skills-Website" },
     });
-    
+
     if (res.ok) {
       const config = await res.json();
       const cacheResponse = new Response(JSON.stringify(config), {
         headers: {
-          'Content-Type': 'application/json',
-          'Cache-Control': 'public, max-age=60'
-        }
+          "Content-Type": "application/json",
+          "Cache-Control": "public, max-age=60",
+        },
       });
       ctx.waitUntil(cache.put(cacheUrl, cacheResponse));
       return config;
     }
   } catch (e) {
-    console.error('Error fetching skills.json:', e);
+    console.error("Error fetching skills.json:", e);
   }
 
   return getFallbackConfig();
@@ -1307,10 +1343,11 @@ async function fetchSkillsConfig(ctx) {
 
 // Fetch install stats from GitHub with caching
 async function fetchInstallStats(ctx) {
-  const STATS_URL = 'https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/install-stats.json';
+  const STATS_URL =
+    "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/install-stats.json";
   const cache = caches.default;
-  const cacheUrl = new URL('https://opc.dev/_cache/install-stats.json');
-  
+  const cacheUrl = new URL("https://opc.dev/_cache/install-stats.json");
+
   let response = await cache.match(cacheUrl);
   if (response) {
     return await response.json();
@@ -1318,22 +1355,22 @@ async function fetchInstallStats(ctx) {
 
   try {
     const res = await fetch(STATS_URL, {
-      headers: { 'User-Agent': 'OPC-Skills-Website' }
+      headers: { "User-Agent": "OPC-Skills-Website" },
     });
-    
+
     if (res.ok) {
       const stats = await res.json();
       const cacheResponse = new Response(JSON.stringify(stats), {
         headers: {
-          'Content-Type': 'application/json',
-          'Cache-Control': 'public, max-age=3600'
-        }
+          "Content-Type": "application/json",
+          "Cache-Control": "public, max-age=3600",
+        },
       });
       ctx.waitUntil(cache.put(cacheUrl, cacheResponse));
       return stats;
     }
   } catch (e) {
-    console.error('Error fetching install-stats.json:', e);
+    console.error("Error fetching install-stats.json:", e);
   }
 
   return { total: 0, skills: {} };
@@ -1355,26 +1392,39 @@ function getFallbackConfig() {
         auth: { required: false, note: "Uses web search and public APIs" },
         install: {
           user: {
-            claude: "curl -fsSL opc.dev/install.sh | bash -s -- -t claude domain-hunter",
-            droid: "curl -fsSL opc.dev/install.sh | bash -s -- -t droid domain-hunter",
-            opencode: "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode domain-hunter",
-            codex: "curl -fsSL opc.dev/install.sh | bash -s -- -t codex domain-hunter"
+            claude:
+              "npx skills add ReScienceLab/opc-skills --skill domain-hunter -a claude",
+            droid:
+              "npx skills add ReScienceLab/opc-skills --skill domain-hunter -a droid",
+            opencode:
+              "npx skills add ReScienceLab/opc-skills --skill domain-hunter -a opencode",
+            codex:
+              "npx skills add ReScienceLab/opc-skills --skill domain-hunter -a codex",
           },
           project: {
-            claude: "curl -fsSL opc.dev/install.sh | bash -s -- -t claude -p domain-hunter",
-            droid: "curl -fsSL opc.dev/install.sh | bash -s -- -t droid -p domain-hunter",
-            cursor: "curl -fsSL opc.dev/install.sh | bash -s -- -t cursor -p domain-hunter",
-            opencode: "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode -p domain-hunter",
-            codex: "curl -fsSL opc.dev/install.sh | bash -s -- -t codex -p domain-hunter"
-          }
+            claude:
+              "npx skills add ReScienceLab/opc-skills --skill domain-hunter",
+            droid:
+              "npx skills add ReScienceLab/opc-skills --skill domain-hunter",
+            cursor:
+              "npx skills add ReScienceLab/opc-skills --skill domain-hunter",
+            opencode:
+              "npx skills add ReScienceLab/opc-skills --skill domain-hunter",
+            codex:
+              "npx skills add ReScienceLab/opc-skills --skill domain-hunter",
+          },
         },
         commands: ["whois {domain}.{tld}"],
-        links: { github: "https://github.com/ReScienceLab/opc-skills/tree/main/skills/domain-hunter" }
+        links: {
+          github:
+            "https://github.com/ReScienceLab/opc-skills/tree/main/skills/domain-hunter",
+        },
       },
       {
         name: "reddit",
         version: "1.0.0",
-        description: "Search and retrieve content from Reddit via the public JSON API",
+        description:
+          "Search and retrieve content from Reddit via the public JSON API",
         icon: "reddit",
         color: "FF4500",
         triggers: ["reddit", "subreddit", "r/"],
@@ -1382,26 +1432,39 @@ function getFallbackConfig() {
         auth: { required: false, note: "No API key required" },
         install: {
           user: {
-            claude: "curl -fsSL opc.dev/install.sh | bash -s -- -t claude reddit",
-            droid: "curl -fsSL opc.dev/install.sh | bash -s -- -t droid reddit",
-            opencode: "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode reddit",
-            codex: "curl -fsSL opc.dev/install.sh | bash -s -- -t codex reddit"
+            claude:
+              "npx skills add ReScienceLab/opc-skills --skill reddit -a claude",
+            droid:
+              "npx skills add ReScienceLab/opc-skills --skill reddit -a droid",
+            opencode:
+              "npx skills add ReScienceLab/opc-skills --skill reddit -a opencode",
+            codex:
+              "npx skills add ReScienceLab/opc-skills --skill reddit -a codex",
           },
           project: {
-            claude: "curl -fsSL opc.dev/install.sh | bash -s -- -t claude -p reddit",
-            droid: "curl -fsSL opc.dev/install.sh | bash -s -- -t droid -p reddit",
-            cursor: "curl -fsSL opc.dev/install.sh | bash -s -- -t cursor -p reddit",
-            opencode: "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode -p reddit",
-            codex: "curl -fsSL opc.dev/install.sh | bash -s -- -t codex -p reddit"
-          }
+            claude:
+              "npx skills add ReScienceLab/opc-skills --skill reddit",
+            droid:
+              "npx skills add ReScienceLab/opc-skills --skill reddit",
+            cursor:
+              "npx skills add ReScienceLab/opc-skills --skill reddit",
+            opencode:
+              "npx skills add ReScienceLab/opc-skills --skill reddit",
+            codex:
+              "npx skills add ReScienceLab/opc-skills --skill reddit",
+          },
         },
         commands: ["python3 scripts/get_posts.py {subreddit}"],
-        links: { github: "https://github.com/ReScienceLab/opc-skills/tree/main/skills/reddit" }
+        links: {
+          github:
+            "https://github.com/ReScienceLab/opc-skills/tree/main/skills/reddit",
+        },
       },
       {
         name: "twitter",
         version: "1.0.0",
-        description: "Search and retrieve content from Twitter/X via twitterapi.io",
+        description:
+          "Search and retrieve content from Twitter/X via twitterapi.io",
         icon: "x",
         color: "000000",
         triggers: ["twitter", "X", "tweet"],
@@ -1409,26 +1472,39 @@ function getFallbackConfig() {
         auth: { required: true, note: "Requires TWITTERAPI_API_KEY" },
         install: {
           user: {
-            claude: "curl -fsSL opc.dev/install.sh | bash -s -- -t claude twitter",
-            droid: "curl -fsSL opc.dev/install.sh | bash -s -- -t droid twitter",
-            opencode: "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode twitter",
-            codex: "curl -fsSL opc.dev/install.sh | bash -s -- -t codex twitter"
+            claude:
+              "npx skills add ReScienceLab/opc-skills --skill twitter -a claude",
+            droid:
+              "npx skills add ReScienceLab/opc-skills --skill twitter -a droid",
+            opencode:
+              "npx skills add ReScienceLab/opc-skills --skill twitter -a opencode",
+            codex:
+              "npx skills add ReScienceLab/opc-skills --skill twitter -a codex",
           },
           project: {
-            claude: "curl -fsSL opc.dev/install.sh | bash -s -- -t claude -p twitter",
-            droid: "curl -fsSL opc.dev/install.sh | bash -s -- -t droid -p twitter",
-            cursor: "curl -fsSL opc.dev/install.sh | bash -s -- -t cursor -p twitter",
-            opencode: "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode -p twitter",
-            codex: "curl -fsSL opc.dev/install.sh | bash -s -- -t codex -p twitter"
-          }
+            claude:
+              "npx skills add ReScienceLab/opc-skills --skill twitter",
+            droid:
+              "npx skills add ReScienceLab/opc-skills --skill twitter",
+            cursor:
+              "npx skills add ReScienceLab/opc-skills --skill twitter",
+            opencode:
+              "npx skills add ReScienceLab/opc-skills --skill twitter",
+            codex:
+              "npx skills add ReScienceLab/opc-skills --skill twitter",
+          },
         },
         commands: ["python3 scripts/get_user_info.py {username}"],
-        links: { github: "https://github.com/ReScienceLab/opc-skills/tree/main/skills/twitter" }
+        links: {
+          github:
+            "https://github.com/ReScienceLab/opc-skills/tree/main/skills/twitter",
+        },
       },
       {
         name: "producthunt",
         version: "1.0.0",
-        description: "Search and retrieve content from Product Hunt via the GraphQL API",
+        description:
+          "Search and retrieve content from Product Hunt via the GraphQL API",
         icon: "producthunt",
         color: "DA552F",
         triggers: ["producthunt", "product hunt", "PH", "launch"],
@@ -1436,59 +1512,93 @@ function getFallbackConfig() {
         auth: { required: true, note: "Requires PRODUCTHUNT_ACCESS_TOKEN" },
         install: {
           user: {
-            claude: "curl -fsSL opc.dev/install.sh | bash -s -- -t claude producthunt",
-            droid: "curl -fsSL opc.dev/install.sh | bash -s -- -t droid producthunt",
-            opencode: "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode producthunt",
-            codex: "curl -fsSL opc.dev/install.sh | bash -s -- -t codex producthunt"
+            claude:
+              "npx skills add ReScienceLab/opc-skills --skill producthunt -a claude",
+            droid:
+              "npx skills add ReScienceLab/opc-skills --skill producthunt -a droid",
+            opencode:
+              "npx skills add ReScienceLab/opc-skills --skill producthunt -a opencode",
+            codex:
+              "npx skills add ReScienceLab/opc-skills --skill producthunt -a codex",
           },
           project: {
-            claude: "curl -fsSL opc.dev/install.sh | bash -s -- -t claude -p producthunt",
-            droid: "curl -fsSL opc.dev/install.sh | bash -s -- -t droid -p producthunt",
-            cursor: "curl -fsSL opc.dev/install.sh | bash -s -- -t cursor -p producthunt",
-            opencode: "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode -p producthunt",
-            codex: "curl -fsSL opc.dev/install.sh | bash -s -- -t codex -p producthunt"
-          }
+            claude:
+              "npx skills add ReScienceLab/opc-skills --skill producthunt",
+            droid:
+              "npx skills add ReScienceLab/opc-skills --skill producthunt",
+            cursor:
+              "npx skills add ReScienceLab/opc-skills --skill producthunt",
+            opencode:
+              "npx skills add ReScienceLab/opc-skills --skill producthunt",
+            codex:
+              "npx skills add ReScienceLab/opc-skills --skill producthunt",
+          },
         },
         commands: ["python3 scripts/search_posts.py --limit 20"],
-        links: { github: "https://github.com/ReScienceLab/opc-skills/tree/main/skills/producthunt" }
+        links: {
+          github:
+            "https://github.com/ReScienceLab/opc-skills/tree/main/skills/producthunt",
+        },
       },
       {
         name: "requesthunt",
         version: "1.0.0",
-        description: "Generate user demand research reports from real user feedback. Scrape and analyze feature requests from Reddit, X, and GitHub.",
+        description:
+          "Generate user demand research reports from real user feedback. Scrape and analyze feature requests from Reddit, X, and GitHub.",
         icon: "globe",
         color: "6366F1",
-        triggers: ["requesthunt", "request hunt", "feature request", "user demand"],
+        triggers: [
+          "requesthunt",
+          "request hunt",
+          "feature request",
+          "user demand",
+        ],
         dependencies: [],
-        auth: { required: true, note: "Get API key from requesthunt.com/settings/api" },
+        auth: {
+          required: true,
+          note: "Get API key from requesthunt.com/settings/api",
+        },
         install: {
           user: {
-            claude: "curl -fsSL opc.dev/install.sh | bash -s -- -t claude requesthunt",
-            droid: "curl -fsSL opc.dev/install.sh | bash -s -- -t droid requesthunt",
-            opencode: "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode requesthunt",
-            codex: "curl -fsSL opc.dev/install.sh | bash -s -- -t codex requesthunt"
+            claude:
+              "npx skills add ReScienceLab/opc-skills --skill requesthunt -a claude",
+            droid:
+              "npx skills add ReScienceLab/opc-skills --skill requesthunt -a droid",
+            opencode:
+              "npx skills add ReScienceLab/opc-skills --skill requesthunt -a opencode",
+            codex:
+              "npx skills add ReScienceLab/opc-skills --skill requesthunt -a codex",
           },
           project: {
-            claude: "curl -fsSL opc.dev/install.sh | bash -s -- -t claude -p requesthunt",
-            droid: "curl -fsSL opc.dev/install.sh | bash -s -- -t droid -p requesthunt",
-            cursor: "curl -fsSL opc.dev/install.sh | bash -s -- -t cursor -p requesthunt",
-            opencode: "curl -fsSL opc.dev/install.sh | bash -s -- -t opencode -p requesthunt",
-            codex: "curl -fsSL opc.dev/install.sh | bash -s -- -t codex -p requesthunt"
-          }
+            claude:
+              "npx skills add ReScienceLab/opc-skills --skill requesthunt",
+            droid:
+              "npx skills add ReScienceLab/opc-skills --skill requesthunt",
+            cursor:
+              "npx skills add ReScienceLab/opc-skills --skill requesthunt",
+            opencode:
+              "npx skills add ReScienceLab/opc-skills --skill requesthunt",
+            codex:
+              "npx skills add ReScienceLab/opc-skills --skill requesthunt",
+          },
         },
-        commands: ["python3 scripts/search_requests.py \"{query}\" --expand"],
-        links: { github: "https://github.com/ReScienceLab/opc-skills/tree/main/skills/requesthunt" }
-      }
-    ]
+        commands: ['python3 scripts/search_requests.py "{query}" --expand'],
+        links: {
+          github:
+            "https://github.com/ReScienceLab/opc-skills/tree/main/skills/requesthunt",
+        },
+      },
+    ],
   };
 }
 
 // Fetch blog config from GitHub with caching
 async function fetchBlogConfig(ctx) {
-  const BLOG_JSON_URL = 'https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/blog/blog.json';
+  const BLOG_JSON_URL =
+    "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/blog/blog.json";
   const cache = caches.default;
-  const cacheUrl = new URL('https://opc.dev/_cache/blog-v1.json');
-  
+  const cacheUrl = new URL("https://opc.dev/_cache/blog-v1.json");
+
   let response = await cache.match(cacheUrl);
   if (response) {
     return await response.json();
@@ -1496,22 +1606,22 @@ async function fetchBlogConfig(ctx) {
 
   try {
     const res = await fetch(BLOG_JSON_URL, {
-      headers: { 'User-Agent': 'OPC-Skills-Website' }
+      headers: { "User-Agent": "OPC-Skills-Website" },
     });
-    
+
     if (res.ok) {
       const config = await res.json();
       const cacheResponse = new Response(JSON.stringify(config), {
         headers: {
-          'Content-Type': 'application/json',
-          'Cache-Control': 'public, max-age=300' // 5 min cache
-        }
+          "Content-Type": "application/json",
+          "Cache-Control": "public, max-age=300", // 5 min cache
+        },
       });
       ctx.waitUntil(cache.put(cacheUrl, cacheResponse));
       return config;
     }
   } catch (e) {
-    console.error('Error fetching blog.json:', e);
+    console.error("Error fetching blog.json:", e);
   }
 
   return { posts: [] };
@@ -1519,16 +1629,18 @@ async function fetchBlogConfig(ctx) {
 
 // Markdown to HTML converter using marked
 function markdownToHtml(md) {
-  if (!md) return '';
+  if (!md) return "";
   // Remove YAML frontmatter (must start with ---\n at position 0)
-  if (md.startsWith('---\n')) {
-    md = md.replace(/^---\n[\s\S]*?\n---\n/, '');
+  if (md.startsWith("---\n")) {
+    md = md.replace(/^---\n[\s\S]*?\n---\n/, "");
   }
   // Convert using marked (supports GFM tables, etc.)
   let html = marked.parse(md);
   // Wrap images in figure tags for grid layout
-  html = html.replace(/<img src="([^"]+)" alt="([^"]*)">/g, 
-    '<figure class="example-img"><img src="$1" alt="$2" loading="lazy"><figcaption>$2</figcaption></figure>');
+  html = html.replace(
+    /<img src="([^"]+)" alt="([^"]*)">/g,
+    '<figure class="example-img"><img src="$1" alt="$2" loading="lazy"><figcaption>$2</figcaption></figure>',
+  );
   return html;
 }
 
@@ -1536,32 +1648,39 @@ function markdownToHtml(md) {
 async function renderSkillPage(skillName, ctx) {
   const [config, installStats] = await Promise.all([
     fetchSkillsConfig(ctx),
-    fetchInstallStats(ctx)
+    fetchInstallStats(ctx),
   ]);
-  const skill = config.skills.find(s => s.name === skillName);
-  
+  const skill = config.skills.find((s) => s.name === skillName);
+
   if (!skill) {
-    return new Response('Skill not found', { status: 404, headers: { 'Content-Type': 'text/plain' } });
+    return new Response("Skill not found", {
+      status: 404,
+      headers: { "Content-Type": "text/plain" },
+    });
   }
-  
+
   const installs = installStats.skills?.[skillName] || 0;
-  
+
   // Get dependency names from object or array
-  const skillDeps = skill.dependencies 
-    ? (Array.isArray(skill.dependencies) ? skill.dependencies : Object.keys(skill.dependencies))
+  const skillDeps = skill.dependencies
+    ? Array.isArray(skill.dependencies)
+      ? skill.dependencies
+      : Object.keys(skill.dependencies)
     : [];
 
   // Helper to collect all API keys including from dependencies
   const getAllKeys = (sk, allSkills) => {
     const keys = [...(sk.auth?.keys || [])];
-    const deps = sk.dependencies 
-      ? (Array.isArray(sk.dependencies) ? sk.dependencies : Object.keys(sk.dependencies))
+    const deps = sk.dependencies
+      ? Array.isArray(sk.dependencies)
+        ? sk.dependencies
+        : Object.keys(sk.dependencies)
       : [];
     for (const depName of deps) {
-      const depSkill = allSkills.find(s => s.name === depName);
+      const depSkill = allSkills.find((s) => s.name === depName);
       if (depSkill?.auth?.keys) {
         for (const k of depSkill.auth.keys) {
-          if (!keys.some(existing => existing.env === k.env)) {
+          if (!keys.some((existing) => existing.env === k.env)) {
             keys.push({ ...k, from: depName });
           }
         }
@@ -1571,27 +1690,31 @@ async function renderSkillPage(skillName, ctx) {
   };
 
   const allKeys = getAllKeys(skill, config.skills);
-  const needsKey = allKeys.some(k => !k.optional);
+  const needsKey = allKeys.some((k) => !k.optional);
 
   // Fetch SKILL.md from GitHub
   const mdUrl = `https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/skills/${skillName}/SKILL.md`;
-  let markdown = '';
+  let markdown = "";
   try {
-    const mdRes = await fetch(mdUrl, { headers: { 'User-Agent': 'OPC-Skills-Website' } });
+    const mdRes = await fetch(mdUrl, {
+      headers: { "User-Agent": "OPC-Skills-Website" },
+    });
     if (mdRes.ok) markdown = await mdRes.text();
   } catch (e) {}
-  
+
   const content = markdownToHtml(markdown);
 
   // Fetch example markdown if skill has example link
-  let exampleContent = '';
+  let exampleContent = "";
   if (skill.links.example) {
     // Convert GitHub blob URL to raw URL
     const exampleRawUrl = skill.links.example
-      .replace('github.com', 'raw.githubusercontent.com')
-      .replace('/blob/', '/');
+      .replace("github.com", "raw.githubusercontent.com")
+      .replace("/blob/", "/");
     try {
-      const exRes = await fetch(exampleRawUrl, { headers: { 'User-Agent': 'OPC-Skills-Website' } });
+      const exRes = await fetch(exampleRawUrl, {
+        headers: { "User-Agent": "OPC-Skills-Website" },
+      });
       if (exRes.ok) {
         const exampleMd = await exRes.text();
         exampleContent = markdownToHtml(exampleMd);
@@ -1600,88 +1723,105 @@ async function renderSkillPage(skillName, ctx) {
   }
 
   // JSON-LD for this skill (GEO-optimized with FAQPage for +40% AI visibility)
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "WebPage",
         "@id": `https://opc.dev/skills/${skill.name}#webpage`,
-        "url": `https://opc.dev/skills/${skill.name}`,
-        "name": `${skill.name} - OPC Skills`,
-        "description": skill.description,
-        "datePublished": "2024-01-01",
-        "dateModified": today,
-        "inLanguage": "en-US",
-        "isPartOf": { "@id": "https://opc.dev/#website" },
-        "speakable": {
+        url: `https://opc.dev/skills/${skill.name}`,
+        name: `${skill.name} - OPC Skills`,
+        description: skill.description,
+        datePublished: "2024-01-01",
+        dateModified: today,
+        inLanguage: "en-US",
+        isPartOf: { "@id": "https://opc.dev/#website" },
+        speakable: {
           "@type": "SpeakableSpecification",
-          "cssSelector": [".skill-desc", "h1", ".skill-content p"]
+          cssSelector: [".skill-desc", "h1", ".skill-content p"],
         },
-        "mainEntity": { "@id": `https://opc.dev/skills/${skill.name}#software` }
+        mainEntity: { "@id": `https://opc.dev/skills/${skill.name}#software` },
       },
       {
         "@type": "SoftwareApplication",
         "@id": `https://opc.dev/skills/${skill.name}#software`,
-        "name": skill.name,
-        "description": skill.description,
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "Cross-platform",
-        "softwareVersion": skill.version,
-        "datePublished": "2024-01-01",
-        "dateModified": today,
-        "offers": {
+        name: skill.name,
+        description: skill.description,
+        applicationCategory: "DeveloperApplication",
+        operatingSystem: "Cross-platform",
+        softwareVersion: skill.version,
+        datePublished: "2024-01-01",
+        dateModified: today,
+        offers: {
           "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD",
-          "availability": "https://schema.org/InStock"
+          price: "0",
+          priceCurrency: "USD",
+          availability: "https://schema.org/InStock",
         },
-        "author": {
+        author: {
           "@type": "Organization",
-          "name": "ReScience Lab",
-          "url": "https://rescience.com"
+          name: "ReScience Lab",
+          url: "https://rescience.com",
         },
-        "url": `https://opc.dev/skills/${skill.name}`
+        url: `https://opc.dev/skills/${skill.name}`,
       },
       {
         "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://opc.dev/" },
-          { "@type": "ListItem", "position": 2, "name": "Skills", "item": "https://opc.dev/" },
-          { "@type": "ListItem", "position": 3, "name": skill.name, "item": `https://opc.dev/skills/${skill.name}` }
-        ]
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://opc.dev/",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Skills",
+            item: "https://opc.dev/",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: skill.name,
+            item: `https://opc.dev/skills/${skill.name}`,
+          },
+        ],
       },
       {
         "@type": "FAQPage",
         "@id": `https://opc.dev/skills/${skill.name}#faq`,
-        "mainEntity": [
+        mainEntity: [
           {
             "@type": "Question",
-            "name": `What is ${skill.name}?`,
-            "acceptedAnswer": {
+            name: `What is ${skill.name}?`,
+            acceptedAnswer: {
               "@type": "Answer",
-              "text": `${skill.name} is an agent skill for AI coding assistants like Claude Code, Factory Droid, and Cursor. ${skill.description}`
-            }
+              text: `${skill.name} is an agent skill for AI coding assistants like Claude Code, Factory Droid, and Cursor. ${skill.description}`,
+            },
           },
           {
             "@type": "Question",
-            "name": `How do I install ${skill.name}?`,
-            "acceptedAnswer": {
+            name: `How do I install ${skill.name}?`,
+            acceptedAnswer: {
               "@type": "Answer",
-              "text": `Install ${skill.name} by running: npx skills add ReScienceLab/opc-skills --skill ${skill.name}. Replace 'claude' with your preferred platform (droid, cursor, opencode, codex).`
-            }
+              text: `Install ${skill.name} by running: npx skills add ReScienceLab/opc-skills --skill ${skill.name}. Replace 'claude' with your preferred platform (droid, cursor, opencode, codex).`,
+            },
           },
           {
             "@type": "Question",
-            "name": `Does ${skill.name} require an API key?`,
-            "acceptedAnswer": {
+            name: `Does ${skill.name} require an API key?`,
+            acceptedAnswer: {
               "@type": "Answer",
-              "text": skill.auth.required ? `Yes, ${skill.name} requires an API key. ${skill.auth.note || ''}` : `No, ${skill.name} is free to use and does not require an API key.`
-            }
-          }
-        ]
-      }
-    ]
+              text: skill.auth.required
+                ? `Yes, ${skill.name} requires an API key. ${skill.auth.note || ""}`
+                : `No, ${skill.name} is free to use and does not require an API key.`,
+            },
+          },
+        ],
+      },
+    ],
   };
 
   const html = `<!DOCTYPE html>
@@ -1694,7 +1834,7 @@ async function renderSkillPage(skillName, ctx) {
   <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/apple-touch-icon.png">
   <meta name="description" content="${skill.description}">
-  <meta name="keywords" content="${skill.name}, ${skill.triggers.join(', ')}, agent skill, claude skill, AI tool">
+  <meta name="keywords" content="${skill.name}, ${skill.triggers.join(", ")}, agent skill, claude skill, AI tool">
   <meta name="robots" content="index, follow">
   <meta name="author" content="ReScience Lab">
   <meta name="theme-color" content="#${skill.color}">
@@ -1808,43 +1948,47 @@ async function renderSkillPage(skillName, ctx) {
     <article class="skill-hero" itemscope itemtype="https://schema.org/SoftwareApplication">
       <img src="${skill.logo || `https://cdn.simpleicons.org/${skill.icon}/${skill.color}`}" alt="${skill.name} logo" itemprop="image">
       <div>
-        <h1 itemprop="name">${skill.name}<span class="version" itemprop="softwareVersion">v${skill.version}</span>${installs > 0 ? `<span class="install-count" style="font-size:12px;color:#6b7280;margin-left:12px;font-weight:400;">${installs} installs</span>` : ''}</h1>
+        <h1 itemprop="name">${skill.name}<span class="version" itemprop="softwareVersion">v${skill.version}</span>${installs > 0 ? `<span class="install-count" style="font-size:12px;color:#6b7280;margin-left:12px;font-weight:400;">${installs} installs</span>` : ""}</h1>
         ${needsKey ? '<span class="auth-tag paid">API Key Required</span>' : '<span class="auth-tag free">Free</span>'}
       </div>
     </article>
     <p class="skill-desc" itemprop="description">${skill.description}</p>
-    ${allKeys.length > 0 ? `<div class="skill-auth-info" style="margin:12px 0;display:flex;align-items:flex-start;gap:8px;padding:12px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="#6366f1" style="flex-shrink:0;margin-top:2px;"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><div style="display:flex;flex-direction:column;gap:6px;">${allKeys.map(k => `<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><code style="background:#fff;padding:3px 8px;border-radius:4px;font-size:12px;border:1px solid #e5e7eb;">${k.env}</code><a href="${k.url}" target="_blank" rel="noopener noreferrer" style="color:#6366f1;font-size:13px;">${k.url.replace('https://', '')}</a>${k.from ? `<span style="color:#9ca3af;font-size:11px;">(from ${k.from})</span>` : ''}${k.optional ? '<span style="color:#9ca3af;font-size:11px;">(optional)</span>' : ''}</div>`).join('')}</div></div>` : ''}
-    ${skillDeps.length > 0 ? `<div class="skill-deps"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg> Depends on: ${skillDeps.map(d => `<a href="/skills/${d}" class="dep-tag" style="text-decoration:none;">${d}</a>`).join('')}</div>` : ''}
-    <div class="skill-triggers">${skill.triggers.map(t => `<span class="trigger">${t}</span>`).join('')}</div>
+    ${allKeys.length > 0 ? `<div class="skill-auth-info" style="margin:12px 0;display:flex;align-items:flex-start;gap:8px;padding:12px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="#6366f1" style="flex-shrink:0;margin-top:2px;"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><div style="display:flex;flex-direction:column;gap:6px;">${allKeys.map((k) => `<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><code style="background:#fff;padding:3px 8px;border-radius:4px;font-size:12px;border:1px solid #e5e7eb;">${k.env}</code><a href="${k.url}" target="_blank" rel="noopener noreferrer" style="color:#6366f1;font-size:13px;">${k.url.replace("https://", "")}</a>${k.from ? `<span style="color:#9ca3af;font-size:11px;">(from ${k.from})</span>` : ""}${k.optional ? '<span style="color:#9ca3af;font-size:11px;">(optional)</span>' : ""}</div>`).join("")}</div></div>` : ""}
+    ${skillDeps.length > 0 ? `<div class="skill-deps"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg> Depends on: ${skillDeps.map((d) => `<a href="/skills/${d}" class="dep-tag" style="text-decoration:none;">${d}</a>`).join("")}</div>` : ""}
+    <div class="skill-triggers">${skill.triggers.map((t) => `<span class="trigger">${t}</span>`).join("")}</div>
     
     <div class="install-section" style="margin-bottom:32px;">
       <h3 style="font-size:14px;font-weight:600;margin-bottom:12px;">Quick Install</h3>
       <div class="install-box" style="background:#f9fafb;border:2px solid #000;padding:0;position:relative;overflow:hidden;">
         <div style="display:flex;align-items:stretch;">
-          <code class="install-cmd" style="flex:1;font-size:12px;padding:14px 16px;background:#f9fafb;overflow-x:auto;white-space:nowrap;font-family:monospace;color:#000;line-height:1.5;">npx skills add ReScienceLab/opc-skills --skill ${skillDeps.length > 0 ? skillDeps.concat(skill.name).join(' --skill ') : skill.name}</code>
-          <button class="copy-btn" style="background:#000;color:#fff;border:none;border-left:2px solid #000;padding:12px 20px;font-size:11px;cursor:pointer;font-weight:600;font-family:var(--font);white-space:nowrap;transition:background 0.2s;" onmouseover="this.style.background='#333'" onmouseout="this.style.background='#000'" onclick="navigator.clipboard.writeText('npx skills add ReScienceLab/opc-skills --skill ${skillDeps.length > 0 ? skillDeps.concat(skill.name).join(' --skill ') : skill.name}').then(() => { const orig = this.textContent; this.textContent='✓ Copied!'; this.style.background='#22c55e'; setTimeout(() => { this.textContent=orig; this.style.background='#000'; }, 2000); })">Copy</button>
+          <code class="install-cmd" style="flex:1;font-size:12px;padding:14px 16px;background:#f9fafb;overflow-x:auto;white-space:nowrap;font-family:monospace;color:#000;line-height:1.5;">npx skills add ReScienceLab/opc-skills --skill ${skillDeps.length > 0 ? skillDeps.concat(skill.name).join(" --skill ") : skill.name}</code>
+          <button class="copy-btn" style="background:#000;color:#fff;border:none;border-left:2px solid #000;padding:12px 20px;font-size:11px;cursor:pointer;font-weight:600;font-family:var(--font);white-space:nowrap;transition:background 0.2s;" onmouseover="this.style.background='#333'" onmouseout="this.style.background='#000'" onclick="navigator.clipboard.writeText('npx skills add ReScienceLab/opc-skills --skill ${skillDeps.length > 0 ? skillDeps.concat(skill.name).join(" --skill ") : skill.name}').then(() => { const orig = this.textContent; this.textContent='✓ Copied!'; this.style.background='#22c55e'; setTimeout(() => { this.textContent=orig; this.style.background='#000'; }, 2000); })">Copy</button>
         </div>
       </div>
     </div>
     
     <div class="skill-tabs">
-      ${exampleContent ? `<button class="skill-tab active" onclick="switchTab(this, 'example')">Example</button>` : ''}
-      <button class="skill-tab ${exampleContent ? '' : 'active'}" onclick="switchTab(this, 'docs')">Documentation</button>
+      ${exampleContent ? `<button class="skill-tab active" onclick="switchTab(this, 'example')">Example</button>` : ""}
+      <button class="skill-tab ${exampleContent ? "" : "active"}" onclick="switchTab(this, 'docs')">Documentation</button>
     </div>
     
-    ${exampleContent ? `
+    ${
+      exampleContent
+        ? `
     <section id="tab-example" class="tab-content active" aria-label="Example usage">
       <div class="skill-content">${exampleContent}</div>
     </section>
-    ` : ''}
+    `
+        : ""
+    }
     
-    <section id="tab-docs" class="tab-content ${exampleContent ? '' : 'active'}" aria-label="Documentation">
+    <section id="tab-docs" class="tab-content ${exampleContent ? "" : "active"}" aria-label="Documentation">
       <div class="skill-content">${content}</div>
     </section>
     <div class="skill-links">
       <a href="${skill.links.github}" target="_blank" rel="noopener noreferrer">GitHub</a>
-      ${skill.links.docs ? `<a href="${skill.links.docs}" target="_blank" rel="noopener noreferrer">Docs</a>` : ''}
-      ${skill.links.example ? `<a href="${skill.links.example}" target="_blank" rel="noopener noreferrer">Example</a>` : ''}
+      ${skill.links.docs ? `<a href="${skill.links.docs}" target="_blank" rel="noopener noreferrer">Docs</a>` : ""}
+      ${skill.links.example ? `<a href="${skill.links.example}" target="_blank" rel="noopener noreferrer">Example</a>` : ""}
     </div>
     <a href="/" class="back-link">&larr; Back to all skills</a>
   </main>
@@ -1863,15 +2007,18 @@ async function renderSkillPage(skillName, ctx) {
 </html>`;
 
   return new Response(html, {
-    headers: { 'Content-Type': 'text/html;charset=UTF-8', 'Cache-Control': 'public, max-age=1800' }
+    headers: {
+      "Content-Type": "text/html;charset=UTF-8",
+      "Cache-Control": "public, max-age=1800",
+    },
   });
 }
 
 async function renderComparePage(ctx) {
   const config = await fetchSkillsConfig(ctx);
   const skills = config.skills || [];
-  const today = new Date().toISOString().split('T')[0];
-  
+  const today = new Date().toISOString().split("T")[0];
+
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2075,7 +2222,10 @@ async function renderComparePage(ctx) {
 </html>`;
 
   return new Response(html, {
-    headers: { 'Content-Type': 'text/html;charset=UTF-8', 'Cache-Control': 'public, max-age=3600' }
+    headers: {
+      "Content-Type": "text/html;charset=UTF-8",
+      "Cache-Control": "public, max-age=3600",
+    },
   });
 }
 
@@ -2083,15 +2233,17 @@ async function renderComparePage(ctx) {
 async function renderBlogListPage(ctx) {
   const blogConfig = await fetchBlogConfig(ctx);
   const posts = blogConfig.posts || [];
-  
-  const postCards = posts.map(post => `
+
+  const postCards = posts
+    .map(
+      (post) => `
     <article class="blog-card">
       <a href="/blog/${post.slug}" class="blog-image-link">
         <img src="${post.image}" alt="${post.title}" class="blog-image" loading="lazy">
       </a>
       <div class="blog-content">
         <div class="blog-meta">
-          <time datetime="${post.date}">${new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+          <time datetime="${post.date}">${new Date(post.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</time>
           <span class="blog-category">${post.category}</span>
         </div>
         <h2><a href="/blog/${post.slug}">${post.title}</a></h2>
@@ -2099,13 +2251,15 @@ async function renderBlogListPage(ctx) {
         <div class="blog-footer">
           <span class="read-time">⏱ ${post.readTime}</span>
           <div class="blog-tags">
-            ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            ${post.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}
           </div>
         </div>
         <a href="/blog/${post.slug}" class="read-more">Read Article →</a>
       </div>
     </article>
-  `).join('');
+  `,
+    )
+    .join("");
 
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -2326,36 +2480,39 @@ async function renderBlogListPage(ctx) {
 </html>`;
 
   return new Response(html, {
-    headers: { 'Content-Type': 'text/html;charset=UTF-8', 'Cache-Control': 'public, max-age=1800' }
+    headers: {
+      "Content-Type": "text/html;charset=UTF-8",
+      "Cache-Control": "public, max-age=1800",
+    },
   });
 }
 
 // Render individual blog post
 async function renderBlogPost(slug, ctx) {
   const blogConfig = await fetchBlogConfig(ctx);
-  const post = blogConfig.posts.find(p => p.slug === slug);
-  
+  const post = blogConfig.posts.find((p) => p.slug === slug);
+
   if (!post) {
-    return new Response('Blog post not found', { status: 404 });
+    return new Response("Blog post not found", { status: 404 });
   }
 
   // Fetch markdown content from GitHub
   const MD_URL = `https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/blog/posts/${slug}.md`;
-  let markdown = '';
-  
+  let markdown = "";
+
   try {
     const mdRes = await fetch(MD_URL, {
-      headers: { 'User-Agent': 'OPC-Skills-Website' }
+      headers: { "User-Agent": "OPC-Skills-Website" },
     });
     if (mdRes.ok) {
       markdown = await mdRes.text();
     }
   } catch (e) {
-    console.error('Error fetching markdown:', e);
+    console.error("Error fetching markdown:", e);
   }
 
   const content = markdownToHtml(markdown);
-  
+
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2363,7 +2520,7 @@ async function renderBlogPost(slug, ctx) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${post.title} | OPC Skills Blog</title>
   <meta name="description" content="${post.description}">
-  <meta name="keywords" content="${post.keywords.join(', ')}">
+  <meta name="keywords" content="${post.keywords.join(", ")}">
   <meta name="author" content="${post.author}">
   
   <!-- Open Graph -->
@@ -2375,7 +2532,7 @@ async function renderBlogPost(slug, ctx) {
   <meta property="article:published_time" content="${post.date}T08:00:00Z">
   <meta property="article:author" content="${post.author}">
   <meta property="article:section" content="${post.category}">
-  ${post.tags.map(tag => `<meta property="article:tag" content="${tag}">`).join('\n  ')}
+  ${post.tags.map((tag) => `<meta property="article:tag" content="${tag}">`).join("\n  ")}
   
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
@@ -2626,7 +2783,7 @@ async function renderBlogPost(slug, ctx) {
       <h1>${post.title}</h1>
       <div class="article-meta">
         <span class="category-badge">${post.category}</span>
-        <span>📅 ${new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+        <span>📅 ${new Date(post.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</span>
         <span>✍️ ${post.author}</span>
         <span>⏱️ ${post.readTime}</span>
       </div>
@@ -2638,7 +2795,7 @@ async function renderBlogPost(slug, ctx) {
     
     <footer class="article-footer">
       <div class="article-tags">
-        ${post.tags.map(tag => `<span class="tag">#${tag}</span>`).join('')}
+        ${post.tags.map((tag) => `<span class="tag">#${tag}</span>`).join("")}
       </div>
       <div class="back-links">
         <a href="/blog" class="back-link">← All Blog Posts</a>
@@ -2650,6 +2807,9 @@ async function renderBlogPost(slug, ctx) {
 </html>`;
 
   return new Response(html, {
-    headers: { 'Content-Type': 'text/html;charset=UTF-8', 'Cache-Control': 'public, max-age=1800' }
+    headers: {
+      "Content-Type": "text/html;charset=UTF-8",
+      "Cache-Control": "public, max-age=1800",
+    },
   });
 }

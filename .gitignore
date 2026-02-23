@@ -37,8 +37,12 @@ node_modules/
 .goose/
 .opencode/
 .claude/
-.factory/
+.factory/*
 !.factory/hooks.json
+!.factory/AGENTS.md
+!.factory/skills/
+.factory/skills/*
+!.factory/skills/add-new-opc-skill/
 .cursor/
 .github/skills
 

@@ -1442,16 +1442,11 @@ function getFallbackConfig() {
               "npx skills add ReScienceLab/opc-skills --skill reddit -a codex",
           },
           project: {
-            claude:
-              "npx skills add ReScienceLab/opc-skills --skill reddit",
-            droid:
-              "npx skills add ReScienceLab/opc-skills --skill reddit",
-            cursor:
-              "npx skills add ReScienceLab/opc-skills --skill reddit",
-            opencode:
-              "npx skills add ReScienceLab/opc-skills --skill reddit",
-            codex:
-              "npx skills add ReScienceLab/opc-skills --skill reddit",
+            claude: "npx skills add ReScienceLab/opc-skills --skill reddit",
+            droid: "npx skills add ReScienceLab/opc-skills --skill reddit",
+            cursor: "npx skills add ReScienceLab/opc-skills --skill reddit",
+            opencode: "npx skills add ReScienceLab/opc-skills --skill reddit",
+            codex: "npx skills add ReScienceLab/opc-skills --skill reddit",
           },
         },
         commands: ["python3 scripts/get_posts.py {subreddit}"],
@@ -1482,16 +1477,11 @@ function getFallbackConfig() {
               "npx skills add ReScienceLab/opc-skills --skill twitter -a codex",
           },
           project: {
-            claude:
-              "npx skills add ReScienceLab/opc-skills --skill twitter",
-            droid:
-              "npx skills add ReScienceLab/opc-skills --skill twitter",
-            cursor:
-              "npx skills add ReScienceLab/opc-skills --skill twitter",
-            opencode:
-              "npx skills add ReScienceLab/opc-skills --skill twitter",
-            codex:
-              "npx skills add ReScienceLab/opc-skills --skill twitter",
+            claude: "npx skills add ReScienceLab/opc-skills --skill twitter",
+            droid: "npx skills add ReScienceLab/opc-skills --skill twitter",
+            cursor: "npx skills add ReScienceLab/opc-skills --skill twitter",
+            opencode: "npx skills add ReScienceLab/opc-skills --skill twitter",
+            codex: "npx skills add ReScienceLab/opc-skills --skill twitter",
           },
         },
         commands: ["python3 scripts/get_user_info.py {username}"],
@@ -1524,14 +1514,12 @@ function getFallbackConfig() {
           project: {
             claude:
               "npx skills add ReScienceLab/opc-skills --skill producthunt",
-            droid:
-              "npx skills add ReScienceLab/opc-skills --skill producthunt",
+            droid: "npx skills add ReScienceLab/opc-skills --skill producthunt",
             cursor:
               "npx skills add ReScienceLab/opc-skills --skill producthunt",
             opencode:
               "npx skills add ReScienceLab/opc-skills --skill producthunt",
-            codex:
-              "npx skills add ReScienceLab/opc-skills --skill producthunt",
+            codex: "npx skills add ReScienceLab/opc-skills --skill producthunt",
           },
         },
         commands: ["python3 scripts/search_posts.py --limit 20"],
@@ -1572,20 +1560,58 @@ function getFallbackConfig() {
           project: {
             claude:
               "npx skills add ReScienceLab/opc-skills --skill requesthunt",
-            droid:
-              "npx skills add ReScienceLab/opc-skills --skill requesthunt",
+            droid: "npx skills add ReScienceLab/opc-skills --skill requesthunt",
             cursor:
               "npx skills add ReScienceLab/opc-skills --skill requesthunt",
             opencode:
               "npx skills add ReScienceLab/opc-skills --skill requesthunt",
-            codex:
-              "npx skills add ReScienceLab/opc-skills --skill requesthunt",
+            codex: "npx skills add ReScienceLab/opc-skills --skill requesthunt",
           },
         },
         commands: ['python3 scripts/search_requests.py "{query}" --expand'],
         links: {
           github:
             "https://github.com/ReScienceLab/opc-skills/tree/main/skills/requesthunt",
+        },
+      },
+      {
+        name: "archive",
+        version: "1.0.0",
+        description:
+          "Archive session learnings, debugging solutions, and deployment logs with indexed markdown and cross-session knowledge reuse.",
+        icon: "archive",
+        color: "6B7280",
+        triggers: [
+          "archive this",
+          "archive session",
+          "save learnings",
+          "session notes",
+        ],
+        dependencies: [],
+        auth: { required: false, note: "No API key required" },
+        install: {
+          user: {
+            claude:
+              "npx skills add ReScienceLab/opc-skills --skill archive -a claude",
+            droid:
+              "npx skills add ReScienceLab/opc-skills --skill archive -a droid",
+            opencode:
+              "npx skills add ReScienceLab/opc-skills --skill archive -a opencode",
+            codex:
+              "npx skills add ReScienceLab/opc-skills --skill archive -a codex",
+          },
+          project: {
+            claude: "npx skills add ReScienceLab/opc-skills --skill archive",
+            droid: "npx skills add ReScienceLab/opc-skills --skill archive",
+            cursor: "npx skills add ReScienceLab/opc-skills --skill archive",
+            opencode: "npx skills add ReScienceLab/opc-skills --skill archive",
+            codex: "npx skills add ReScienceLab/opc-skills --skill archive",
+          },
+        },
+        commands: [],
+        links: {
+          github:
+            "https://github.com/ReScienceLab/opc-skills/tree/main/skills/archive",
         },
       },
     ],

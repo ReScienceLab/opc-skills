@@ -1,5 +1,5 @@
 {
-  "version": "1.0.8",
+  "version": "1.0.10",
   "name": "OPC Skills",
   "description": "Agent Skills for One Person Companies",
   "repository": "https://github.com/ReScienceLab/opc-skills",
@@ -529,6 +529,7 @@
           "codex": "npx skills add ReScienceLab/opc-skills --skill archive"
         }
       },
+      "commands": [],
       "links": {
         "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/archive"
       }

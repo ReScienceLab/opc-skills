@@ -37,42 +37,34 @@ Each skill maintains its own independent version. Use this matrix to understand 
 
 ## Released Versions
 
-## [1.0.8] - 2026-02-23
+## [1.0.10] - 2026-02-23
 
 ### archive
 #### [1.0.1] - 2026-02-23
 - **Fixed**: Description YAML block scalar (`>-`) replaced with single-line string to fix broken description display on skills.sh and other parsers
 
-### Website
-- (no changes)
+## [1.0.9] - 2026-02-23
 
-### requesthunt
-- (no changes)
+### Blog
+- **Added**: Archive skill announcement blog post (#62)
+  - "Stop Losing Context Between AI Sessions: Introducing the Archive Skill"
+  - Includes OG banner image
 
-### domain-hunter
-- (no changes)
+## [1.0.8] - 2026-02-23
 
-### logo-creator
-- (no changes)
+### Skills
+- **Added**: Archive skill for indexed session knowledge (#57, #59)
+  - Archive session learnings, debugging solutions, and deployment logs
+  - Maintains `.archive/MEMORY.md` index for cross-session knowledge reuse
+  - Includes logo, install commands, README listing, and website integration
+- **Added**: `add-new-opc-skill` checklist skill under `.factory/skills/` (#60)
+  - Comprehensive guide for adding new skills to the project
 
-### banner-creator
-- (no changes)
-
-### nanobanana
-- (no changes)
-
-### reddit
-- (no changes)
-
-### twitter
-- (no changes)
-
-### producthunt
-- (no changes)
-
-### seo-geo
-- (no changes)
-
+### Infrastructure
+- **Fixed**: Replace broken `curl -fsSL opc.dev/install.sh` with `npx skills add` (#55, #58)
+  - install.sh endpoint was returning 404
+  - Updated all install commands in skills.json and website/worker.js
+  - Redirect `/install.sh` to GitHub README installation section
 ## [1.0.7] - 2026-02-15
 
 ### Infrastructure

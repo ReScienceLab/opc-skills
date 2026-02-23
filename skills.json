@@ -529,6 +529,7 @@
           "codex": "npx skills add ReScienceLab/opc-skills --skill archive"
         }
       },
+      "commands": [],
       "links": {
         "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/archive"
       }

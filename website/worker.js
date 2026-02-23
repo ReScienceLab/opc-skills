@@ -705,12 +705,16 @@ Agent Skills Standard: https://agentskills.io
               <button class="copy-btn" onclick="navigator.clipboard.writeText('npx skills add ReScienceLab/opc-skills --skill ${deps.length > 0 ? deps.concat(s.name).join(" --skill ") : s.name}').then(() => { this.textContent='Copied!'; setTimeout(() => this.textContent='Copy', 1000); })">Copy</button>
             </div>
           </div>
-          <details class="commands-section">
+          ${
+            (s.commands || []).length > 0
+              ? `<details class="commands-section">
             <summary>Example Commands</summary>
             <div class="commands-list">
-              ${s.commands.map((cmd) => `<code>${cmd}</code>`).join("")}
+              ${(s.commands || []).map((cmd) => `<code>${cmd}</code>`).join("")}
             </div>
-          </details>
+          </details>`
+              : ""
+          }
         </div>`;
       })
       .join("");

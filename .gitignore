@@ -47,5 +47,6 @@ node_modules/
 .github/skills
 
 # Archives
+.archive/
 .skill-archive/
 .bug-archive/

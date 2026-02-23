@@ -1,6 +1,113 @@
 {
   "posts": [
     {
+      "slug": "archive-skill-session-knowledge",
+      "title": "Stop Losing Context Between AI Sessions: Introducing the Archive Skill",
+      "description": "Every AI coding session generates valuable knowledge that vanishes when the session ends. The Archive skill creates indexed, searchable markdown archives in your project so your AI agent can reuse past solutions. Free, no API keys, works with Claude Code, Cursor, Droid, and 12+ tools.",
+      "date": "2026-02-23",
+      "dateModified": "2026-02-23",
+      "author": "OPC Team",
+      "category": "Product Launch",
+      "tags": [
+        "archive",
+        "session-knowledge",
+        "ai-memory",
+        "debugging",
+        "productivity",
+        "cross-session"
+      ],
+      "readTime": "7 min",
+      "keywords": [
+        "AI session memory",
+        "archive AI sessions",
+        "Claude Code session history",
+        "AI agent long-term memory",
+        "debugging knowledge base",
+        "cross-session knowledge",
+        "AI coding context",
+        "OPC Skills archive",
+        "developer knowledge management",
+        "AI agent skills",
+        "session notes automation",
+        "project knowledge base",
+        "Claude Code plugin archive",
+        "AI pair programming memory",
+        "solopreneur productivity tools"
+      ],
+      "image": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/blog/2026-02-23-archive-skill-og.png",
+      "schema": {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Stop Losing Context Between AI Sessions: Introducing the Archive Skill",
+        "description": "The Archive skill creates indexed, searchable markdown archives so your AI agent can reuse past debugging solutions, deployment steps, and configuration decisions across sessions.",
+        "author": {
+          "@type": "Organization",
+          "name": "OPC Team",
+          "url": "https://opc.dev"
+        },
+        "datePublished": "2026-02-23",
+        "dateModified": "2026-02-23",
+        "publisher": {
+          "@type": "Organization",
+          "name": "OPC Skills",
+          "url": "https://opc.dev",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://opc.dev/opc-logo.svg"
+          }
+        },
+        "image": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/blog/2026-02-23-archive-skill-og.png",
+        "mainEntityOfPage": "https://opc.dev/blog/archive-skill-session-knowledge",
+        "keywords": "archive skill, AI session memory, cross-session knowledge, debugging knowledge base, OPC Skills",
+        "articleSection": "Product Launch",
+        "wordCount": 2400
+      },
+      "faq": [
+        {
+          "question": "What is the Archive skill for OPC Skills?",
+          "answer": "The Archive skill gives your AI coding agent persistent memory across sessions. It writes structured markdown files to .archive/ with YAML frontmatter, tags, and categories, then maintains a MEMORY.md index. Next session, your agent reads the index to find relevant past solutions."
+        },
+        {
+          "question": "How do I install the Archive skill?",
+          "answer": "Run: npx skills add ReScienceLab/opc-skills --skill archive. No API keys or configuration required. Works with Claude Code, Cursor, Droid, OpenCode, Codex, and 12+ other AI coding tools."
+        },
+        {
+          "question": "Does the archive get committed to git?",
+          "answer": "No. The .archive/ directory should be in .gitignore \u2014 these are local project notes, not source code. The skill enforces this convention by default. If you want to share archives across a team, you can override this."
+        },
+        {
+          "question": "How is the Archive skill different from keeping manual notes?",
+          "answer": "The Archive skill provides automatic structure: YAML frontmatter for tags/categories, a master MEMORY.md index, date-organized directories, and templates. Your AI agent reads and writes to it automatically \u2014 no manual maintenance required."
+        },
+        {
+          "question": "Can multiple AI tools share the same archive?",
+          "answer": "Yes. The archive is plain markdown in a standard directory. Claude Code, Cursor, Droid \u2014 they all read the same .archive/ directory. Knowledge created by one tool is available to all others."
+        },
+        {
+          "question": "What categories does the Archive skill support?",
+          "answer": "Five built-in categories: infrastructure (AWS, networking), release (versioning, deploys), debugging (bug fixes, error resolution), feature (implementation notes), and design (UI/UX decisions). Custom categories can be added as needed."
+        }
+      ],
+      "citations": [
+        {
+          "text": "Archive Skill - GitHub Source",
+          "url": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/archive"
+        },
+        {
+          "text": "OPC Skills Library",
+          "url": "https://github.com/ReScienceLab/opc-skills"
+        },
+        {
+          "text": "GitHub State of Open Source and AI 2025",
+          "url": "https://github.blog/news-insights/research/the-state-of-open-source-and-ai/"
+        },
+        {
+          "text": "Agent Skills Standard",
+          "url": "https://agentskills.io"
+        }
+      ]
+    },
+    {
       "slug": "seo-geo-1k-installs-milestone",
       "title": "How SEO-GEO Skill Hit 1,000 Installs: The AI Search Revolution Is Here",
       "description": "SEO-GEO just crossed 1,000 installs, making it the #1 skill in OPC Skills. Why? AI search engines (ChatGPT, Perplexity) are replacing Google, and developers are optimizing for citations instead of rankings. Learn how to install SEO-GEO in 30 seconds and join the AI search revolution.",
@@ -8,7 +115,14 @@
       "dateModified": "2026-02-05",
       "author": "OPC Team",
       "category": "Case Study",
-      "tags": ["seo-geo", "ai-search", "geo-optimization", "milestone", "chatgpt-search", "perplexity"],
+      "tags": [
+        "seo-geo",
+        "ai-search",
+        "geo-optimization",
+        "milestone",
+        "chatgpt-search",
+        "perplexity"
+      ],
       "readTime": "8 min",
       "keywords": [
         "SEO-GEO 1000 installs",
@@ -141,7 +255,12 @@
       "dateModified": "2026-01-28",
       "author": "OPC Team",
       "category": "Tutorial",
-      "tags": ["installation", "claude-code", "tutorial", "getting-started"],
+      "tags": [
+        "installation",
+        "claude-code",
+        "tutorial",
+        "getting-started"
+      ],
       "readTime": "5 min",
       "keywords": [
         "install OPC Skills",
@@ -164,8 +283,12 @@
         "name": "How to Install OPC Skills in Claude Code",
         "description": "Step-by-step tutorial to install OPC Skills in Claude Code marketplace. Takes 2 minutes.",
         "totalTime": "PT2M",
-        "tool": ["Claude Code"],
-        "supply": ["Claude Code (free version)"],
+        "tool": [
+          "Claude Code"
+        ],
+        "supply": [
+          "Claude Code (free version)"
+        ],
         "step": [
           {
             "@type": "HowToStep",
@@ -279,9 +402,32 @@
       "dateModified": "2026-01-28",
       "author": "OPC Team",
       "category": "Tutorial",
-      "tags": ["free-infrastructure", "cost-savings", "local-ai", "deepseek", "jan", "solopreneur", "mvp-builder"],
+      "tags": [
+        "free-infrastructure",
+        "cost-savings",
+        "local-ai",
+        "deepseek",
+        "jan",
+        "solopreneur",
+        "mvp-builder"
+      ],
       "readTime": "10 min",
-      "keywords": ["free AI infrastructure", "zero API costs", "DeepSeek local", "Jan v3-4B coding", "free MVP builder", "local LLM", "solopreneur tools", "cost savings API", "open source AI", "Ralph free deployment", "local inference", "OPC skills free", "indie hacker infrastructure", "AI cost reduction"],
+      "keywords": [
+        "free AI infrastructure",
+        "zero API costs",
+        "DeepSeek local",
+        "Jan v3-4B coding",
+        "free MVP builder",
+        "local LLM",
+        "solopreneur tools",
+        "cost savings API",
+        "open source AI",
+        "Ralph free deployment",
+        "local inference",
+        "OPC skills free",
+        "indie hacker infrastructure",
+        "AI cost reduction"
+      ],
       "image": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/blog/2026-01-28-free-infrastructure-og.png",
       "schema": {
         "@context": "https://schema.org",
@@ -387,9 +533,32 @@
       "dateModified": "2026-01-26",
       "author": "OPC Team",
       "category": "Tutorial",
-      "tags": ["ai-automation", "mvp-builder", "solopreneur", "ralph", "autonomous-development", "prd"],
+      "tags": [
+        "ai-automation",
+        "mvp-builder",
+        "solopreneur",
+        "ralph",
+        "autonomous-development",
+        "prd"
+      ],
       "readTime": "9 min",
-      "keywords": ["build MVP automatically", "solopreneur MVP builder", "Ralph AI tutorial", "autonomous AI agent loop", "PRD to code automatically", "Ralph for startups", "AI builds features automatically", "hands-off MVP development", "Claude Code automation", "Amp automation", "OPC skills with Ralph", "fresh context AI coding", "prd.json", "Geoffrey Huntley Ralph pattern", "AI agent loop tutorial"],
+      "keywords": [
+        "build MVP automatically",
+        "solopreneur MVP builder",
+        "Ralph AI tutorial",
+        "autonomous AI agent loop",
+        "PRD to code automatically",
+        "Ralph for startups",
+        "AI builds features automatically",
+        "hands-off MVP development",
+        "Claude Code automation",
+        "Amp automation",
+        "OPC skills with Ralph",
+        "fresh context AI coding",
+        "prd.json",
+        "Geoffrey Huntley Ralph pattern",
+        "AI agent loop tutorial"
+      ],
       "image": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/blog/2026-01-26-ralph-og.png",
       "schema": {
         "@context": "https://schema.org",
@@ -495,9 +664,23 @@
       "dateModified": "2026-01-24",
       "author": "OPC Team",
       "category": "Tutorial",
-      "tags": ["agent-skills", "documentation", "claude-code", "tutorial"],
+      "tags": [
+        "agent-skills",
+        "documentation",
+        "claude-code",
+        "tutorial"
+      ],
       "readTime": "6 min",
-      "keywords": ["convert documentation to skills", "agent skills tutorial", "Skill.md", "Claude Code skills", "Cursor skills", "how to create agent skills", "YAML frontmatter", "skill template"],
+      "keywords": [
+        "convert documentation to skills",
+        "agent skills tutorial",
+        "Skill.md",
+        "Claude Code skills",
+        "Cursor skills",
+        "how to create agent skills",
+        "YAML frontmatter",
+        "skill template"
+      ],
       "image": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/blog/2026-01-24-docs-skills-og.png",
       "schema": {
         "@context": "https://schema.org",
@@ -562,9 +745,25 @@
       "dateModified": "2026-01-23",
       "author": "OPC Team",
       "category": "Insights",
-      "tags": ["agent-skills", "documentation", "ai-agents", "claude-code"],
+      "tags": [
+        "agent-skills",
+        "documentation",
+        "ai-agents",
+        "claude-code"
+      ],
       "readTime": "7 min",
-      "keywords": ["agent skills", "AI documentation", "Claude Code skills", "Cursor skills", "Windsurf skills", "skills.sh", "Mintlify Skill.md", "agent-native docs", "GEO optimization", "AI search visibility"],
+      "keywords": [
+        "agent skills",
+        "AI documentation",
+        "Claude Code skills",
+        "Cursor skills",
+        "Windsurf skills",
+        "skills.sh",
+        "Mintlify Skill.md",
+        "agent-native docs",
+        "GEO optimization",
+        "AI search visibility"
+      ],
       "image": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/blog/2026-01-23-skills-docs-og.png",
       "schema": {
         "@context": "https://schema.org",
@@ -621,9 +820,20 @@
       "dateModified": "2026-01-21",
       "author": "OPC Team",
       "category": "Case Study",
-      "tags": ["domain-hunting", "cost-savings", "ai-automation"],
+      "tags": [
+        "domain-hunting",
+        "cost-savings",
+        "ai-automation"
+      ],
       "readTime": "7 min",
-      "keywords": ["domain registrar comparison", "domain promo codes", "save money on domains", "domain hunter", "GoDaddy alternative", "cheap domain registration"],
+      "keywords": [
+        "domain registrar comparison",
+        "domain promo codes",
+        "save money on domains",
+        "domain hunter",
+        "GoDaddy alternative",
+        "cheap domain registration"
+      ],
       "image": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/blog/2026-01-21-domain-hunter-og.png",
       "faq": [
         {
@@ -662,9 +872,20 @@
       "dateModified": "2026-01-21",
       "author": "OPC Team",
       "category": "Getting Started",
-      "tags": ["ai-skills", "automation", "solopreneur"],
+      "tags": [
+        "ai-skills",
+        "automation",
+        "solopreneur"
+      ],
       "readTime": "5 min",
-      "keywords": ["AI agent skills", "solopreneur tools", "automation", "one-person company", "Claude Code", "AI automation"],
+      "keywords": [
+        "AI agent skills",
+        "solopreneur tools",
+        "automation",
+        "one-person company",
+        "Claude Code",
+        "AI automation"
+      ],
       "image": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/website/blog/2026-01-21-what-is-opc-og.png",
       "faq": [
         {

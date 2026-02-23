@@ -64,13 +64,20 @@ Each skill maintains its own independent version. Use this matrix to understand 
 
 ## Released Versions
 
+## [1.0.9] - 2026-02-23
+
+### Blog
+- **Added**: Archive skill announcement blog post (#62)
+  - "Stop Losing Context Between AI Sessions: Introducing the Archive Skill"
+  - Includes OG banner image
+
 ## [1.0.8] - 2026-02-23
 
 ### Skills
-- **Added**: Archive skill for indexed session knowledge (#57)
+- **Added**: Archive skill for indexed session knowledge (#57, #59)
   - Archive session learnings, debugging solutions, and deployment logs
   - Maintains `.archive/MEMORY.md` index for cross-session knowledge reuse
-  - Includes logo, install commands, README listing, and website integration (#59)
+  - Includes logo, install commands, README listing, and website integration
 - **Added**: `add-new-opc-skill` checklist skill under `.factory/skills/` (#60)
   - Comprehensive guide for adding new skills to the project
 

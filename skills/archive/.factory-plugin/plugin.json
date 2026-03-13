@@ -1,0 +1,5 @@
+{
+  "name": "archive",
+  "description": "Archive session learnings, debugging solutions, and deployment logs. Auto-loads .archive/MEMORY.md at session start for cross-session knowledge reuse.",
+  "version": "1.1.0"
+}

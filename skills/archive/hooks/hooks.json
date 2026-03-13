@@ -1,0 +1,15 @@
+{
+  "description": "Load .archive/MEMORY.md into session context at startup for cross-session knowledge reuse",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/load-memory.py"
+          }
+        ]
+      }
+    ]
+  }
+}

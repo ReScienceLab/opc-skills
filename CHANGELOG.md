@@ -20,7 +20,7 @@ Each skill maintains its own independent version. Use this matrix to understand 
 | **twitter** | 1.0.0 | - | - |
 | **producthunt** | 1.0.0 | - | - |
 | **seo-geo** | 1.0.0 | twitter, reddit | twitter ≥1.0.0, reddit ≥1.0.0 |
-| **archive** | 1.0.1 | - | - |
+| **archive** | 1.1.0 | - | - |
 
 **Key Points:**
 - Each skill has an independent version number (MAJOR.MINOR.PATCH)
@@ -33,7 +33,9 @@ Each skill maintains its own independent version. Use this matrix to understand 
 ## [Unreleased]
 
 ### archive
-- (no changes)
+#### [1.1.0] - 2026-03-13
+- **Added**: Claude Code / Droid plugin support (`.factory-plugin/plugin.json`)
+- **Added**: `hooks/hooks.json` — `SessionStart` hook auto-loads `.archive/MEMORY.md` into session context when plugin is installed, enabling cross-session knowledge reuse without manual configuration
 
 ## Released Versions
 

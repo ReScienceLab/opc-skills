@@ -3,7 +3,11 @@ import json
 import os
 import sys
 
-project_dir = os.environ.get("FACTORY_PROJECT_DIR", os.getcwd())
+project_dir = (
+    os.environ.get("FACTORY_PROJECT_DIR")
+    or os.environ.get("CLAUDE_PROJECT_DIR")
+    or os.getcwd()
+)
 memory_file = os.path.join(project_dir, ".archive", "MEMORY.md")
 
 if os.path.exists(memory_file):

@@ -1,16 +1,16 @@
 {
-  "total": 26664,
+  "total": 26895,
   "skills": {
-    "seo-geo": 17800,
+    "seo-geo": 17900,
     "producthunt": 1700,
     "reddit": 1400,
     "nanobanana": 1200,
-    "logo-creator": 1000,
+    "logo-creator": 1100,
     "twitter": 1000,
-    "domain-hunter": 798,
-    "banner-creator": 755,
-    "requesthunt": 725,
-    "archive": 286
+    "domain-hunter": 806,
+    "banner-creator": 763,
+    "requesthunt": 733,
+    "archive": 293
   },
   "source": "https://skills.sh/resciencelab/opc-skills"
 }

@@ -53,7 +53,7 @@
         "The script uses only Python standard library (no external dependencies)."
       ],
       "priority": 3,
-      "passes": false,
+      "passes": true,
       "notes": "GET /api/v1/scrape/{jobId} returns {data: {jobId, status, topic, platforms, depth, progress: {reddit?, x?, github?}, requestsCreated, error, startedAt, completedAt}}. Progress values are: pending, running, done, error, skipped."
     },
     {

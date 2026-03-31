@@ -4,6 +4,7 @@
 
 - RequestHunt CLI scripts in `skills/requesthunt/scripts/` are stdlib-only Python entrypoints that default to markdown-formatted summaries and must keep `--json` as a raw passthrough of the API response.
 - RequestHunt scrape flows should send `depth` in the `/api/v1/scrape` payload and treat scrape cost as `depth x number of platforms`, while usage summaries now read from `usage.credits` instead of the removed realtime quota fields.
+- RequestHunt scrape status responses expose job metadata on `data` and optional per-platform progress on `data.progress`; status views should render lifecycle fields directly from that object without reshaping the JSON payload.
 
 ---
 
@@ -25,4 +26,14 @@
   - Patterns discovered: Scrape scripts should preserve the raw API response for `--json` while deriving user-facing credit estimates from the request parameters.
   - Gotchas encountered: The scrape response may echo `data.depth`, but the usage summary now lives under `usage.credits`; `usage.realtime` should no longer be referenced.
   - Useful context: There is still no local `AGENTS.md` under `skills/requesthunt`, so reusable RequestHunt-specific guidance belongs in `.hal/progress.txt`.
+---
+
+## 2026-03-31 11:11:18 CST - US-003
+- Added `skills/requesthunt/scripts/check_scrape.py` to fetch `GET /api/v1/scrape/{jobId}` and print a markdown status summary for RequestHunt scrape jobs.
+- Implemented raw `--json` passthrough plus formatted output for job metadata, optional depth, per-platform progress, completed request counts, and failed-job errors.
+- Files changed: `skills/requesthunt/scripts/check_scrape.py`, `.hal/prd.json`, `.hal/progress.txt`
+- **Learnings for future iterations:**
+  - Patterns discovered: Scrape status commands should read job lifecycle fields from `data` and render `data.progress` as platform-by-platform status lines when present.
+  - Gotchas encountered: `completedAt`, `depth`, and `progress` are optional, so the formatted output needs to guard them while keeping the raw JSON untouched for `--json`.
+  - Useful context: There is still no local `AGENTS.md` under `skills/requesthunt`, so RequestHunt-specific reusable guidance continues to live in `.hal/progress.txt`.
 ---

@@ -1,0 +1,107 @@
+{
+  "project": "RequestHunt Skill v2.0.0 — Unified Credits Model",
+  "branchName": "feature/skill/requesthunt-v2",
+  "description": "Update the RequestHunt skill from v1.0.0 to v2.0.0 to reflect the API's migration from split cached/realtime quotas to a unified credits-based billing system. Update scripts, documentation, and registry entries.",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Update get_usage.py for unified credits",
+      "description": "As a skill user, I want the usage script to display the current unified credit model so that I see accurate quota information instead of the obsolete cached/realtime split.",
+      "acceptanceCriteria": [
+        "skills/requesthunt/scripts/get_usage.py displays a single '## Credits' section showing used, limit, remaining, and resetsAt from the data.credits response object, instead of separate 'Cached Requests' and 'Realtime Requests' sections.",
+        "The script displays the user's tier from data.tier (e.g., 'free' or 'pro').",
+        "The script displays rate limit info from data.rateLimit (requestsPerMinute) if present.",
+        "The script displays API keys info from data.apiKeys (used/limit) if present.",
+        "The error message URL references /settings (not /settings/api).",
+        "The --json flag still outputs raw JSON unchanged.",
+        "The script uses only Python standard library (no external dependencies)."
+      ],
+      "priority": 1,
+      "passes": true,
+      "notes": "The API response shape changed from {data: {cached: {...}, realtime: {...}}} to {data: {tier, credits: {used, limit, remaining, resetsAt, period}, apiKeys: {used, limit}, rateLimit: {requestsPerMinute, used, remaining, resetsAt}}}."
+    },
+    {
+      "id": "US-002",
+      "title": "Add --depth parameter to scrape_topic.py",
+      "description": "As a skill user, I want to control scrape depth so that I can adjust the breadth of data collection and understand the credit cost.",
+      "acceptanceCriteria": [
+        "skills/requesthunt/scripts/scrape_topic.py accepts a --depth argument (integer, default 1).",
+        "The script validates that depth is between 1 and 40, exiting with an error if out of range.",
+        "The depth value is included in the POST request body sent to /api/v1/scrape.",
+        "The formatted output displays the depth value and estimated credit cost (depth x number of platforms).",
+        "The usage display at the bottom shows unified credits (credits.used/credits.limit/credits.remaining) instead of the old realtime quota.",
+        "The error message URL references /settings (not /settings/api).",
+        "The --json flag still outputs raw JSON unchanged.",
+        "The script uses only Python standard library (no external dependencies)."
+      ],
+      "priority": 2,
+      "passes": true,
+      "notes": "The API POST /api/v1/scrape now accepts {topic, platforms, depth} in the body. The response usage object changed from {realtime: {used, limit, remaining}} to {credits: {used, limit, remaining}}."
+    },
+    {
+      "id": "US-003",
+      "title": "Create check_scrape.py script",
+      "description": "As a skill user, I want to check the status of a scrape job so that I know when results are ready or if something failed.",
+      "acceptanceCriteria": [
+        "A new file skills/requesthunt/scripts/check_scrape.py exists.",
+        "The script accepts a positional job_id argument and an optional --json flag.",
+        "It calls GET /api/v1/scrape/{jobId} with Bearer token authentication.",
+        "The formatted output displays: Job ID, Status (pending/running/completed/failed), Topic, Platforms, Depth (if present), Requests Created (if completed), Started At, Completed At (if available).",
+        "If the response includes a progress object, the script displays per-platform status (e.g., reddit: done, x: running).",
+        "If the status is 'failed', the script displays the error message.",
+        "The script follows the same patterns as existing scripts: shebang, docstring, stdlib-only imports, get_api_key() helper, argparse, markdown-formatted output.",
+        "The script uses only Python standard library (no external dependencies)."
+      ],
+      "priority": 3,
+      "passes": true,
+      "notes": "GET /api/v1/scrape/{jobId} returns {data: {jobId, status, topic, platforms, depth, progress: {reddit?, x?, github?}, requestsCreated, error, startedAt, completedAt}}. Progress values are: pending, running, done, error, skipped."
+    },
+    {
+      "id": "US-004",
+      "title": "Update API key URL in remaining scripts",
+      "description": "As a skill user, I want the error messages to point to the correct settings page URL.",
+      "acceptanceCriteria": [
+        "skills/requesthunt/scripts/list_requests.py error message references https://requesthunt.com/settings (not /settings/api).",
+        "skills/requesthunt/scripts/search_requests.py error message references https://requesthunt.com/settings (not /settings/api).",
+        "skills/requesthunt/scripts/get_topics.py error message references https://requesthunt.com/settings (not /settings/api).",
+        "No other behavioral changes to these three scripts."
+      ],
+      "priority": 4,
+      "passes": true,
+      "notes": "The /settings/api path goes through unnecessary redirects. The canonical URL is /settings."
+    },
+    {
+      "id": "US-005",
+      "title": "Update SKILL.md documentation",
+      "description": "As a skill user, I want the skill documentation to reflect the current API capabilities and pricing model.",
+      "acceptanceCriteria": [
+        "skills/requesthunt/SKILL.md prerequisite section references https://requesthunt.com/settings (not /settings/api).",
+        "The scrape examples in the Research Workflow section include --depth flag usage.",
+        "A new 'Check Scrape Job' command section documents the check_scrape.py script with example usage.",
+        "The API Info section at the bottom replaces the old rate limits (1000 cached/500 realtime) with the unified credit model: Free tier (100 credits/month, 10 req/min), Pro tier (2,000 credits/month, 60 req/min), cost per API call (1 credit), cost per scrape (depth x platforms credits).",
+        "The Scrape Topic command examples include --depth usage.",
+        "All other existing content (research workflow, report template, other commands) remains unchanged."
+      ],
+      "priority": 5,
+      "passes": true,
+      "notes": ""
+    },
+    {
+      "id": "US-006",
+      "title": "Bump version and update registry",
+      "description": "As a developer, I want the skill version bumped to 2.0.0 and the registry updated so that the new version is discoverable.",
+      "acceptanceCriteria": [
+        "skills/requesthunt/.claude-plugin/plugin.json version field is '2.0.0'.",
+        "skills.json requesthunt entry version field is '2.0.0'.",
+        "skills.json requesthunt commands array includes the check_scrape.py command.",
+        "skills.json requesthunt commands array shows --depth in the scrape_topic.py command.",
+        "CHANGELOG.md compatibility matrix shows requesthunt at version 2.0.0.",
+        "CHANGELOG.md has a requesthunt [2.0.0] entry under [Unreleased] documenting: breaking credit model change, added --depth parameter, added check_scrape.py, fixed URL references.",
+        "CHANGELOG.md Rate Limits section at the bottom is updated from '1000/month cached, 500/month realtime' to unified credits model."
+      ],
+      "priority": 6,
+      "passes": true,
+      "notes": "This is a major version bump because the credit model is a breaking change for anyone parsing the old cached/realtime usage output."
+    }
+  ]
+}

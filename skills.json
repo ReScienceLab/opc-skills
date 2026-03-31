@@ -74,7 +74,7 @@
     },
     {
       "name": "requesthunt",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "description": "Generate user demand research reports from real user feedback. Scrape and analyze feature requests, complaints, and questions from Reddit, X, and GitHub.",
       "logo": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/skill-logos/requesthunt.svg",
       "icon": "globe",
@@ -89,11 +89,14 @@
       "dependencies": {},
       "auth": {
         "required": true,
-        "type": "api_key",
+        "type": "cli",
+        "setup": "curl -fsSL https://requesthunt.com/cli | sh && requesthunt auth login",
         "keys": [
           {
             "env": "REQUESTHUNT_API_KEY",
-            "url": "https://requesthunt.com/dashboard"
+            "url": "https://requesthunt.com/dashboard",
+            "optional": true,
+            "note": "Only needed if browser auth is not available"
           }
         ]
       },
@@ -113,15 +116,17 @@
         }
       },
       "commands": [
-        "python3 scripts/list_requests.py --topic \"{topic}\" --limit 20",
-        "python3 scripts/search_requests.py \"{query}\" --expand --limit 20",
-        "python3 scripts/scrape_topic.py \"{topic}\" --platforms reddit,x,github",
-        "python3 scripts/get_topics.py",
-        "python3 scripts/get_usage.py"
+        "requesthunt search \"{query}\" --expand --limit 20",
+        "requesthunt list --topic \"{topic}\" --limit 20",
+        "requesthunt scrape start \"{topic}\" --platforms reddit,x,github --depth 2",
+        "requesthunt scrape status \"{job_id}\"",
+        "requesthunt topics",
+        "requesthunt usage"
       ],
       "links": {
         "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/requesthunt",
         "docs": "https://requesthunt.com/docs",
+        "setup": "https://requesthunt.com/setup.md",
         "example": "https://github.com/ReScienceLab/opc-skills/blob/main/skills/requesthunt/examples/calendar-app-research.md"
       }
     },

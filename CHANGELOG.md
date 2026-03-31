@@ -11,7 +11,7 @@ Each skill maintains its own independent version. Use this matrix to understand 
 
 | Skill | Current Version | Requires | Min Versions |
 |-------|-----------------|----------|--------------|
-| **requesthunt** | 1.0.0 | - | - |
+| **requesthunt** | 2.0.0 | - | - |
 | **domain-hunter** | 1.0.0 | twitter, reddit | twitter ≥1.0.0, reddit ≥1.0.0 |
 | **logo-creator** | 1.0.0 | nanobanana | nanobanana ≥1.0.0 |
 | **banner-creator** | 1.0.0 | nanobanana | nanobanana ≥1.0.0 |
@@ -31,6 +31,18 @@ Each skill maintains its own independent version. Use this matrix to understand 
 ---
 
 ## [Unreleased]
+
+### requesthunt
+
+#### [2.0.0]
+- **Changed**: Switched from Python scripts to `requesthunt` Rust CLI as the sole interface
+- **Added**: Browser authentication via `requesthunt auth login` (with `config set-key` fallback for headless/CI)
+- **Added**: CLI commands in skills.json registry (search, list, scrape start/status, topics, usage)
+- **Added**: Link to agent setup guide (`https://requesthunt.com/setup.md`)
+- **Added**: TOON output mode documentation (Token-Oriented Object Notation)
+- **Changed**: Switched usage and pricing documentation from cached/realtime quotas to the unified credits model
+- **Removed**: Python scripts (`scripts/`) — replaced entirely by CLI commands
+- **Fixed**: Updated RequestHunt settings links to use `/dashboard`
 
 ## Released Versions
 
@@ -278,7 +290,7 @@ Migration guides for major version upgrades will be documented here.
 ## Notes
 
 ### API Keys Required
-- **requesthunt**: REQUESTHUNT_API_KEY (requesthunt.com/settings/api)
+- **requesthunt**: CLI browser auth (`requesthunt auth login`) or REQUESTHUNT_API_KEY (requesthunt.com/dashboard)
 - **twitter**: TWITTERAPI_API_KEY (twitterapi.io, ~$0.15-0.18/1k requests)
 - **logo-creator**: GEMINI_API_KEY, REMOVE_BG_API_KEY, RECRAFT_API_KEY
 - **banner-creator**: GEMINI_API_KEY (Google AI Studio)
@@ -287,7 +299,7 @@ Migration guides for major version upgrades will be documented here.
 - **seo-geo**: DATAFORSEO_LOGIN, DATAFORSEO_PASSWORD (optional)
 
 ### Rate Limits
-- **requesthunt**: 1000/month cached, 500/month realtime
+- **requesthunt**: Free tier 100 credits/month at 10 req/min, Pro tier 2,000 credits/month at 60 req/min, 1 credit per API call, scrapes cost depth x platforms
 - **twitter**: Depends on twitterapi.io plan
 - **nanobanana**: Google Gemini API limits apply
 - **seo-geo**: DataForSEO API limits apply

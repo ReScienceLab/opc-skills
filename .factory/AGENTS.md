@@ -93,6 +93,7 @@ dependencies:
 - Include error handling and meaningful error messages
 - Document dependencies and environment variables required
 - Use relative paths or `${SKILL_DIR}` for portability
+- When a skill adds CLI flags, scripts, or pricing changes, update `SKILL.md` examples and API notes in the same change so the docs stay aligned with the shipped behavior.
 
 ### Dependencies & Composition
 

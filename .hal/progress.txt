@@ -1,0 +1,17 @@
+# Ralph Progress Log
+
+## Codebase Patterns
+
+- RequestHunt CLI scripts in `skills/requesthunt/scripts/` are stdlib-only Python entrypoints that default to markdown-formatted summaries and must keep `--json` as a raw passthrough of the API response.
+
+---
+
+## 2026-03-31 11:03:20 CST - US-001
+- Updated `skills/requesthunt/scripts/get_usage.py` to show the unified credits model instead of cached/realtime quotas.
+- Added formatted output for `tier`, `credits`, optional `apiKeys`, and optional `rateLimit`, and corrected the API key help URL to `/settings`.
+- Files changed: `skills/requesthunt/scripts/get_usage.py`, `.hal/prd.json`, `.hal/progress.txt`
+- **Learnings for future iterations:**
+  - Patterns discovered: RequestHunt scripts print human-readable markdown by default and preserve the untouched API payload behind `--json`.
+  - Gotchas encountered: The RequestHunt API usage payload now hangs off `data.credits`, `data.apiKeys`, and `data.rateLimit`; older `cached` and `realtime` fields are obsolete.
+  - Useful context: There is no nearby `AGENTS.md` under `skills/requesthunt`, so reusable module guidance should be captured in `.hal/progress.txt` unless a new local AGENTS file is introduced later.
+---

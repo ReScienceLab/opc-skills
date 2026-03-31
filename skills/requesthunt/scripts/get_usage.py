@@ -13,7 +13,7 @@ def get_api_key():
     key = os.environ.get("REQUESTHUNT_API_KEY")
     if not key:
         print("Error: REQUESTHUNT_API_KEY environment variable not set", file=sys.stderr)
-        print("Get your key from: https://requesthunt.com/settings/api", file=sys.stderr)
+        print("Get your key from: https://requesthunt.com/settings", file=sys.stderr)
         sys.exit(1)
     return key
 
@@ -54,20 +54,36 @@ def main():
     data = result.get("data", {})
     
     print("# RequestHunt API Usage\n")
-    
-    cached = data.get("cached", {})
-    realtime = data.get("realtime", {})
-    
-    print("## Cached Requests")
-    print(f"- **Used**: {cached.get('used', 0)} / {cached.get('limit', 0)}")
-    print(f"- **Remaining**: {cached.get('remaining', 0)}")
-    print(f"- **Resets at**: {cached.get('resetsAt', 'N/A')}")
-    print()
-    
-    print("## Realtime Requests")
-    print(f"- **Used**: {realtime.get('used', 0)} / {realtime.get('limit', 0)}")
-    print(f"- **Remaining**: {realtime.get('remaining', 0)}")
-    print(f"- **Resets at**: {realtime.get('resetsAt', 'N/A')}")
+
+    tier = data.get("tier")
+    if tier:
+        print(f"**Tier**: {tier}\n")
+
+    credits = data.get("credits", {})
+    print("## Credits")
+    print(f"- **Used**: {credits.get('used', 0)} / {credits.get('limit', 0)}")
+    print(f"- **Remaining**: {credits.get('remaining', 0)}")
+    print(f"- **Resets at**: {credits.get('resetsAt', 'N/A')}")
+    if credits.get("period"):
+        print(f"- **Period**: {credits.get('period')}")
+
+    api_keys = data.get("apiKeys")
+    if api_keys:
+        print()
+        print("## API Keys")
+        print(f"- **Used**: {api_keys.get('used', 0)} / {api_keys.get('limit', 0)}")
+
+    rate_limit = data.get("rateLimit")
+    if rate_limit:
+        print()
+        print("## Rate Limit")
+        print(f"- **Requests per minute**: {rate_limit.get('requestsPerMinute', 'N/A')}")
+        if "used" in rate_limit:
+            print(f"- **Used**: {rate_limit.get('used', 0)}")
+        if "remaining" in rate_limit:
+            print(f"- **Remaining**: {rate_limit.get('remaining', 0)}")
+        if "resetsAt" in rate_limit:
+            print(f"- **Resets at**: {rate_limit.get('resetsAt', 'N/A')}")
 
 if __name__ == "__main__":
     main()

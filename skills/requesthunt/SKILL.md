@@ -14,7 +14,7 @@ Set API key in `~/.zshrc`:
 export REQUESTHUNT_API_KEY="your_api_key"
 ```
 
-Get your key from: https://requesthunt.com/settings/api
+Get your key from: https://requesthunt.com/settings
 
 **Quick Check**:
 ```bash
@@ -39,7 +39,7 @@ Before collecting data, clarify with the user:
 
 ```bash
 # 1. Trigger realtime scrape for the topic
-python3 scripts/scrape_topic.py "ai-coding-assistant" --platforms reddit,x,github
+python3 scripts/scrape_topic.py "ai-coding-assistant" --platforms reddit,x,github --depth 2
 
 # 2. Search with expansion for more data
 python3 scripts/search_requests.py "code completion" --expand --limit 50
@@ -109,16 +109,25 @@ python3 scripts/get_topics.py                                  # List all topics
 python3 scripts/get_usage.py                                   # View API usage stats
 ```
 
+### Check Scrape Job
+```bash
+python3 scripts/check_scrape.py "job_123"                     # Check scrape job status
+python3 scripts/check_scrape.py "job_123" --json             # Raw JSON output
+```
+
 ### Scrape Topic (Realtime)
 ```bash
-python3 scripts/scrape_topic.py "developer-tools"              # Default: reddit,x
-python3 scripts/scrape_topic.py "ai-assistant" --platforms reddit,x,github
+python3 scripts/scrape_topic.py "developer-tools" --depth 1    # Default: reddit,x
+python3 scripts/scrape_topic.py "ai-assistant" --platforms reddit,x,github --depth 2
 ```
 
 ## API Info
 - **Base URL**: https://requesthunt.com
 - **Auth**: Bearer token (API key)
 - **Rate Limits**: 
-  - Cached requests: 1000/month
-  - Realtime requests: 500/month (scraping is expensive)
+  - Free tier: 100 credits/month, 10 req/min
+  - Pro tier: 2,000 credits/month, 60 req/min
+- **Costs**:
+  - API call: 1 credit
+  - Scrape: depth x number of platforms credits
 - **Docs**: https://requesthunt.com/docs

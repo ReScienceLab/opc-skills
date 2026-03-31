@@ -83,7 +83,7 @@
         "All other existing content (research workflow, report template, other commands) remains unchanged."
       ],
       "priority": 5,
-      "passes": false,
+      "passes": true,
       "notes": ""
     },
     {

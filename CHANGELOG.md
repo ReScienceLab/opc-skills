@@ -35,10 +35,15 @@ Each skill maintains its own independent version. Use this matrix to understand 
 ### requesthunt
 
 #### [2.0.0]
-- **Changed**: Switched RequestHunt usage and pricing documentation from cached/realtime quotas to the unified credits model
+- **Added**: CLI-first workflow — `requesthunt` Rust CLI is now the recommended interface, with Python scripts as fallback
+- **Added**: Browser authentication support via `requesthunt auth login` (with `config set-key` fallback for headless/CI)
+- **Added**: CLI commands in skills.json registry (search, list, scrape start/status, topics, usage)
+- **Added**: Link to agent setup guide (`https://requesthunt.com/setup.md`)
+- **Changed**: SKILL.md restructured as CLI-first with Python scripts as "Option B"
+- **Changed**: Switched usage and pricing documentation from cached/realtime quotas to the unified credits model
 - **Added**: Registered `scrape_topic.py --depth` usage and credit-cost guidance for configurable scrape depth
 - **Added**: Registered the new `check_scrape.py` command for scrape job status checks
-- **Fixed**: Updated RequestHunt settings links to use the canonical `/settings` page
+- **Fixed**: Updated RequestHunt settings links to use `/dashboard`
 
 ## Released Versions
 
@@ -286,7 +291,7 @@ Migration guides for major version upgrades will be documented here.
 ## Notes
 
 ### API Keys Required
-- **requesthunt**: REQUESTHUNT_API_KEY (requesthunt.com/settings)
+- **requesthunt**: CLI browser auth (`requesthunt auth login`) or REQUESTHUNT_API_KEY (requesthunt.com/dashboard)
 - **twitter**: TWITTERAPI_API_KEY (twitterapi.io, ~$0.15-0.18/1k requests)
 - **logo-creator**: GEMINI_API_KEY, REMOVE_BG_API_KEY, RECRAFT_API_KEY
 - **banner-creator**: GEMINI_API_KEY (Google AI Studio)

@@ -35,7 +35,7 @@
         "The script uses only Python standard library (no external dependencies)."
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "notes": "The API POST /api/v1/scrape now accepts {topic, platforms, depth} in the body. The response usage object changed from {realtime: {used, limit, remaining}} to {credits: {used, limit, remaining}}."
     },
     {

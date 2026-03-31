@@ -3,6 +3,7 @@
 ## Codebase Patterns
 
 - RequestHunt CLI scripts in `skills/requesthunt/scripts/` are stdlib-only Python entrypoints that default to markdown-formatted summaries and must keep `--json` as a raw passthrough of the API response.
+- RequestHunt scrape flows should send `depth` in the `/api/v1/scrape` payload and treat scrape cost as `depth x number of platforms`, while usage summaries now read from `usage.credits` instead of the removed realtime quota fields.
 
 ---
 
@@ -14,4 +15,14 @@
   - Patterns discovered: RequestHunt scripts print human-readable markdown by default and preserve the untouched API payload behind `--json`.
   - Gotchas encountered: The RequestHunt API usage payload now hangs off `data.credits`, `data.apiKeys`, and `data.rateLimit`; older `cached` and `realtime` fields are obsolete.
   - Useful context: There is no nearby `AGENTS.md` under `skills/requesthunt`, so reusable module guidance should be captured in `.hal/progress.txt` unless a new local AGENTS file is introduced later.
+---
+
+## 2026-03-31 11:07:15 CST - US-002
+- Added `--depth` support to `skills/requesthunt/scripts/scrape_topic.py`, including range validation, request payload wiring, and human-readable output for depth plus estimated credit cost.
+- Switched the scrape script's usage summary from the obsolete realtime quota to unified credits, and corrected the missing API key help URL to `/settings`.
+- Files changed: `skills/requesthunt/scripts/scrape_topic.py`, `.hal/prd.json`, `.hal/progress.txt`
+- **Learnings for future iterations:**
+  - Patterns discovered: Scrape scripts should preserve the raw API response for `--json` while deriving user-facing credit estimates from the request parameters.
+  - Gotchas encountered: The scrape response may echo `data.depth`, but the usage summary now lives under `usage.credits`; `usage.realtime` should no longer be referenced.
+  - Useful context: There is still no local `AGENTS.md` under `skills/requesthunt`, so reusable RequestHunt-specific guidance belongs in `.hal/progress.txt`.
 ---

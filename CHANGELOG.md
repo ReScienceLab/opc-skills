@@ -34,6 +34,13 @@ Each skill maintains its own independent version. Use this matrix to understand 
 
 ## Released Versions
 
+## [1.1.1] - 2026-03-31
+
+### requesthunt
+
+#### [2.0.1] - 2026-03-31
+- **Changed**: Updated auth documentation to describe device code flow (visit URL + enter code) instead of generic browser approval
+
 ## [1.1.0] - 2026-03-31
 
 ### requesthunt

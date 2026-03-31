@@ -13,7 +13,7 @@ def get_api_key():
     key = os.environ.get("REQUESTHUNT_API_KEY")
     if not key:
         print("Error: REQUESTHUNT_API_KEY environment variable not set", file=sys.stderr)
-        print("Get your key from: https://requesthunt.com/settings/api", file=sys.stderr)
+        print("Get your key from: https://requesthunt.com/settings", file=sys.stderr)
         sys.exit(1)
     return key
 

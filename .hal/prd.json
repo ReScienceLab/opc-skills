@@ -67,7 +67,7 @@
         "No other behavioral changes to these three scripts."
       ],
       "priority": 4,
-      "passes": false,
+      "passes": true,
       "notes": "The /settings/api path goes through unnecessary redirects. The canonical URL is /settings."
     },
     {

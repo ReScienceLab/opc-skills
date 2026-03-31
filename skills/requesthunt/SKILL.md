@@ -9,8 +9,6 @@ Generate user demand research reports by collecting and analyzing real user feed
 
 ## Prerequisites
 
-### Option A: CLI (Recommended)
-
 Install the CLI and authenticate via browser:
 ```bash
 curl -fsSL https://requesthunt.com/cli | sh
@@ -28,14 +26,12 @@ For headless/CI environments, use a manual API key instead:
 requesthunt config set-key rh_live_your_key
 ```
 
-### Option B: Python Scripts (Fallback)
-
-If the CLI cannot be installed, set an API key and use the Python scripts in `scripts/`:
-```bash
-export REQUESTHUNT_API_KEY="your_api_key"
-```
-
 Get your key from: https://requesthunt.com/dashboard
+
+## Output Modes
+
+Default output is TOON (Token-Oriented Object Notation) — structured and token-efficient.
+Use `--json` for raw JSON or `--human` for table/key-value display.
 
 ## Research Workflow
 
@@ -50,7 +46,6 @@ Before collecting data, clarify with the user:
 
 ### Step 2: Collect Data
 
-**With CLI:**
 ```bash
 # 1. Trigger realtime scrape for the topic
 requesthunt scrape start "ai-coding-assistant" --platforms reddit,x,github --depth 2
@@ -60,13 +55,6 @@ requesthunt search "code completion" --expand --limit 50
 
 # 3. List requests filtered by topic
 requesthunt list --topic "ai-tools" --limit 100
-```
-
-**With Python scripts** (from skill directory):
-```bash
-python3 scripts/scrape_topic.py "ai-coding-assistant" --platforms reddit,x,github --depth 2
-python3 scripts/search_requests.py "code completion" --expand --limit 50
-python3 scripts/list_requests.py --topic "ai-tools" --limit 100
 ```
 
 ### Step 3: Generate Report
@@ -100,10 +88,7 @@ Analyze collected data and generate a structured Markdown report:
 Based on N real user feedbacks collected via RequestHunt...
 ```
 
-## CLI Commands
-
-Default output is TOON (Token-Oriented Object Notation) — structured and token-efficient.
-Use `--json` for raw JSON or `--human` for table/key-value display.
+## Commands
 
 ### Search
 ```bash
@@ -135,22 +120,9 @@ requesthunt usage                                            # View account stat
 requesthunt config show                                      # Check auth status
 ```
 
-## Python Script Commands
-
-All commands run from the skill directory. Require `REQUESTHUNT_API_KEY` env variable.
-
-```bash
-python3 scripts/list_requests.py --limit 20
-python3 scripts/search_requests.py "authentication" --limit 20 --expand
-python3 scripts/scrape_topic.py "developer-tools" --depth 1
-python3 scripts/check_scrape.py "job_123"
-python3 scripts/get_topics.py
-python3 scripts/get_usage.py
-```
-
 ## API Info
 - **Base URL**: https://requesthunt.com
-- **Auth**: Browser login (CLI) or Bearer token (API key)
+- **Auth**: Browser login (`requesthunt auth login`) or manual API key
 - **Rate Limits**:
   - Free tier: 100 credits/month, 10 req/min
   - Pro tier: 2,000 credits/month, 60 req/min

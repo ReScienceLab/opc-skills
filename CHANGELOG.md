@@ -35,14 +35,13 @@ Each skill maintains its own independent version. Use this matrix to understand 
 ### requesthunt
 
 #### [2.0.0]
-- **Added**: CLI-first workflow — `requesthunt` Rust CLI is now the recommended interface, with Python scripts as fallback
-- **Added**: Browser authentication support via `requesthunt auth login` (with `config set-key` fallback for headless/CI)
+- **Changed**: Switched from Python scripts to `requesthunt` Rust CLI as the sole interface
+- **Added**: Browser authentication via `requesthunt auth login` (with `config set-key` fallback for headless/CI)
 - **Added**: CLI commands in skills.json registry (search, list, scrape start/status, topics, usage)
 - **Added**: Link to agent setup guide (`https://requesthunt.com/setup.md`)
-- **Changed**: SKILL.md restructured as CLI-first with Python scripts as "Option B"
+- **Added**: TOON output mode documentation (Token-Oriented Object Notation)
 - **Changed**: Switched usage and pricing documentation from cached/realtime quotas to the unified credits model
-- **Added**: Registered `scrape_topic.py --depth` usage and credit-cost guidance for configurable scrape depth
-- **Added**: Registered the new `check_scrape.py` command for scrape job status checks
+- **Removed**: Python scripts (`scripts/`) — replaced entirely by CLI commands
 - **Fixed**: Updated RequestHunt settings links to use `/dashboard`
 
 ## Released Versions

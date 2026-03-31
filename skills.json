@@ -89,11 +89,14 @@
       "dependencies": {},
       "auth": {
         "required": true,
-        "type": "api_key",
+        "type": "cli",
+        "setup": "curl -fsSL https://requesthunt.com/cli | sh && requesthunt auth login",
         "keys": [
           {
             "env": "REQUESTHUNT_API_KEY",
-            "url": "https://requesthunt.com/dashboard"
+            "url": "https://requesthunt.com/dashboard",
+            "optional": true,
+            "note": "Only needed if browser auth is not available"
           }
         ]
       },
@@ -118,13 +121,7 @@
         "requesthunt scrape start \"{topic}\" --platforms reddit,x,github --depth 2",
         "requesthunt scrape status \"{job_id}\"",
         "requesthunt topics",
-        "requesthunt usage",
-        "python3 scripts/list_requests.py --topic \"{topic}\" --limit 20",
-        "python3 scripts/search_requests.py \"{query}\" --expand --limit 20",
-        "python3 scripts/scrape_topic.py \"{topic}\" --platforms reddit,x,github --depth 2",
-        "python3 scripts/check_scrape.py \"{job_id}\"",
-        "python3 scripts/get_topics.py",
-        "python3 scripts/get_usage.py"
+        "requesthunt usage"
       ],
       "links": {
         "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/requesthunt",

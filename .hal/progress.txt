@@ -7,6 +7,7 @@
 - RequestHunt scrape status responses expose job metadata on `data` and optional per-platform progress on `data.progress`; status views should render lifecycle fields directly from that object without reshaping the JSON payload.
 - RequestHunt API key setup guidance should use the canonical `https://requesthunt.com/settings` URL; avoid the redirecting `/settings/api` path in CLI help text and docs.
 - RequestHunt documentation should show `--depth` anywhere scrape commands are demonstrated and describe pricing in the unified credits model instead of the removed cached/realtime quota split.
+- RequestHunt release bumps need the skill version synced across `skills/requesthunt/.claude-plugin/plugin.json`, the `skills.json` registry entry, and the `CHANGELOG.md` compatibility matrix plus `[Unreleased]` notes.
 
 ---
 
@@ -58,4 +59,14 @@
   - Patterns discovered: RequestHunt skill docs should describe scrape cost in terms of `depth x number of platforms` and show `--depth` anywhere scrape commands are demonstrated.
   - Gotchas encountered: The skill directory still has no nearby `AGENTS.md`, so RequestHunt-specific reusable guidance should keep accumulating in `.hal/progress.txt`.
   - Useful context: A focused content assertion script plus `git diff --check` is the practical validation path for documentation-only stories in this repo.
+---
+
+## 2026-03-31 11:22:48 CST - US-006
+- Bumped the RequestHunt skill version to `2.0.0` in the Claude plugin manifest and the root skill registry, and updated the registry commands to advertise `check_scrape.py` plus `scrape_topic.py --depth`.
+- Added the RequestHunt `2.0.0` unreleased changelog entry, updated the compatibility matrix, and replaced the obsolete cached/realtime quota note with unified credits pricing details.
+- Files changed: `skills/requesthunt/.claude-plugin/plugin.json`, `skills.json`, `CHANGELOG.md`, `.hal/prd.json`, `.hal/progress.txt`
+- **Learnings for future iterations:**
+  - Patterns discovered: Skill release bumps in this repo should update both the per-skill plugin manifest and the root `skills.json` registry so marketplace metadata and installer listings stay aligned.
+  - Gotchas encountered: `skills.json` contains many `version` fields, so target the named skill block carefully when bumping a single skill to avoid accidental edits elsewhere.
+  - Useful context: For metadata-only stories, a JSON parse check, explicit content assertions, and `git diff --check` provide reliable coverage without needing network access.
 ---

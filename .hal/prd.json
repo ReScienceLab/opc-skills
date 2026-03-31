@@ -100,7 +100,7 @@
         "CHANGELOG.md Rate Limits section at the bottom is updated from '1000/month cached, 500/month realtime' to unified credits model."
       ],
       "priority": 6,
-      "passes": false,
+      "passes": true,
       "notes": "This is a major version bump because the credit model is a breaking change for anyone parsing the old cached/realtime usage output."
     }
   ]

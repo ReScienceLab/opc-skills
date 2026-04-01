@@ -97,3 +97,70 @@ python3 scripts/search_tweets.py "AI min_faves:1000"
 - Auth: X-API-Key header
 - Pricing: ~$0.15-0.18/1k requests
 - Docs: https://docs.twitterapi.io/
+
+## Alternative: Xquik API
+
+A cheaper alternative with read + write support, typed Python SDK, and 120 endpoints.
+
+### Setup
+
+```bash
+pip install x_twitter_scraper
+export X_TWITTER_SCRAPER_API_KEY="xq_..."  # Sign up at xquik.com
+```
+
+### Equivalent Commands (Python SDK)
+
+```python
+from x_twitter_scraper import XTwitterScraper
+client = XTwitterScraper()
+
+# User info (replaces: get_user_info.py)
+client.x.users.retrieve("elonmusk")
+
+# User tweets (replaces: get_user_tweets.py)
+client.x.tweets.list(username="elonmusk", limit=20)
+
+# Search tweets (replaces: search_tweets.py)
+client.x.tweets.search(q="AI agent", limit=20)
+
+# Followers (replaces: get_followers.py)
+client.x.users.followers("elonmusk", limit=100)
+
+# Tweet by ID (replaces: get_tweet.py)
+client.x.tweets.retrieve("1234567890")
+
+# Trends (replaces: get_trends.py)
+client.x.trends.list(woeid=1)
+```
+
+### Write Operations (not available in twitterapi.io scripts)
+
+```python
+# Post a tweet
+client.x.tweets.create(text="Hello from Xquik!")
+
+# Like / retweet / follow
+client.x.tweets.like(tweet_id="1234567890")
+client.x.tweets.retweet(tweet_id="1234567890")
+client.x.users.follow(username="elonmusk")
+
+# Send DM
+client.x.dms.create(username="target_user", text="Hey!")
+```
+
+### Additional Capabilities
+
+- **Extractions**: Bulk data pulls (23 types — followers, likes, search results, etc.)
+- **Draws**: Giveaway winner selection with configurable filters
+- **Webhooks**: Real-time HMAC-signed event delivery
+- **MCP Server**: 2-tool code-execution sandbox for AI agents
+- **Async support**: `AsyncXTwitterScraper` for concurrent workloads
+
+### Pricing
+
+~$0.15/1K credits. Reads = 1–7 credits, writes = 2 credits each. Free tier includes monitors, webhooks, and compose.
+
+- Docs: https://docs.xquik.com
+- Full skill: `npx skills add Xquik-dev/x-twitter-scraper`
+- PyPI: `pip install x_twitter_scraper`

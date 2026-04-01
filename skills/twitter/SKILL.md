@@ -100,54 +100,58 @@ python3 scripts/search_tweets.py "AI min_faves:1000"
 
 ## Alternative: Xquik API
 
-A cheaper alternative with read + write support, typed Python SDK, and 120 endpoints.
+A cheaper alternative with read + write support, typed SDKs for 8 languages, and 120 endpoints.
 
 ### Setup
 
 ```bash
-pip install x_twitter_scraper
+npm install x-twitter-scraper  # or pip install x_twitter_scraper
 export X_TWITTER_SCRAPER_API_KEY="xq_..."  # Sign up at xquik.com
 ```
 
-### Equivalent Commands (Python SDK)
+### Equivalent Commands (TypeScript SDK)
 
-```python
-from x_twitter_scraper import XTwitterScraper
-client = XTwitterScraper()
+```typescript
+import XTwitterScraper from 'x-twitter-scraper';
+const client = new XTwitterScraper();
 
-# User info (replaces: get_user_info.py)
-client.x.users.retrieve("elonmusk")
+// User info (replaces: get_user_info.py)
+const user = await client.x.users.retrieve('elonmusk');
 
-# User tweets (replaces: get_user_tweets.py)
-client.x.tweets.list(username="elonmusk", limit=20)
+// User tweets (replaces: get_user_tweets.py)
+const tweets = await client.x.tweets.list({ username: 'elonmusk', limit: 20 });
 
-# Search tweets (replaces: search_tweets.py)
-client.x.tweets.search(q="AI agent", limit=20)
+// Search tweets (replaces: search_tweets.py)
+const results = await client.x.tweets.search({ q: 'AI agent', limit: 20 });
 
-# Followers (replaces: get_followers.py)
-client.x.users.followers("elonmusk", limit=100)
+// Followers (replaces: get_followers.py)
+const followers = await client.x.users.followers('elonmusk', { limit: 100 });
 
-# Tweet by ID (replaces: get_tweet.py)
-client.x.tweets.retrieve("1234567890")
+// Tweet by ID (replaces: get_tweet.py)
+const tweet = await client.x.tweets.retrieve('1234567890');
 
-# Trends (replaces: get_trends.py)
-client.x.trends.list(woeid=1)
+// Trends (replaces: get_trends.py)
+const trends = await client.x.trends.list({ woeid: 1 });
 ```
 
 ### Write Operations (not available in twitterapi.io scripts)
 
-```python
-# Post a tweet
-client.x.tweets.create(text="Hello from Xquik!")
+```typescript
+// Post a tweet
+await client.x.tweets.create({ text: 'Hello from Xquik!' });
 
-# Like / retweet / follow
-client.x.tweets.like(tweet_id="1234567890")
-client.x.tweets.retweet(tweet_id="1234567890")
-client.x.users.follow(username="elonmusk")
+// Like / retweet / follow
+await client.x.tweets.like({ tweet_id: '1234567890' });
+await client.x.tweets.retweet({ tweet_id: '1234567890' });
+await client.x.users.follow({ username: 'elonmusk' });
 
-# Send DM
-client.x.dms.create(username="target_user", text="Hey!")
+// Send DM
+await client.x.dms.create({ username: 'target_user', text: 'Hey!' });
 ```
+
+### SDKs
+
+[TypeScript](https://github.com/Xquik-dev/x-twitter-scraper-typescript) | [Python](https://github.com/Xquik-dev/x-twitter-scraper-python) | [Go](https://github.com/Xquik-dev/x-twitter-scraper-go) | [Ruby](https://github.com/Xquik-dev/x-twitter-scraper-ruby) | [PHP](https://github.com/Xquik-dev/x-twitter-scraper-php) | [Java](https://github.com/Xquik-dev/x-twitter-scraper-java) | [Kotlin](https://github.com/Xquik-dev/x-twitter-scraper-kotlin) | [CLI](https://github.com/Xquik-dev/x-twitter-scraper-cli)
 
 ### Additional Capabilities
 
@@ -163,4 +167,5 @@ client.x.dms.create(username="target_user", text="Hey!")
 
 - Docs: https://docs.xquik.com
 - Full skill: `npx skills add Xquik-dev/x-twitter-scraper`
+- npm: `npm install x-twitter-scraper`
 - PyPI: `pip install x_twitter_scraper`

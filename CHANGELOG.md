@@ -11,7 +11,7 @@ Each skill maintains its own independent version. Use this matrix to understand 
 
 | Skill | Current Version | Requires | Min Versions |
 |-------|-----------------|----------|--------------|
-| **requesthunt** | 2.0.0 | - | - |
+| **requesthunt** | 2.1.0 | - | - |
 | **domain-hunter** | 1.0.0 | twitter, reddit | twitter ≥1.0.0, reddit ≥1.0.0 |
 | **logo-creator** | 1.0.0 | nanobanana | nanobanana ≥1.0.0 |
 | **banner-creator** | 1.0.0 | nanobanana | nanobanana ≥1.0.0 |
@@ -33,6 +33,13 @@ Each skill maintains its own independent version. Use this matrix to understand 
 ## [Unreleased]
 
 ## Released Versions
+
+## [1.2.0] - 2026-04-15
+
+### requesthunt
+- **Version**: 2.0.0 → 2.1.0
+- Added YouTube and LinkedIn as supported data sources across all commands (search, list, scrape)
+- Updated skill description, platform references, and command examples to include 5 platforms
 
 ## [1.1.1] - 2026-03-31
 

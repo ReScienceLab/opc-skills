@@ -1,11 +1,11 @@
 ---
 name: requesthunt
-description: Generate user demand research reports from real user feedback. Scrape and analyze feature requests, complaints, and questions from Reddit, X, and GitHub. Use when user wants to do demand research, find feature requests, analyze user demand, or run RequestHunt queries.
+description: Generate user demand research reports from real user feedback. Scrape and analyze feature requests, complaints, and questions from Reddit, X, GitHub, YouTube, and LinkedIn. Use when user wants to do demand research, find feature requests, analyze user demand, or run RequestHunt queries.
 ---
 
 # RequestHunt Skill
 
-Generate user demand research reports by collecting and analyzing real user feedback from Reddit, X (Twitter), and GitHub.
+Generate user demand research reports by collecting and analyzing real user feedback from Reddit, X (Twitter), GitHub, YouTube, and LinkedIn.
 
 ## Prerequisites
 
@@ -40,7 +40,7 @@ Use `--json` for raw JSON or `--human` for table/key-value display.
 Before collecting data, clarify with the user:
 1. **Research Goal**: What domain/area to investigate? (e.g., AI coding assistants, project management tools)
 2. **Specific Products**: Any products/competitors to focus on? (e.g., Cursor, GitHub Copilot)
-3. **Platform Preference**: Which platforms to prioritize? (reddit, x, github)
+3. **Platform Preference**: Which platforms to prioritize? (reddit, x, github, youtube, linkedin)
 4. **Time Range**: How recent should the feedback be?
 5. **Report Purpose**: Product planning / competitive analysis / market research?
 
@@ -48,7 +48,7 @@ Before collecting data, clarify with the user:
 
 ```bash
 # 1. Trigger realtime scrape for the topic
-requesthunt scrape start "ai-coding-assistant" --platforms reddit,x,github --depth 2
+requesthunt scrape start "ai-coding-assistant" --platforms reddit,x,github,youtube,linkedin --depth 2
 
 # 2. Search with expansion for more data
 requesthunt search "code completion" --expand --limit 50
@@ -66,7 +66,7 @@ Analyze collected data and generate a structured Markdown report:
 
 ## Overview
 - Scope: ...
-- Data Sources: Reddit (X), X (Y), GitHub (Z)
+- Data Sources: Reddit (X), X (Y), GitHub (Z), YouTube (W), LinkedIn (V)
 - Time Range: ...
 
 ## Key Findings
@@ -94,14 +94,14 @@ Based on N real user feedbacks collected via RequestHunt...
 ```bash
 requesthunt search "authentication" --limit 20
 requesthunt search "oauth" --expand                          # With realtime expansion
-requesthunt search "API rate limit" --expand --platforms reddit,x
+requesthunt search "API rate limit" --expand --platforms reddit,x,youtube
 ```
 
 ### List
 ```bash
 requesthunt list --limit 20                                  # Recent requests
 requesthunt list --topic "ai-tools" --limit 10               # By topic
-requesthunt list --platforms reddit,github                    # By platform
+requesthunt list --platforms reddit,github,youtube                    # By platform
 requesthunt list --category "Developer Tools"                # By category
 requesthunt list --sort top --limit 20                       # Top voted
 ```
@@ -109,7 +109,7 @@ requesthunt list --sort top --limit 20                       # Top voted
 ### Scrape
 ```bash
 requesthunt scrape start "developer-tools" --depth 1         # Default: all platforms
-requesthunt scrape start "ai-assistant" --platforms reddit,x,github --depth 2
+requesthunt scrape start "ai-assistant" --platforms reddit,x,github,youtube,linkedin --depth 2
 requesthunt scrape status "job_123"                          # Check job status
 ```
 

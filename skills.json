@@ -74,8 +74,8 @@
     },
     {
       "name": "requesthunt",
-      "version": "2.0.0",
-      "description": "Generate user demand research reports from real user feedback. Scrape and analyze feature requests, complaints, and questions from Reddit, X, and GitHub.",
+      "version": "2.1.0",
+      "description": "Generate user demand research reports from real user feedback. Scrape and analyze feature requests, complaints, and questions from Reddit, X, GitHub, YouTube, and LinkedIn.",
       "logo": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/skill-logos/requesthunt.svg",
       "icon": "globe",
       "color": "6366F1",

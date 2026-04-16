@@ -33,27 +33,76 @@ Get your key from: https://requesthunt.com/dashboard
 Default output is TOON (Token-Oriented Object Notation) — structured and token-efficient.
 Use `--json` for raw JSON or `--human` for table/key-value display.
 
+## Platform Selection Guide
+
+Each platform captures different types of user feedback. Choose platforms based on the product category to maximize signal quality.
+
+### Platform Strengths
+
+| Platform | Best For | Signal Type | Typical Yield |
+|----------|----------|-------------|---------------|
+| **YouTube** | Consumer products, hardware, lifestyle apps | Specific feature asks from review/tutorial comments | High (10-29 per topic) |
+| **Reddit** | Developer tools, creator economy, niche communities | Deep technical discussions, long-tail needs | High for dev topics (up to 176) |
+| **LinkedIn** | B2B software, healthcare, enterprise tools | Professional/industry opinions, market context | Low volume but high engagement |
+| **X** | Trending topics, quick sentiment signals | Fragmented feedback, emotional reactions | Low-medium (1-6 per topic) |
+| **GitHub** | Open-source tools, developer infrastructure | Concrete bugs and feature requests from issues | High for OSS, zero for non-tech |
+
+### Recommended Platforms by Category
+
+| Category | Primary | Secondary | Notes |
+|----------|---------|-----------|-------|
+| **Automotive / Hardware** | YouTube | Reddit | Video review comments are the richest source (dashcams: 29, EVs: 19) |
+| **Gaming / Entertainment** | YouTube | Reddit | Game streams and reviews generate natural feedback |
+| **Travel / Transportation** | YouTube | LinkedIn | Travel vlogs + LinkedIn for business travel needs |
+| **Social / Communication** | YouTube | Reddit | App review videos + community discussions |
+| **Food / Dining** | YouTube | Reddit | Recipe and delivery app review comments |
+| **Real Estate / Home** | YouTube | X | Interior design and renovation videos dominate |
+| **Education / Learning** | YouTube | — | Tutorial video comments are the only reliable source |
+| **Health / Medical** | LinkedIn | X | Rare LinkedIn-dominant category (professional healthcare) |
+| **Creator Economy** | Reddit | GitHub | Reddit communities overwhelmingly active (Newsletter: 176 requests) |
+| **Developer Tools** | Reddit | GitHub | Technical communities + open-source issue trackers |
+| **AI / SaaS Products** | Reddit | LinkedIn | Reddit for user complaints, LinkedIn for industry analysis |
+
+### Quick Selection Rules
+
+- **Consumer / hardware / lifestyle** → YouTube first, Reddit second
+- **Developer / creator tools** → Reddit first, GitHub second
+- **B2B / enterprise / medical** → LinkedIn first, X second
+- **Has open-source projects** → add GitHub
+- **Everything** → add X as a supplementary source
+
 ## Research Workflow
 
 ### Step 1: Define Scope
 
 Before collecting data, clarify with the user:
-1. **Research Goal**: What domain/area to investigate? (e.g., AI coding assistants, project management tools)
-2. **Specific Products**: Any products/competitors to focus on? (e.g., Cursor, GitHub Copilot)
-3. **Platform Preference**: Which platforms to prioritize? (reddit, x, github, youtube, linkedin)
+1. **Research Goal**: What domain/area to investigate?
+2. **Specific Products**: Any products/competitors to focus on?
+3. **Platform Selection**: Use the guide above to pick 2-3 best platforms for the category
 4. **Time Range**: How recent should the feedback be?
 5. **Report Purpose**: Product planning / competitive analysis / market research?
 
 ### Step 2: Collect Data
 
+Choose platforms strategically based on the category:
+
 ```bash
-# 1. Trigger realtime scrape for the topic
-requesthunt scrape start "ai-coding-assistant" --platforms reddit,x,github,youtube,linkedin --depth 2
+# Consumer hardware — YouTube-first strategy
+requesthunt scrape start "smart home devices" --platforms youtube,reddit --depth 2
 
-# 2. Search with expansion for more data
-requesthunt search "code completion" --expand --limit 50
+# Developer tools — Reddit-first strategy
+requesthunt scrape start "code editors" --platforms reddit,github --depth 2
 
-# 3. List requests filtered by topic
+# B2B / enterprise — LinkedIn-first strategy
+requesthunt scrape start "electronic health records" --platforms linkedin,x --depth 2
+
+# Broad research — all platforms
+requesthunt scrape start "AI coding assistants" --platforms reddit,x,github,youtube,linkedin --depth 2
+
+# Search with expansion for more data
+requesthunt search "dark mode" --expand --limit 50
+
+# List requests filtered by topic
 requesthunt list --topic "ai-tools" --limit 100
 ```
 
@@ -66,26 +115,34 @@ Analyze collected data and generate a structured Markdown report:
 
 ## Overview
 - Scope: ...
-- Data Sources: Reddit (X), X (Y), GitHub (Z), YouTube (W), LinkedIn (V)
+- Data Sources: Reddit (N), X (N), GitHub (N), YouTube (N), LinkedIn (N)
+- Platform Strategy: [why these platforms were chosen for this category]
 - Time Range: ...
 
 ## Key Findings
 
 ### 1. Top Feature Requests
-| Rank | Request | Sources | Representative Quote |
-|------|---------|---------|---------------------|
+| Rank | Request | Platform | Votes | Representative Quote |
+|------|---------|----------|-------|---------------------|
 
 ### 2. Pain Points Analysis
 - **Pain Point A**: ...
+- Sources: [which platforms surfaced this]
 
-### 3. Competitive Comparison (if specified)
+### 3. Platform Signal Comparison
+| Insight | Reddit | YouTube | LinkedIn | X | GitHub |
+|---------|--------|---------|----------|---|--------|
+| Volume | ... | ... | ... | ... | ... |
+| Signal type | Technical | UX/Feature | Strategic | Sentiment | Bug/FR |
+
+### 4. Competitive Comparison (if specified)
 | Feature | Product A | Product B | User Expectations |
 
-### 4. Opportunities
+### 5. Opportunities
 - ...
 
 ## Methodology
-Based on N real user feedbacks collected via RequestHunt...
+Based on N real user feedbacks collected via RequestHunt from [platforms]...
 ```
 
 ## Commands
@@ -101,7 +158,7 @@ requesthunt search "API rate limit" --expand --platforms reddit,x,youtube
 ```bash
 requesthunt list --limit 20                                  # Recent requests
 requesthunt list --topic "ai-tools" --limit 10               # By topic
-requesthunt list --platforms reddit,github,youtube                    # By platform
+requesthunt list --platforms reddit,github,youtube            # By platform
 requesthunt list --category "Developer Tools"                # By category
 requesthunt list --sort top --limit 20                       # Top voted
 ```

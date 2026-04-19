@@ -11,7 +11,7 @@ Each skill maintains its own independent version. Use this matrix to understand 
 
 | Skill | Current Version | Requires | Min Versions |
 |-------|-----------------|----------|--------------|
-| **requesthunt** | 2.2.0 | - | - |
+| **requesthunt** | 2.2.1 | - | - |
 | **domain-hunter** | 1.0.0 | twitter, reddit | twitter ≥1.0.0, reddit ≥1.0.0 |
 | **logo-creator** | 1.0.0 | nanobanana | nanobanana ≥1.0.0 |
 | **banner-creator** | 1.0.0 | nanobanana | nanobanana ≥1.0.0 |
@@ -32,15 +32,17 @@ Each skill maintains its own independent version. Use this matrix to understand 
 
 ## [Unreleased]
 
-### requesthunt
-- **Version**: 2.1.0 → 2.2.0
-- Added **Platform Selection Guide** with data-driven recommendations based on research across 220+ topics and 9 product categories
-- Platform × category matrix covering automotive, gaming, travel, food, health, real estate, social, creator economy, and developer tools
-- Quick selection rules for choosing optimal platforms per product type
-- Updated research workflow with category-aware scraping strategies (YouTube-first for consumer, Reddit-first for dev tools, LinkedIn-first for B2B)
-- Enhanced report template with platform signal comparison table and platform strategy section
-
 ## Released Versions
+
+## [1.2.1] - 2026-04-19
+
+### requesthunt
+- **Version**: 2.2.0 → 2.2.1
+- **Security**: Documented SHA256 checksum verification and GitHub Releases source for CLI installer
+- **Security**: Added build-from-source alternative (`cargo install --path cli`)
+- **Security**: Recommend environment variable (`REQUESTHUNT_API_KEY`) over plaintext command-line API key
+- **Security**: Added Content Safety section with untrusted-input handling guidelines for agents
+- Addresses security audit findings from Agent Trust Hub (FAIL), Socket (WARN), and Snyk (FAIL) on skills.sh
 
 ## [1.2.0] - 2026-04-15
 

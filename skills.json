@@ -1,5 +1,5 @@
 {
-  "version": "1.1.1",
+  "version": "1.2.1",
   "name": "OPC Skills",
   "description": "Agent Skills for One Person Companies",
   "repository": "https://github.com/ReScienceLab/opc-skills",
@@ -74,7 +74,7 @@
     },
     {
       "name": "requesthunt",
-      "version": "2.2.0",
+      "version": "2.2.1",
       "description": "Generate user demand research reports from real user feedback. Scrape and analyze feature requests, complaints, and questions from Reddit, X, GitHub, YouTube, and LinkedIn.",
       "logo": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/skill-logos/requesthunt.svg",
       "icon": "globe",

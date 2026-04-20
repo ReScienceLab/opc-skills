@@ -11,7 +11,7 @@ Each skill maintains its own independent version. Use this matrix to understand 
 
 | Skill | Current Version | Requires | Min Versions |
 |-------|-----------------|----------|--------------|
-| **requesthunt** | 2.2.1 | - | - |
+| **requesthunt** | 2.3.0 | - | - |
 | **domain-hunter** | 1.0.0 | twitter, reddit | twitter ≥1.0.0, reddit ≥1.0.0 |
 | **logo-creator** | 1.0.0 | nanobanana | nanobanana ≥1.0.0 |
 | **banner-creator** | 1.0.0 | nanobanana | nanobanana ≥1.0.0 |
@@ -33,6 +33,17 @@ Each skill maintains its own independent version. Use this matrix to understand 
 ## [Unreleased]
 
 ## Released Versions
+
+## [1.3.0] - 2026-04-20
+
+### requesthunt
+- **Version**: 2.2.1 → 2.3.0
+- Added Amazon as a new supported data source across all commands (search, list, scrape)
+- Added Amazon to platform strengths table, recommended platforms by category, and quick selection rules
+- Added Consumer Electronics as a new category recommendation
+- Updated all example commands to include `amazon` in platform lists
+- Noted Amazon depth cap (max 5) in cost section
+- Corresponds to requesthunt v1.14.0 release
 
 ## [1.2.1] - 2026-04-19
 

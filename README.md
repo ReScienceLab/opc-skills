@@ -90,6 +90,8 @@ npx skills add ReScienceLab/opc-skills -a droid
 
 Browse and discover skills at **[skills.sh](https://skills.sh/ReScienceLab/opc-skills)** 🎯
 
+Chinese users can also search and install skills through [Skills宝](https://skilery.com).
+
 ### Skills with Dependencies
 
 Some skills require other skills to function properly:

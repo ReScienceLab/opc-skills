@@ -1,0 +1,24 @@
+{
+  "name": "xquik",
+  "version": "1.0.0",
+  "description": "Search and retrieve X/Twitter data through the Xquik API. Get tweet search, profile tweets, follower export, trends, monitors, webhooks, and MCP.",
+  "author": {
+    "name": "Xquik"
+  },
+  "homepage": "https://github.com/kriptoburak/opc-skills/tree/codex/add-xquik-skill/skills/xquik",
+  "repository": "https://github.com/ReScienceLab/opc-skills",
+  "license": "MIT",
+  "keywords": [
+    "xquik",
+    "twitter",
+    "x",
+    "tweet",
+    "followers"
+  ],
+  "skills": [
+    "./SKILL.md"
+  ],
+  "commands": [
+    "./scripts/"
+  ]
+}

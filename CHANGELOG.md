@@ -18,6 +18,7 @@ Each skill maintains its own independent version. Use this matrix to understand 
 | **nanobanana** | 1.0.0 | - | - |
 | **reddit** | 1.0.0 | - | - |
 | **twitter** | 1.0.0 | - | - |
+| **xquik** | 1.0.0 | - | - |
 | **producthunt** | 1.0.0 | - | - |
 | **seo-geo** | 1.0.0 | twitter, reddit | twitter ≥1.0.0, reddit ≥1.0.0 |
 | **archive** | 1.1.0 | - | - |
@@ -31,6 +32,10 @@ Each skill maintains its own independent version. Use this matrix to understand 
 ---
 
 ## [Unreleased]
+
+### xquik
+#### [1.0.0] - 2026-05-11
+- **Added**: Initial Xquik skill for tweet search, profile tweets, follower export, trends, monitors, webhooks, and MCP.
 
 ## Released Versions
 
@@ -80,7 +85,7 @@ Each skill maintains its own independent version. Use this matrix to understand 
 - **Added**: Link to agent setup guide (`https://requesthunt.com/setup.md`)
 - **Added**: TOON output mode documentation (Token-Oriented Object Notation)
 - **Changed**: Switched usage and pricing documentation from cached/realtime quotas to the unified credits model
-- **Removed**: Python scripts (`scripts/`) — replaced entirely by CLI commands
+- **Removed**: Python scripts (`scripts/`) - replaced entirely by CLI commands
 - **Fixed**: Updated RequestHunt settings links to use `/dashboard`
 
 ## [1.0.11] - 2026-03-13
@@ -88,8 +93,8 @@ Each skill maintains its own independent version. Use this matrix to understand 
 ### archive
 #### [1.1.0] - 2026-03-13
 - **Added**: Claude Code / Droid plugin support (`.factory-plugin/plugin.json`)
-- **Added**: `hooks/hooks.json` — `SessionStart` hook auto-loads `.archive/MEMORY.md` into session context when plugin is installed, enabling cross-session knowledge reuse without manual configuration
-- **Added**: `hooks/load-memory.py` — supports `FACTORY_PROJECT_DIR`, `CLAUDE_PROJECT_DIR`, and `cwd()` fallback for cross-platform compatibility
+- **Added**: `hooks/hooks.json` - `SessionStart` hook auto-loads `.archive/MEMORY.md` into session context when plugin is installed, enabling cross-session knowledge reuse without manual configuration
+- **Added**: `hooks/load-memory.py` - supports `FACTORY_PROJECT_DIR`, `CLAUDE_PROJECT_DIR`, and `cwd()` fallback for cross-platform compatibility
 
 ## [1.0.10] - 2026-02-23
 
@@ -316,7 +321,7 @@ Each skill maintains its own independent version. Use this matrix to understand 
 
 | Version | Status | Release Date | Notable Changes |
 |---------|--------|--------------|-----------------|
-| 1.1.0 | Stable | 2026-03-31 | requesthunt v2.0.0 — CLI-first, Python scripts removed |
+| 1.1.0 | Stable | 2026-03-31 | requesthunt v2.0.0 - CLI-first, Python scripts removed |
 | 1.0.0 | Stable | 2025-01-21 | Initial release with 9 core skills |
 
 ## Migration Guides

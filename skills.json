@@ -446,6 +446,58 @@
       }
     },
     {
+      "name": "xquik",
+      "version": "1.0.0",
+      "description": "Search and retrieve X/Twitter data through the Xquik API. Get tweet search, profile tweets, follower export, trends, monitors, webhooks, and MCP.",
+      "logo": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/refs/pull/81/head/skill-logos/xquik.svg",
+      "icon": "x",
+      "color": "050505",
+      "triggers": [
+        "xquik",
+        "twitter api",
+        "tweet search",
+        "followers",
+        "x api"
+      ],
+      "dependencies": {},
+      "auth": {
+        "required": true,
+        "type": "api_key",
+        "keys": [
+          {
+            "env": "XQUIK_API_KEY",
+            "url": "https://xquik.com"
+          }
+        ]
+      },
+      "install": {
+        "user": {
+          "claude": "npx skills add ReScienceLab/opc-skills --skill xquik -a claude",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill xquik -a droid",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill xquik -a opencode",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill xquik -a codex"
+        },
+        "project": {
+          "claude": "npx skills add ReScienceLab/opc-skills --skill xquik",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill xquik",
+          "cursor": "npx skills add ReScienceLab/opc-skills --skill xquik",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill xquik",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill xquik"
+        }
+      },
+      "commands": [
+        "python3 scripts/search_tweets.py \"{query}\" --limit 20",
+        "python3 scripts/get_user_tweets.py {username}",
+        "python3 scripts/get_followers.py {username} --page-size 100",
+        "python3 scripts/get_trends.py --woeid 1 --count 30"
+      ],
+      "links": {
+        "github": "https://github.com/kriptoburak/opc-skills/tree/codex/add-xquik-skill/skills/xquik",
+        "docs": "https://docs.xquik.com/api-reference/overview",
+        "source": "https://github.com/Xquik-dev/x-twitter-scraper"
+      }
+    },
+    {
       "name": "producthunt",
       "version": "1.0.0",
       "description": "Search and retrieve content from Product Hunt. Get posts, topics, users, and collections via the GraphQL API.",

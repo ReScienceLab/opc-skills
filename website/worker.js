@@ -132,7 +132,7 @@ Sitemap: https://opc.dev/sitemap.xml`,
         `# OPC Skills - AI Agent Skills for Solopreneurs
 
 ## Overview
-9 specialized AI agent skills for one-person companies.
+10 specialized AI agent skills for one-person companies.
 Supports: Claude Code, Cursor, Factory Droid, OpenCode, Codex
 
 ## Installation
@@ -146,11 +146,12 @@ npx skills add ReScienceLab/opc-skills
 5. nanobanana - Google Gemini 3 Pro image generation (2K/4K support)
 6. reddit - Reddit content search via public JSON API (no auth required)
 7. twitter - Twitter/X search via twitterapi.io
-8. producthunt - Product Hunt posts, topics, and collections search
-9. seo-geo - SEO & GEO optimization for AI search engines (ChatGPT, Perplexity, Claude)
+8. xquik - X/Twitter API workflows via Xquik
+9. producthunt - Product Hunt posts, topics, and collections search
+10. seo-geo - SEO & GEO optimization for AI search engines (ChatGPT, Perplexity, Claude)
 
 ## Statistics
-- 9 skills total
+- 10 skills total
 - 5 platforms supported (Claude Code, Cursor, Factory Droid, OpenCode, Codex)
 - Installation time: < 30 seconds
 - License: MIT (100% free and open source)
@@ -371,7 +372,7 @@ Agent Skills Standard: https://agentskills.io
       name: "Do I need API keys for all skills?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No. Only 3 of 9 skills require API keys: requesthunt (requires API key), twitter (requires twitterapi.io key), producthunt (requires PH token), and logo-creator (requires Gemini API). Skills like reddit, domain-hunter, banner-creator, and nanobanana work without any authentication.",
+        text: "No. 5 of 10 skills require API keys: requesthunt, twitter, xquik, producthunt, and logo-creator. Skills like reddit, domain-hunter, banner-creator, and nanobanana work without authentication.",
       },
     });
     faqItems.push({
@@ -537,7 +538,7 @@ Agent Skills Standard: https://agentskills.io
       name: "Does installation work offline?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Initial installation requires internet to download from GitHub. After installation, most skills work offline except those requiring API calls (twitter, requesthunt, producthunt). Skills like reddit (public JSON), domain-hunter (whois), and logo-creator (local) have offline capabilities.",
+        text: "Initial installation requires internet to download from GitHub. After installation, most skills work offline except those requiring API calls (twitter, xquik, requesthunt, producthunt). Skills like reddit (public JSON), domain-hunter (whois), and logo-creator (local) have offline capabilities.",
       },
     });
 
@@ -1492,6 +1493,42 @@ function getFallbackConfig() {
         links: {
           github:
             "https://github.com/ReScienceLab/opc-skills/tree/main/skills/twitter",
+        },
+      },
+      {
+        name: "xquik",
+        version: "1.0.0",
+        description:
+          "Search tweets, profile tweets, followers, trends, monitors, webhooks, and MCP via Xquik",
+        icon: "x",
+        color: "050505",
+        triggers: ["xquik", "twitter api", "tweet search", "followers", "x api"],
+        dependencies: [],
+        auth: { required: true, note: "Requires XQUIK_API_KEY" },
+        install: {
+          user: {
+            claude:
+              "npx skills add ReScienceLab/opc-skills --skill xquik -a claude",
+            droid:
+              "npx skills add ReScienceLab/opc-skills --skill xquik -a droid",
+            opencode:
+              "npx skills add ReScienceLab/opc-skills --skill xquik -a opencode",
+            codex:
+              "npx skills add ReScienceLab/opc-skills --skill xquik -a codex",
+          },
+          project: {
+            claude: "npx skills add ReScienceLab/opc-skills --skill xquik",
+            droid: "npx skills add ReScienceLab/opc-skills --skill xquik",
+            cursor: "npx skills add ReScienceLab/opc-skills --skill xquik",
+            opencode: "npx skills add ReScienceLab/opc-skills --skill xquik",
+            codex: "npx skills add ReScienceLab/opc-skills --skill xquik",
+          },
+        },
+        commands: ['python3 scripts/search_tweets.py "{query}" --limit 20'],
+        links: {
+          github:
+            "https://github.com/kriptoburak/opc-skills/tree/codex/add-xquik-skill/skills/xquik",
+          docs: "https://docs.xquik.com/api-reference/overview",
         },
       },
       {

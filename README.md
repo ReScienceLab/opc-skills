@@ -51,6 +51,7 @@ For more information about the Agent Skills standard, see [agentskills.io](http:
 | <img src="./skill-logos/nanobanana.svg" width="24"> | [nanobanana](./skills/nanobanana) | Generate images using Gemini 3 Pro Image (Nano Banana Pro) |
 | <img src="./skill-logos/reddit.svg" width="24"> | [reddit](./skills/reddit) | Search and retrieve content from Reddit via the public JSON API |
 | <img src="./skill-logos/twitter.svg" width="24"> | [twitter](./skills/twitter) | Search and retrieve content from Twitter/X via twitterapi.io |
+| <img src="./skill-logos/xquik.svg" width="24"> | [xquik](./skills/xquik) | Search tweets, profile tweets, followers, trends, monitors, webhooks, and MCP via Xquik |
 | <img src="./skill-logos/producthunt.svg" width="24"> | [producthunt](./skills/producthunt) | Search Product Hunt posts, topics, users, and collections |
 | <img src="./skill-logos/archive.svg" width="24"> | [archive](./skills/archive) | Archive session learnings and debugging solutions with indexed markdown |
 

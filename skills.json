@@ -449,7 +449,7 @@
       "name": "xquik",
       "version": "1.0.0",
       "description": "Search and retrieve X/Twitter data through the Xquik API. Get tweet search, profile tweets, follower export, trends, monitors, webhooks, and MCP.",
-      "logo": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/skill-logos/xquik.svg",
+      "logo": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/refs/pull/81/head/skill-logos/xquik.svg",
       "icon": "x",
       "color": "050505",
       "triggers": [
@@ -492,7 +492,7 @@
         "python3 scripts/get_trends.py --woeid 1 --count 30"
       ],
       "links": {
-        "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/xquik",
+        "github": "https://github.com/kriptoburak/opc-skills/tree/codex/add-xquik-skill/skills/xquik",
         "docs": "https://docs.xquik.com/api-reference/overview",
         "source": "https://github.com/Xquik-dev/x-twitter-scraper"
       }

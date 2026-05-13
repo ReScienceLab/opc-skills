@@ -1527,7 +1527,7 @@ function getFallbackConfig() {
         commands: ['python3 scripts/search_tweets.py "{query}" --limit 20'],
         links: {
           github:
-            "https://github.com/ReScienceLab/opc-skills/tree/main/skills/xquik",
+            "https://github.com/kriptoburak/opc-skills/tree/codex/add-xquik-skill/skills/xquik",
           docs: "https://docs.xquik.com/api-reference/overview",
         },
       },

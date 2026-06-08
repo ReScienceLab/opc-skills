@@ -17,7 +17,7 @@
     "AI image"
   ],
   "skills": [
-    "./SKILL.md"
+    "./"
   ],
   "commands": [
     "./scripts/"

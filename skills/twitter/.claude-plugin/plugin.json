@@ -14,7 +14,7 @@
     "tweet"
   ],
   "skills": [
-    "./SKILL.md"
+    "./"
   ],
   "commands": [
     "./scripts/"

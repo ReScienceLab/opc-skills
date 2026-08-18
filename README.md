@@ -168,7 +168,7 @@ For detailed guidance, check out existing skills or visit the [Agent Skills spec
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=ReScienceLab/opc-skills&type=Date)](https://star-history.com/#ReScienceLab/opc-skills&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=ReScienceLab/opc-skills&type=Date)](https://star-history.dera.page/#ReScienceLab/opc-skills&Date)
 
 ## Contributing
 

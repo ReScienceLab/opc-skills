@@ -122,6 +122,7 @@ OPC Skills work with 16+ AI coding agents via `npx skills add`:
 - **Kilo Code** - Lightweight AI coding tool
 - **Roo Code** - AI code assistant
 - **Trae** - AI development companion
+- **DeepSeek Harness** - via the [`dsh-opc-skills`](https://github.com/WODE25500/dsh-opc-skills) plugin (`dsh plugin add dsh-opc-skills`)
 - **And more...**
 
 See the [full compatibility list](https://github.com/vercel-labs/add-skill#available-agents) for all supported tools.

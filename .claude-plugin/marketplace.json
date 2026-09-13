@@ -177,6 +177,25 @@
         "ai-visibility"
       ],
       "strict": true
+    },
+    {
+      "name": "hol-guard",
+      "source": "./skills/hol-guard",
+      "description": "Protect local AI coding harnesses before tools run with HOL Guard policy checks, approvals, receipts, evidence, and plugin/skill/MCP security scanning.",
+      "version": "1.0.0",
+      "homepage": "https://hol.org/guard",
+      "repository": "https://github.com/hashgraph-online/hol-guard-plugin",
+      "license": "Apache-2.0",
+      "category": "security",
+      "keywords": [
+        "security",
+        "guardrails",
+        "policy",
+        "approvals",
+        "agent-safety",
+        "tool-execution"
+      ],
+      "strict": true
     }
   ]
 }

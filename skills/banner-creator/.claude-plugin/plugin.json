@@ -18,9 +18,6 @@
     "twitter header",
     "readme banner"
   ],
-  "skills": [
-    "./SKILL.md"
-  ],
   "commands": [
     "./scripts/"
   ]

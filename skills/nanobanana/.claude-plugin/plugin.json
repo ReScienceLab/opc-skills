@@ -16,9 +16,6 @@
     "gemini image",
     "AI image"
   ],
-  "skills": [
-    "./SKILL.md"
-  ],
   "commands": [
     "./scripts/"
   ]

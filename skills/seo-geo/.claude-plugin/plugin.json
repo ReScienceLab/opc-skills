@@ -20,9 +20,6 @@
     "ChatGPT ranking",
     "Perplexity"
   ],
-  "skills": [
-    "./SKILL.md"
-  ],
   "commands": [
     "./scripts/"
   ]

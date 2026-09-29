@@ -13,9 +13,6 @@
     "subreddit",
     "r/"
   ],
-  "skills": [
-    "./SKILL.md"
-  ],
   "commands": [
     "./scripts/"
   ]

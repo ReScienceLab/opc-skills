@@ -5,17 +5,22 @@ description: Create logos using AI image generation. Discuss style/ratio, genera
 
 # Logo Creator Skill
 
-Create professional logos through AI image generation with an iterative design process.
+Create professional logos through AI image generation with an iterative design process. Keep the existing Nano Banana path as the default, and use Atlas Cloud only when the user selects it or already has Atlas credentials configured.
 
 ## Prerequisites
 
-**Required API Keys (set in environment):**
-- `GEMINI_API_KEY` - Get from [Google AI Studio](https://aistudio.google.com/apikey)
+**Generation API key (choose one provider):**
+- `GEMINI_API_KEY` - Existing default via [Google AI Studio](https://aistudio.google.com/apikey)
+- `ATLASCLOUD_API_KEY` - Optional Atlas Cloud provider via the [Atlas Cloud console](https://www.atlascloud.ai/console/api-keys)
+
+**Optional post-processing API keys:**
 - `REMOVE_BG_API_KEY` - Get from [remove.bg](https://www.remove.bg/api)
 - `RECRAFT_API_KEY` - Get from [recraft.ai](https://www.recraft.ai/)
 
-**Required Skills:**
+**Required Skill for the default provider:**
 - `nanobanana` - AI image generation (Gemini 3 Pro Image)
+
+Atlas Cloud does not require the `nanobanana` skill. Its bundled script discovers the current model catalog, validates the selected model's live schema, submits exactly one generation request, polls with a finite budget, and downloads the completed image.
 
 
 
@@ -80,7 +85,13 @@ Before generating, gather requirements from user:
 
 ### Step 2: Generate Logo Variations
 
-Generate 20 logo variations (default) using the `nanobanana` skill:
+Choose the generation provider before making any paid request. Keep Nano Banana as the default. Offer Atlas Cloud as an optional provider when the user requests Atlas, has `ATLASCLOUD_API_KEY` configured, or wants to choose among Atlas-hosted image models.
+
+Treat each generation request as potentially billable. Confirm the provider, current unit price, exact payload, and number of images before submission. Never automatically retry a generation `POST` after a timeout or ambiguous response.
+
+### Nano Banana (default)
+
+Generate logo variations using the `nanobanana` skill:
 
 ```bash
 # Generate single logo
@@ -102,6 +113,30 @@ python3 <nanobanana_skill_dir>/scripts/batch_generate.py "{style} logo for {bran
 - Specify colors: "black on white", "monochrome", "blue gradient"
 - Add context: "tech startup", "food brand", "gaming company"
 - Request format: "icon", "emblem", "mascot", "lettermark"
+
+### Atlas Cloud (optional)
+
+Resolve the absolute path of this skill directory, then validate the live catalog and model schema without spending credits:
+
+```bash
+python3 <skill_dir>/scripts/generate_atlas.py \
+  "{style} logo for {brand}, {description}, {colors}, no watermark" \
+  .skill-archive/logo-creator/<date-name>/logo-01.png \
+  --ratio 1:1 \
+  --dry-run
+```
+
+Show the returned payload and current base price to the user. After the user explicitly approves that request, submit one image:
+
+```bash
+python3 <skill_dir>/scripts/generate_atlas.py \
+  "{style} logo for {brand}, {description}, {colors}, no watermark" \
+  .skill-archive/logo-creator/<date-name>/logo-01.png \
+  --ratio 1:1 \
+  --confirm-generation
+```
+
+The default Atlas model is `google/nano-banana-2/text-to-image`, but the script accepts `--model` only after verifying an exact live Image catalog match and its schema. Run one command per approved image so a failed or timed-out submission cannot silently create duplicate paid jobs. Prediction `GET` polling is bounded; if it expires, preserve the prediction ID and check that job later instead of submitting a replacement.
 
 ### Step 3: Create HTML Preview
 

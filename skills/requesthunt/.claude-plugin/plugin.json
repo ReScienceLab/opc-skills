@@ -15,9 +15,6 @@
     "user demand",
     "demand research"
   ],
-  "skills": [
-    "./SKILL.md"
-  ],
   "commands": [
     "./scripts/"
   ]

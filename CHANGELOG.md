@@ -21,6 +21,7 @@ Each skill maintains its own independent version. Use this matrix to understand 
 | **producthunt** | 1.0.0 | - | - |
 | **seo-geo** | 1.0.0 | twitter, reddit | twitter ≥1.0.0, reddit ≥1.0.0 |
 | **archive** | 1.1.0 | - | - |
+| **agent-qa** | 1.0.0 | - | - |
 
 **Key Points:**
 - Each skill has an independent version number (MAJOR.MINOR.PATCH)
@@ -31,6 +32,10 @@ Each skill maintains its own independent version. Use this matrix to understand 
 ---
 
 ## [Unreleased]
+
+### agent-qa
+- Added version 1.0.0: pre-launch application regression checks, evidence-based run review and memidex provenance inspection.
+- Added skill metadata, plugin discovery, an illustrative review example and a catalog icon.
 
 ## Released Versions
 

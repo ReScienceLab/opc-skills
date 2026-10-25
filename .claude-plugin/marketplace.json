@@ -177,6 +177,25 @@
         "ai-visibility"
       ],
       "strict": true
+    },
+    {
+      "name": "agent-qa",
+      "source": "./skills/agent-qa",
+      "description": "Check web and mobile app journeys before launch with agent-qa; review failures using recorded evidence, advanced memidex memory and self-improvement.",
+      "version": "1.0.0",
+      "homepage": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/agent-qa",
+      "repository": "https://github.com/ReScienceLab/opc-skills",
+      "license": "Apache-2.0",
+      "category": "testing",
+      "keywords": [
+        "agent-qa",
+        "application testing",
+        "regression check",
+        "pre-launch QA",
+        "run evidence",
+        "memidex"
+      ],
+      "strict": true
     }
   ]
 }

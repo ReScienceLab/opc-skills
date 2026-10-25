@@ -538,6 +538,56 @@
       "links": {
         "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/archive"
       }
+    },
+    {
+      "name": "agent-qa",
+      "version": "1.0.0",
+      "description": "Check web and mobile app journeys before launch with agent-qa; review failures using recorded evidence, advanced memidex memory and self-improvement.",
+      "logo": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/skill-logos/agent-qa.svg",
+      "icon": "check",
+      "color": "2563EB",
+      "triggers": [
+        "agent-qa",
+        "application testing",
+        "regression check",
+        "pre-launch QA",
+        "run evidence",
+        "memidex"
+      ],
+      "dependencies": {},
+      "auth": {
+        "required": true,
+        "type": "api_key",
+        "keys": [],
+        "note": "Configure credentials for the selected providers before live tests. Reviewing an existing run does not require provider calls."
+      },
+      "install": {
+        "user": {
+          "claude": "npx skills add ReScienceLab/opc-skills --skill agent-qa -g -a claude-code",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill agent-qa -g -a droid",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill agent-qa -g -a opencode",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill agent-qa -g -a codex"
+        },
+        "project": {
+          "claude": "npx skills add ReScienceLab/opc-skills --skill agent-qa -a claude-code",
+          "droid": "npx skills add ReScienceLab/opc-skills --skill agent-qa -a droid",
+          "cursor": "npx skills add ReScienceLab/opc-skills --skill agent-qa -a cursor",
+          "opencode": "npx skills add ReScienceLab/opc-skills --skill agent-qa -a opencode",
+          "codex": "npx skills add ReScienceLab/opc-skills --skill agent-qa -a codex"
+        }
+      },
+      "commands": [
+        "agent-qa validate",
+        "agent-qa run \"{test_path}\" --dry-run",
+        "agent-qa digest \"{run_id}\" --json",
+        "agent-qa runs overview \"{run_id}\" --json"
+      ],
+      "links": {
+        "github": "https://github.com/ReScienceLab/opc-skills/tree/main/skills/agent-qa",
+        "docs": "https://vostride.com/docs/agent-qa/cli",
+        "setup": "https://vostride.com/docs/agent-qa/quickstart",
+        "example": "https://github.com/ReScienceLab/opc-skills/blob/main/skills/agent-qa/examples/pre-launch-review.md"
+      }
     }
   ]
 }

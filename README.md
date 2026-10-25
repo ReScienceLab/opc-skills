@@ -53,6 +53,7 @@ For more information about the Agent Skills standard, see [agentskills.io](http:
 | <img src="./skill-logos/twitter.svg" width="24"> | [twitter](./skills/twitter) | Search and retrieve content from Twitter/X via twitterapi.io |
 | <img src="./skill-logos/producthunt.svg" width="24"> | [producthunt](./skills/producthunt) | Search Product Hunt posts, topics, users, and collections |
 | <img src="./skill-logos/archive.svg" width="24"> | [archive](./skills/archive) | Archive session learnings and debugging solutions with indexed markdown |
+| <img src="./skill-logos/agent-qa.svg" width="24"> | [agent-qa](./skills/agent-qa) | Test app journeys and review failures with advanced memidex memory and self-improvement |
 
 ## Quick Install
 

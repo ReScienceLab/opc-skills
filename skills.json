@@ -180,8 +180,8 @@
     },
     {
       "name": "logo-creator",
-      "version": "1.0.0",
-      "description": "Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG.",
+      "version": "1.1.0",
+      "description": "Create logos using optional Nano Banana or Atlas Cloud image generation, then iterate, crop, remove backgrounds, and export as SVG.",
       "logo": "https://raw.githubusercontent.com/ReScienceLab/opc-skills/main/skill-logos/logo-creator.svg",
       "icon": "image",
       "color": "8B5CF6",
@@ -205,6 +205,11 @@
           {
             "env": "GEMINI_API_KEY",
             "url": "https://aistudio.google.com/apikey"
+          },
+          {
+            "env": "ATLASCLOUD_API_KEY",
+            "url": "https://www.atlascloud.ai/console/api-keys",
+            "optional": true
           },
           {
             "env": "REMOVE_BG_API_KEY",
@@ -235,6 +240,7 @@
       },
       "commands": [
         "python3 <nanobanana>/scripts/batch_generate.py \"{prompt}\" -n 20 --ratio 1:1 -d ./logos -p logo",
+        "python3 scripts/generate_atlas.py \"{prompt}\" {output.png} --ratio 1:1 --dry-run",
         "python3 scripts/crop_logo.py {input.png} {output.png}",
         "python3 scripts/remove_bg.py {input.png} {output.png}",
         "python3 scripts/vectorize.py {input.png} {output.svg}"

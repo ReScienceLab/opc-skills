@@ -14,9 +14,6 @@
     "PH",
     "launch"
   ],
-  "skills": [
-    "./SKILL.md"
-  ],
   "commands": [
     "./scripts/"
   ]

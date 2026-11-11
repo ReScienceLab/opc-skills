@@ -61,8 +61,8 @@
     {
       "name": "logo-creator",
       "source": "./skills/logo-creator",
-      "description": "Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG.",
-      "version": "1.0.0",
+      "description": "Create logos using optional Nano Banana or Atlas Cloud image generation, then iterate, crop, remove backgrounds, and export as SVG.",
+      "version": "1.1.0",
       "homepage": "https://opc.dev/skills/logo-creator",
       "repository": "https://github.com/ReScienceLab/opc-skills",
       "license": "MIT",

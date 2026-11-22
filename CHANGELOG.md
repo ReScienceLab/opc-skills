@@ -32,7 +32,7 @@ Each skill maintains its own independent version. Use this matrix to understand 
 
 ## [Unreleased]
 
-- Featured MonoFactory first in opc.dev's More from ReScience Lab section, linked it in the footer and /llms.txt, and added MonoFactory and super-prototyping to the README.
+- Featured MonoFactory in opc.dev's More from ReScience Lab section in place of super-prototyping, linked it in the footer and /llms.txt, and added MonoFactory and super-prototyping to the README.
 
 ## Released Versions
 

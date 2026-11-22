@@ -1135,10 +1135,13 @@ Agent Skills Standard: https://agentskills.io
     <h2 class="section-title">More from ReScience Lab</h2>
     <div class="skills-grid">
     <div class="featured-card">
+      <a href="https://monofactory.ai/" target="_blank" rel="noopener noreferrer">
+        <img src="https://monofactory.ai/og.jpg" alt="MonoFactory - The super software factory that grows with your business" class="featured-banner" width="1200" height="630" loading="lazy" decoding="async">
+      </a>
       <div class="featured-head">
         <h3><a href="https://monofactory.ai/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">MonoFactory</a></h3>
       </div>
-      <p class="skill-desc">The super software factory that grows with your business.</p>
+      <p class="skill-desc">The super software factory that grows with your business. A desktop app for macOS, Windows and Linux that defines, designs and builds software from a description of your business.</p>
       <div class="featured-links">
         <a href="https://monofactory.ai/" target="_blank" rel="noopener noreferrer" class="featured-cta">Visit monofactory.ai &rarr;</a>
       </div>

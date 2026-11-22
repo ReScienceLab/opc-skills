@@ -166,6 +166,11 @@ description: A clear description of what this skill does and when to use it
 
 For detailed guidance, check out existing skills or visit the [Agent Skills specification](https://agentskills.io/).
 
+## More from ReScience Lab
+
+- [MonoFactory](https://monofactory.ai/) — The super software factory that grows with your business.
+- [super-prototyping](https://github.com/ReScienceLab/super-prototyping) — MonoFactory's open-source edition: design and clone product UI as HTML artboards on a local tldraw canvas.
+
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=ReScienceLab/opc-skills&type=Date)](https://star-history.com/#ReScienceLab/opc-skills&Date)

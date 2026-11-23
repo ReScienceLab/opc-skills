@@ -32,6 +32,8 @@ Each skill maintains its own independent version. Use this matrix to understand 
 
 ## [Unreleased]
 
+- Featured MonoFactory in opc.dev's More from ReScience Lab section in place of super-prototyping, linked it in the footer and /llms.txt, and added MonoFactory and super-prototyping to the README.
+
 ## Released Versions
 
 ## [1.3.0] - 2026-04-20

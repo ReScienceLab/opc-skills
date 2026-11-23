@@ -36,6 +36,17 @@ Each skill maintains its own independent version. Use this matrix to understand 
 
 ## Released Versions
 
+## [1.4.0] - 2026-09-14
+
+### website
+- Added a **More from ReScience Lab** section to the opc.dev homepage, above the skills grid, featuring the [super-prototyping](https://github.com/ReScienceLab/super-prototyping) plugin: banner, description, keyword tags, and links to the repo and prototyping.rescience.com
+- Added `super-prototyping` to the footer links
+- Added blog post: *Clone Any App Screen — and Prove It: Introducing super-prototyping*, covering the clone-prototype phases, the canvas, the fourteen worked examples, and the per-agent install
+- **Fix**: skill cards rendered 907px wide inside their 852px grid container, so every card sat wider than the header and hero and the page scrolled horizontally. The skills grid had a single implicit `auto` column, which sizes to max-content; pinned to `minmax(0, 1fr)`
+- **Fix**: blog post dates are formatted in UTC. `new Date("YYYY-MM-DD")` parses as UTC midnight, so a negative-offset zone rendered the previous day and a post's card and byline could disagree
+
+No skill versions changed in this release.
+
 ## [1.3.0] - 2026-04-20
 
 ### requesthunt

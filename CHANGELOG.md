@@ -32,9 +32,16 @@ Each skill maintains its own independent version. Use this matrix to understand 
 
 ## [Unreleased]
 
-- Featured MonoFactory in opc.dev's More from ReScience Lab section in place of super-prototyping, linked it in the footer and /llms.txt, and added MonoFactory and super-prototyping to the README.
-
 ## Released Versions
+
+## [1.4.1] - 2026-11-23
+
+### website
+- The **More from ReScience Lab** section on the opc.dev homepage now features [MonoFactory](https://monofactory.ai/), with its share image, a line on what it is and a link to monofactory.ai, in place of the super-prototyping card
+- Added `monofactory.ai` to the footer links and to `/llms.txt`
+- README: added a **More from ReScience Lab** section listing MonoFactory and super-prototyping
+
+No skill versions changed in this release.
 
 ## [1.4.0] - 2026-09-14
 

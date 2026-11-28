@@ -3,6 +3,8 @@
 Remove background from image using remove.bg API.
 
 Requires REMOVE_BG_API_KEY environment variable.
+Set REMOVE_BG_API_URL to use a remove.bg-compatible API instead
+(default: https://api.remove.bg/v1.0/removebg).
 
 Usage:
     python3 remove_bg.py input.png output.png
@@ -11,6 +13,8 @@ Usage:
 import sys
 import os
 import subprocess
+
+DEFAULT_API_URL = 'https://api.remove.bg/v1.0/removebg'
 
 
 def remove_background(input_path, output_path):
@@ -44,6 +48,8 @@ def remove_background(input_path, output_path):
         print(f"Error: File not found: {input_path}")
         sys.exit(1)
     
+    api_url = os.environ.get('REMOVE_BG_API_URL') or DEFAULT_API_URL
+
     # Use curl to call the API
     cmd = [
         'curl', '-s',
@@ -52,7 +58,7 @@ def remove_background(input_path, output_path):
         '-F', 'size=auto',
         '-F', 'format=png',
         '-o', output_path,
-        'https://api.remove.bg/v1.0/removebg'
+        api_url
     ]
     
     print(f"Removing background from: {input_path}")

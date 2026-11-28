@@ -14,6 +14,9 @@ Create professional logos through AI image generation with an iterative design p
 - `REMOVE_BG_API_KEY` - Get from [remove.bg](https://www.remove.bg/api)
 - `RECRAFT_API_KEY` - Get from [recraft.ai](https://www.recraft.ai/)
 
+**Optional:**
+- `REMOVE_BG_API_URL` - Endpoint for background removal, default `https://api.remove.bg/v1.0/removebg`. remove.bg ends its self-serve API on 1 December 2026; set this to any API that accepts the same requests.
+
 **Required Skills:**
 - `nanobanana` - AI image generation (Gemini 3 Pro Image)
 

@@ -18,9 +18,6 @@
     "create logo",
     "design logo"
   ],
-  "skills": [
-    "./SKILL.md"
-  ],
   "commands": [
     "./scripts/"
   ]
